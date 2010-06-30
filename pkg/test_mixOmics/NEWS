@@ -1,0 +1,75 @@
+
+Changes in 2.7-2
+================
+
+New features:
+-------------
+- new parameters in imgCor, to choose if the labels of axis have to be shown or not
+- splsDA ?
+
+
+tom tom
+
+
+Bug fixes:
+----------
+
+
+Changes in 2.7-1
+================
+
+New features:
+-------------
+
+- new functions pca, plsda and splsda, as well as extensions of plot3dVar and plot3dIndiv for pca 
+
+- new network.default function which is called by network.rcc and network.spls
+
+- bin.color function added in network.default to color edges w.r.t. the values in the simMat matrix
+
+- nipals has been improved to be computationally more efficient
+
+- missing values are treated as in Tenenhaus in pls, spls and valid functions
+
+- new argument 'ncomp' in rcc function, argument 'ncomp' has been removed from 'summary' and 'rcc'
+
+- new option ("XY-variate") for the argument 'rep.space' in the 'plot3dVar'
+
+
+Bug fixes:
+----------
+-'tick marks' values have been corrected for color key in cim
+
+-computation of the simMat matrix for pls and spls - canonical mode, and correction in plotVar, plot3dVar, cim and network
+
+-correction of the default argument 'rep.space = "XY-variate"' in plotIndiv and plot3dIndiv
+
+-correction of the manual
+
+
+
+Changes in 2.6-0
+================
+
+New features:
+-------------
+- former R package integrOmics has been renamed mixOmics
+
+- in functions plotIndiv(), plotVar(), cim(), network() the arguments 'dim1', 'dim2', 'ncomp' 
+  were replaced by 'comp', a vector of length 2 (by default 'comp = 1:2')
+
+- network() has a new argument 'alpha'
+
+User-visible changes:
+---------------------
+
+
+Bug fixes:
+----------
+
+
+Internal changes:
+-----------------
+
+
+
