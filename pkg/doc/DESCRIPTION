@@ -1,10 +1,10 @@
 Package: mixOmics
 Type: Package
 Title: Integrate Omics data project
-Version: 2.7-2
+Version: 2.8
 Date: 2010-02-15
 Depends: igraph, rgl 
-Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao and Pierre MONGET
+Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao and Pierre Monget
 Maintainer: Kim-Anh Le Cao <k.lecao@uq.edu.au>
 Description: The package supplies two efficients methodologies:
         regularized CCA and sparse PLS to unravel relationships between
@@ -22,4 +22,4 @@ Description: The package supplies two efficients methodologies:
 License: GPL (>= 2)
 Repository: CRAN
 Date/Publication: 2010-02-25 11:10:16
-Packaged: 2010-04-30 17:43:31 UTC; k.lecao
+Packaged: 2010-07-22 04:57:29 UTC; p.monget

@@ -1,33 +1,32 @@
 \name{predict}
 \encoding{latin1}
-\alias{predict.pls}
-\alias{predict.spls}
 \alias{predict.splsda}
 \alias{predict.plsda}
 
-\title{Predict Method for PLS Regression and Sparse PLS}
+\title{Predict Method for PLSDA Regression and Sparse PLSDA}
 
 \description{
-Predicted values based on PLS regression or sparse PLS models. New responses and 
+Predicted values based on PLSDA regression or sparse PLSDA models. New responses and 
 variates are predicted using a fitted model and a new matrix of observations.
 }
 
 \usage{
-\method{predict}{pls}(object, newdata, \ldots)
 
-\method{predict}{spls}(object, newdata, \ldots)
+\method{predict}{splsda}(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", "KA.dist"), ...)
+
+\method{predict}{plsda}(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", "KA.dist"), ...)
 }
 
 \arguments{
-  \item{object}{object of class inheriting from \code{"pls"} or \code{"spls"}.}
-  \item{newdata}{data matrix in which to look for for explanatory variables 
-    to be used for prediction.}
-  \item{\ldots}{not used currently.}
+  \item{object}{object of class inheriting from \code{"splsda"} or \code{"plsda"}.}
+  \item{newdata}{data matrix in which to look for for explanatory variables to be used for prediction.}
+  \item{method}{method to aplly for \code{"splsda"} or \code{"plsda"}. It can be either "Ka.dist", "centroids.dist", "class.dist", or "Sr.dist".}
+  \item{...}{other arguments to be passed \code{predict.default}.}
 }
 
 \details{
-\code{predict} produces predicted values, obtained by evaluating the PLS  
-model returned by \code{pls} or \code{spls} in the frame \code{newdata}. 
+\code{predict} produces predicted values, obtained by evaluating the PLSDA/sparse PLSDA  
+model returned by \code{plsda} or \code{splsda} in the frame \code{newdata}. 
 Variates for \code{newdata} are also returned. 
 }
 
@@ -43,28 +42,47 @@ Variates for \code{newdata} are also returned.
 Tenenhaus, M. (1998). \emph{La régression PLS: théorie et pratique}. Paris: Editions Technic.  
 }
 
-\author{Sébastien Déjean, Ignacio González and Kim-Anh Lê Cao}
+\author{Sébastien Déjean, Ignacio González, Kim-Anh Lê Cao and Pierre Monget}
 
-\seealso{\code{\link{pls}}, \code{\link{spls}}, \code{\link{plsda}}, \code{\link{splsda}}.}
+\seealso{\code{\link{plsda}}, \code{\link{splsda}}.}
 
 \examples{
-data(linnerud)
-X <- linnerud$exercise
-Y <- linnerud$physiological
-linn.pls <- pls(X, Y, ncomp = 2, mode = "classic")
+## First example
+ncomp = 2 
+max.iter = 500
+tol = 1e-06
 
-indiv1 <- c(200, 40, 60)
-indiv2 <- c(190, 45, 45)
-newdata <- rbind(indiv1, indiv2)
-colnames(newdata) <- colnames(X)
-newdata
+data(liver.toxicity)
+X = as.matrix(liver.toxicity$gene)
+Y = liver.toxicity$treatment[,4] 
 
-pred <- predict(linn.pls, newdata)
+i = 1
+samp = sample(1:3, nrow(X), replace = TRUE)  
+test = which(samp==i)
+train = setdiff(1:nrow(X), test)
 
-plotIndiv(linn.pls, comp= 1:2, rep.space = "X-variate")
-points(pred$variates[, 1], pred$variates[, 2], pch = 19, cex = 1.2)
-text(pred$variates[, 1], pred$variates[, 2], 
-     c("new ind.1", "new ind.2"), pos = 3)
+plsda.train = plsda(X[train,], Y[train], ncomp = ncomp, scaleY = TRUE,  mode = 'regression')
+test.predict = predict(plsda.train, X[test,], method = "class.dist")
+test.predict$cl
+
+## Second example
+ncomp = 2 
+keepX = 20
+max.iter = 500
+tol = 1e-06
+
+data(liver.toxicity)
+X = as.matrix(liver.toxicity$gene)
+Y = liver.toxicity$treatment[,4]  # time points
+
+i = 1
+samp = sample(1:3, nrow(X), replace = TRUE)  # here I perform 3-CV 
+test = which(samp==i)
+train = setdiff(1:nrow(X), test)
+
+splsda.train = splsda(X[train,], Y[train], ncomp = ncomp, keepX = c(rep(keepX, ncomp)), scaleY = TRUE,  mode = 'regression')
+test.predict = predict(splsda.train, X[test,], method = "class.dist")
+test.predict$cl
 }
 
 \keyword{regression}

@@ -2,7 +2,8 @@
 # Sébastien Déjean, Institut de Mathematiques, Universite de Toulouse et CNRS (UMR 5219), France
 # Ignacio González, Genopole Toulouse Midi-Pyrenees, France
 # Kim-Anh Lê Cao, French National Institute for Agricultural Research and 
-# ARC Centre of Excellence ins Bioinformatics, Institute for Molecular Bioscience, University of Queensland, Australia
+# Queensland Facility for Advanced Bioinformatics, University of Queensland, Australia
+# Pierre Monget, Ecole d'Ingenieur du CESI, Angouleme, France
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -23,45 +24,46 @@ plsda <-
 function(X, 
          Y, 
          ncomp = 2, 
-         max.iter = 500, 
+         max.iter = 500,
+         scaleY = TRUE,
+         mode = "regression",		 
          tol = 1e-06)
 {
-
-    #-- validation des arguments --#
+	
+	#-- validation des arguments --#
     if (length(dim(X)) != 2 || !is.numeric(X)) 
         stop("'X' must be a numeric matrix.")
      
-    X = as.matrix(X)
     n = nrow(X)
      
     if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0)
         stop("invalid number of variates, 'ncomp'.")
+		
+	# / Testing of the inputs 	
+	if(is.null(dim(Y))){			
+			if(is.vector(Y)){
+				if(is.integer(Y)){				
+				Yprim = unmap(as.numeric(as.factor(Y)))					
+				}else {stop("the vector 'Y' must be made of integers")
+				}		
+			}
+			if(is.factor(Y)){
+			Yprim = unmap(as.numeric(Y))			
+			}	 		
+	}else{
+		if (is.matrix(Y)){ 
+		stop("Y is a matrix, it should be a class vector !")
+		}else{
+		stop("You should enter either a vector or a factor !")
+		}
+	}	
+	# \ Testing of the inputs
 
-    if (is.factor(Y)) {
-        obsLevels = levels(Y)
-        nrow.Y = length(Y)
-            if ((n != nrow.Y)) 
-                stop("unequal number of rows in 'X' and 'Y'.")
-        Y.old = Y
-        Y = matrix(0, n, length(levels(Y.old)))
-        Y[(1:n) + n * (as.vector(unclass(Y.old)) - 1)] = 1
-        dimnames(Y) = list(Y.old, levels(Y.old))
-    } 
-    else {
-        if (is.matrix(Y)) {
-            test = apply(abs(Y), 1, sum)
-                if (any(test != 1)) 
-                    stop("the rows of 'Y' must be 0/1 and sum to 1.")
-            obsLevels = colnames(Y)
-            if(is.null(obsLevels)) obsLevels = paste("g", 1:ncol(Y), sep = "")
-            colnames(Y) = obsLevels
-            if(is.null(rownames(Y))) rownames(Y) = obsLevels[apply(Y, 1, which.max)]
-        } else stop("'Y' must be a matrix or a factor.")
-    }
+	result = pls(X, Yprim, ncomp = ncomp, mode = "regression", max.iter = max.iter, 
+                 tol = tol, scaleY = scaleY)
 
-    result = pls(X, Y, ncomp = ncomp, mode = "regression", max.iter = max.iter, 
-                 tol = tol, scaleY = FALSE)
-	
-    class(result) = c("pls") 
-    return(invisible(result))
+	result$Yprim = Yprim
+    class(result) = "pls"
+    return(invisible(result))	
 }
+

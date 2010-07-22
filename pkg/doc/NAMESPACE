@@ -7,6 +7,7 @@ imgCor,
 jet.colors,
 loo,
 mat.rank, 
+map,
 Mfold,
 network,
 nipals, 
@@ -23,7 +24,8 @@ scatterutil.eti,
 scatterutil.grid, 
 s.match,
 spls,
-splsda, 
+splsda,
+unmap, 
 vip, 
 valid)
 
@@ -46,6 +48,8 @@ S3method(plotVar, rcc)
 
 S3method(predict, pls)
 S3method(predict, spls)
+S3method(predict, plsda)
+S3method(predict, splsda)
 
 S3method(summary, pls)
 S3method(summary, spls)

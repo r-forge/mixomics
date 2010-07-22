@@ -1,14 +1,15 @@
-
-Changes in 2.7-2
+Changes in 2.8
 ================
 
 New features:
 -------------
-- new parameters in imgCor, to choose if the labels of axis have to be shown or not
-- splsDA ?
+- new arguments ("axis.labelX", "axis.labelY") in the function imgCor, to indicate if the labels of axis have to be shown or not
 
+- splsda & plsda have been improved to be computationally more efficient and allow to check the input data
 
+- new function map & unmap borrowed from the mclust package
 
+- predict has been improved, the objects .plsda and .splsda can now be used and there is a new argument called 'method' ("class.dist", "centroids.dist", "Sr.dist", "KA.dist")
 
 Bug fixes:
 ----------

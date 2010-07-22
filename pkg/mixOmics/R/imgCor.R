@@ -2,7 +2,8 @@
 # Sébastien Déjean, Institut de Mathematiques, Universite de Toulouse et CNRS (UMR 5219), France
 # Ignacio González, Genopole Toulouse Midi-Pyrenees, France
 # Kim-Anh Lê Cao, French National Institute for Agricultural Research and 
-# ARC Centre of Excellence ins Bioinformatics, Institute for Molecular Bioscience, University of Queensland, Australia
+# Queensland Facility for Advanced Bioinformatics, University of Queensland, Australia
+# Pierre Monget, Ecole d'Ingenieur du CESI, Angouleme, France
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
