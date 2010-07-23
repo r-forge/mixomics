@@ -5,11 +5,12 @@ New features:
 -------------
 - new arguments ("axis.labelX", "axis.labelY") in the function imgCor, to indicate if the labels of axis have to be shown or not
 
-- splsda & plsda have been improved to be computationally more efficient and allow to check the input data
+- new classes splsda and plsda for predict, print, plotIndiv, plot3dIndiv
 
-- new function map & unmap borrowed from the mclust package
+- several prediction functions are avaiable to predict the classes of test data with plsda and splsda see predit (argument 'method' ("class.dist", "centroids.dist", "Sr.dist", "max.dist"))
 
-- predict has been improved, the objects .plsda and .splsda can now be used and there is a new argument called 'method' ("class.dist", "centroids.dist", "Sr.dist", "KA.dist")
+- new functions map & unmap borrowed from the mclust package
+
 
 Bug fixes:
 ----------
