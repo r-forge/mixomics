@@ -63,7 +63,7 @@ function(X,
                  tol = tol, scaleY = scaleY)
 
 	result$Yprim = Yprim
-    class(result) = "pls"
+    class(result) = "plsda"
     return(invisible(result))	
 }
 

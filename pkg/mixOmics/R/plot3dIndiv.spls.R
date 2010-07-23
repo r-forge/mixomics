@@ -19,7 +19,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-plot3dIndiv.pls <- plot3dIndiv.spls <-
+plot3dIndiv.pls <- plot3dIndiv.spls <- plot3dIndiv.plsda <-  plot3dIndiv.splsda <-
 function(object, 
          comp = 1:3, 
          ind.names = FALSE,

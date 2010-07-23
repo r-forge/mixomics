@@ -94,7 +94,7 @@ function(object, newdata, ...)
 
 # -------------------------- for plsda and splsda ---------------------------------------
 predict.plsda <- predict.splsda <-
-function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", "KA.dist"), ...)  
+function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", "max.dist"), ...)  
 {
 	#-- validation des arguments --#
     if (missing(newdata))
@@ -106,7 +106,6 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
 	q = ncol(Yprim)          
     p = ncol(X)
     mode = object$mode
-##KA	method = methodA # adding to help understanding
 	
     if (length(dim(newdata)) == 2) {
         if (ncol(newdata) != p)
@@ -157,8 +156,9 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
     }  #end h
 	
 	G = matrix(0, nrow = q, ncol = ncomp)
-	obsLevels = c(1:q)   #KA changed here too
-	cl = list()
+	obsLevels = c(1:q)   
+##	cl = list()
+	cl = matrix(nrow = nrow(newdata), ncol = ncomp)
 	
 	for (i in 1:q) {
 		if(ncomp > 1) {
@@ -169,19 +169,20 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
 		}
 	}	
 			
-	# ----    KA version:
-	if (method == "KA.dist") {
-##KA:
-	for(h in 1:ncomp){
-	temp = Y.hat[, , h]
-##KA	predict.KA = spls.testKA$predict[,,3] #Y.hat[, , h] = newdata %*% t(B) + ones %*% intercept + output
-	temp[abs(temp) >= 0.5] = 1
-	temp[abs(temp) < 0.5] = 0
-	cl[[h]] = map(temp)
-	} # end h
-##KA	predict.KA    # this is the prediction of the test data
+	# ----    max distance -----------------
+	if (method == "max.dist") {
+
+	function.pred = function(x){
+		tmp = numeric(nrow(x))
+		for(j in 1:nrow(x)){
+			tmp[j] = (which(x[j,] == max(x[j,]))[1])
+		}
+		return(tmp)
+	}
+	cl = apply(Y.hat, 3, function.pred)
 	} #end method
 	
+	# ----    class distance -----------------
 
 	if (method == "class.dist") {
 	
@@ -194,9 +195,11 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
 	
 		for (h in 1:ncomp) {
 			cl.id = apply(Y.hat[, , h], 1, class.fun, q = q)
-			cl[[h]]  = as.factor(obsLevels[cl.id])
+			cl[, h]  = as.factor(obsLevels[cl.id])
 		}
 	}	
+
+	# ----    centroids distance -----------------
 
 	if (method == "centroids.dist") {
 	
@@ -214,9 +217,11 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
 		
 		for (h in 1:ncomp) {
 			cl.id = apply(as.matrix(t.pred[, 1:h]), 1, centroids.fun, G = G, h = h)
-			cl[[h]]  = as.factor(obsLevels[cl.id])		
+			cl[, h]  = as.factor(obsLevels[cl.id])		
 		}
 	}	
+
+	# ----    Sr distance -----------------
 	
 	if (method == "Sr.dist") {
 	
@@ -239,7 +244,7 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
 		
 		for (h in 1:ncomp) {
 			cl.id = apply(as.matrix(t.pred[, 1:h]), 1, Sr.fun, G = G, Yprim = Yprim, h = h)
-			cl[[h]]  = as.factor(obsLevels[cl.id])		
+			cl[, h]  = as.factor(obsLevels[cl.id])		
 		}
 	}
 	
@@ -248,6 +253,8 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
     colnames(t.pred) = paste("dim", c(1:ncomp), sep = " ")
     rownames(Y.hat) = rownames(newdata)
     colnames(Y.hat) = colnames(Y)
+    colnames(G) = paste("dim", c(1:ncomp), sep = " ")
+    colnames(cl) = paste("dim", c(1:ncomp), sep = " ")
      
     return(invisible(list(predict = Y.hat, variates = t.pred, B.hat = B.hat, 
 		                  centroids = G, class = cl)))
