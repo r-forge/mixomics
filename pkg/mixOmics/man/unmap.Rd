@@ -2,10 +2,10 @@
 \encoding{latin1}
 \alias{unmap}
 \title{
-  Indicator Variables given Classification
+  Converts a class vector to an indicator matrix
 }
 \description{
-  Converts a classification into a matrix of indicator variables.
+  Converts a class vector into a matrix of indicator variables, borrowed from the mclust package, used as internal function.
 }
 \usage{
   unmap(classification, groups=NULL, noise=NULL, \dots)
@@ -52,15 +52,7 @@
 \seealso{
   \code{\link{map}}  
 }
-\examples{
-#z <- unmap(iris[,5])
-#z[1:5, ]
-  
-#emEst <- me(modelName = "VVV", data = iris[,-5], z = z)
-#emEst$z[1:5,]
-  
-#map(emEst$z)
-}
+
 \keyword{cluster}
 % docclass is function
 % Converted by Sd2Rd version 1.21.

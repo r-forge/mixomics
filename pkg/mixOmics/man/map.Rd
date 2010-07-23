@@ -2,20 +2,18 @@
 \encoding{latin1}
 \alias{map}
 \title{
-  Classification given Probabilities 
+  Converts an indicator matrix to class vector
 }
 \description{
   Converts a matrix in which each row sums to \emph{1} 
-  into the nearest matrix of \emph{(0,1)} indicator variables.
+  into the nearest matrix of \emph{(0,1)} indicator variables. Borrowed from the mclust package, used as internal function.
 }
 \usage{
 map(Y,\dots)
 }
 \arguments{
   \item{Y}{
-    A matrix (for example a matrix of conditional
-    probabilities  in which each row sums to 1
-    as produced by the E-step of the EM algorithm).
+    An indicator (dummy) matrix.
   }  
   \item{\dots }{
     Provided to allow lists with elements other than the arguments can
@@ -23,9 +21,9 @@ map(Y,\dots)
   }
 }
 \value{
-  A integer vector with one entry for each row of z,
+  A integer vector with one entry for each row of Y,
   in which the \emph{i}-th value is the column index at which the
-  \emph{i}-th row of \code{z} attains a maximum.
+  \emph{i}-th row of \code{Y} attains a maximum.
   
 }
 \section{References}{
@@ -40,11 +38,6 @@ map(Y,\dots)
 }
 \seealso{
   \code{\link{unmap}}
-}
-\examples{
-##emEst <- me(modelName = "VVV", data = iris[,-5], z = unmap(iris[,5]))
-
-##map(emEst$z)
 }
 \keyword{cluster}
 % docclass is function

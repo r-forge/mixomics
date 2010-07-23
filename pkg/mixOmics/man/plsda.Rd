@@ -75,20 +75,16 @@ legend(18, -9, c("After", "Before"), pch = c(16, 16),
 palette("default")
 
 # Second example
-ncomp = 2 
-max.iter = 500
-tol = 1e-06
-
 data(liver.toxicity)
 X = as.matrix(liver.toxicity$gene)
-Y = liver.toxicity$treatment[,4]  # time points
+Y = liver.toxicity$treatment[,4]
 
-i = 1
-samp = sample(1:3, nrow(X), replace = TRUE)  # here I perform 3-CV 
-test = which(samp==i)
+# if training is perfomed on 4/5th of the original data
+samp = sample(1:5, nrow(X), replace = TRUE)  
+test = which(samp == 1)
 train = setdiff(1:nrow(X), test)
 
-plsda.train = plsda(X[train,], Y[train], ncomp = ncomp, scaleY = TRUE,  mode = 'regression')
+plsda.train = plsda(X[train,], Y[train], ncomp = 1, scaleY = TRUE,  mode = 'regression')
 }
 
 \keyword{regression}

@@ -93,22 +93,18 @@ legend(-0.35, -0.19, c("After", "Before"), pch = c(16, 16),
        title = "Treatment")
 palette("default")
 
-# Second example
-ncomp = 2 
-keepX = 20
-max.iter = 500
-tol = 1e-06
 
+# Second example
 data(liver.toxicity)
 X = as.matrix(liver.toxicity$gene)
 Y = liver.toxicity$treatment[,4] 
 
-i = 1
-samp = sample(1:3, nrow(X), replace = TRUE) 
-test = which(samp==i)
+# if training is perfomed on 4/5th of the original data
+samp = sample(1:5, nrow(X), replace = TRUE)  
+test = which(samp == 1)
 train = setdiff(1:nrow(X), test)
 
-splsda.train = splsda(X[train,], Y[train], ncomp = ncomp, keepX = c(rep(keepX, ncomp)), scaleY = TRUE,  mode = 'regression')
+splsda.train = splsda(X[train,], Y[train], ncomp = 1, keepX = 20, scaleY = TRUE,  mode = 'regression')
 }
 
 \keyword{regression}

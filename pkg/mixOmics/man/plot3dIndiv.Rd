@@ -4,6 +4,8 @@
 \alias{plot3dIndiv.rcc}
 \alias{plot3dIndiv.pls}
 \alias{plot3dIndiv.spls}
+\alias{plot3dIndiv.plsda}
+\alias{plot3dIndiv.splsda}
 \alias{plot3dIndiv.pca}
 
 \title{Plot of Individuals (Experimental Units) in three dimensions}
