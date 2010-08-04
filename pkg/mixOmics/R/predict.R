@@ -257,7 +257,7 @@ function(object, newdata, method = c("class.dist", "centroids.dist", "Sr.dist", 
     colnames(cl) = paste("dim", c(1:ncomp), sep = " ")
      
     return(invisible(list(predict = Y.hat, variates = t.pred, B.hat = B.hat, 
-		                  centroids = G, class = cl)))
+		                  centroids = G, method = method, class = cl)))
 }
 
 
