@@ -147,6 +147,18 @@ data(multidrug)
 pca.res <- pca(multidrug$ABC.trans, ncomp = 4, scale = TRUE)
 
 plot3dVar(pca.res)
+
+## variable representation for objects of class 'splsda'
+data(liver.toxicity)
+X = as.matrix(liver.toxicity$gene)
+Y = as.factor(liver.toxicity$treatment[,4])
+
+keepX = 20
+ncomp = 3
+
+splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)), mode = 'regression')
+plot3dVar(splsda.liver, X.label = FALSE, Y.label = TRUE, keep.var = TRUE)
+
 }
 }
 

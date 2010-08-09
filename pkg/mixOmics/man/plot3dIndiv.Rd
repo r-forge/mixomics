@@ -28,6 +28,18 @@ in three dimensions for (r)CCA and (s)PLS regression.
             col = "blue", cex = 1, pch = "s", font = 1,
             axes.box = "box", \ldots)
 
+\method{plot3dIndiv}{splsda}(object, comp = 1:3, ind.names = FALSE,
+            rep.space = "X-variate",
+            xlab = NULL, ylab = NULL, zlab = NULL,
+            col = "blue", cex = 1, pch = "s", font = 1,
+            axes.box = "box", \ldots)
+
+\method{plot3dIndiv}{plsda}(object, comp = 1:3, ind.names = FALSE,
+            rep.space = "X-variate",
+            xlab = NULL, ylab = NULL, zlab = NULL,
+            col = "blue", cex = 1, pch = "s", font = 1,
+            axes.box = "box", \ldots)
+
 \method{plot3dIndiv}{spls}(object, comp = 1:3, ind.names = FALSE,
             rep.space = "X-variate",
             xlab = NULL, ylab = NULL, zlab = NULL,

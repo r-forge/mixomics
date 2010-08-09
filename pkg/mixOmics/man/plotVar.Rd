@@ -101,6 +101,17 @@ toxicity.spls <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50),
                       keepY = c(10, 10, 10))
 	
 plotVar(toxicity.spls, keep.var = TRUE, Y.label = TRUE)	
+
+## variable representation for objects of class 'splsda'
+data(liver.toxicity)
+X = as.matrix(liver.toxicity$gene)
+Y = as.factor(liver.toxicity$treatment[,4])
+
+keepX = 20
+ncomp = 2
+
+splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)), mode = 'regression')
+plotVar(splsda.liver, X.label = FALSE, Y.label = TRUE, keep.var = TRUE)
 }
 
 \keyword{multivariate}

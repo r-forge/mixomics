@@ -53,7 +53,7 @@ function(x, ...)
 	
     cat(" PLS-da  (regression mode) with", x$ncomp, "PLS components. \n")
     cat(" You entered data X of dimensions:", nrow(x$X), ncol(x$X), "\n")
-    cat(" You entered data Y with ", nlevels(as.factor(x$Y)) , "classes \n\n")
+    cat(" You entered data Y with ", ncol(x$Yprim) , "classes \n\n")
 
     cat(" No variable selection \n\n")
 	
@@ -106,7 +106,7 @@ function(x, ...)
 	
     cat(" sPLS with a regression mode with", x$ncomp, "sPLS components. \n")
     cat(" You entered data X of dimensions:", nrow(x$X), ncol(x$X), "\n")
-    cat(" You entered data Y with ", nlevels(as.factor(x$Y)) , "classes \n\n")
+    cat(" You entered data Y with ", ncol(x$Yprim) , "classes \n\n")
 	
     cat(" Selection of", keepX, "variables on each of the sPLS components on the X data set. \n")
     cat(" No Y variables can be selection. \n\n")
