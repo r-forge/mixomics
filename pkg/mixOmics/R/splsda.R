@@ -39,20 +39,13 @@ function(X,
     if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0)
         stop("invalid number of variates, 'ncomp'.")
 		
-	# / Testing of the inputs 		
-	if(is.null(dim(Y))){	
+	# / Testing of the inputs 	
+	if(is.null(dim(Y))){			
 			if(is.factor(Y)){
-			Yprim = unmap(as.numeric(Y))			
-			}else{ stop(" fact Y should be a factor, please use 'as.factor(Y)' ")
-			}			
-	}else{	
-		if (is.matrix(Y)){ 
-		stop("Y is a matrix, it should be a factor!")
-		}else{
-		stop(" mat Y should be a factor, please use 'as.factor(Y)' ")
-		}
-	}
-		
+				Yprim = unmap(as.numeric(Y))					
+				}else {stop(" Y should be a factor, please use 'as.factor(Y)' ")						
+			}
+	}	
 	# \ Testing of the inputs
 
 	result = spls(X, Yprim, ncomp = ncomp, mode = "regression", keepX = keepX, max.iter = max.iter, 

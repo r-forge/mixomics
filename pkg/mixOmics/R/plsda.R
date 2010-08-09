@@ -40,23 +40,13 @@ function(X,
         stop("invalid number of variates, 'ncomp'.")
 		
 	# / Testing of the inputs 	
+	
 	if(is.null(dim(Y))){			
-			if(is.vector(Y)){
-				if(is.integer(Y)){				
-				Yprim = unmap(as.numeric(as.factor(Y)))					
-				}else {stop("the vector 'Y' must be made of integers")
-				}		
-			}
 			if(is.factor(Y)){
-			Yprim = unmap(as.numeric(Y))			
-			}	 		
-	}else{
-		if (is.matrix(Y)){ 
-		stop("Y is a matrix, it should be a class vector !")
-		}else{
-		stop("You should enter either a vector or a factor !")
-		}
-	}	
+				Yprim = unmap(as.numeric(Y))					
+				}else {stop(" Y should be a factor, please use 'as.factor(Y)' ")						
+			}
+	}		
 	# \ Testing of the inputs
 
 	result = pls(X, Yprim, ncomp = ncomp, mode = "regression", max.iter = max.iter, 
