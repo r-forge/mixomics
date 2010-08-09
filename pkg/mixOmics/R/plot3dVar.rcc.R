@@ -26,7 +26,7 @@ function(object, ...) UseMethod("plot3dVar")
 plot3dVar.rcc <-
 function(object, 
          comp = 1:3, 
-         rad.in = 0.5, 
+         rad.in = 1, 
          cutoff = NULL, 
          X.label = FALSE, 
          Y.label = FALSE, 

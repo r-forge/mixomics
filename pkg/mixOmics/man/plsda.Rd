@@ -77,7 +77,7 @@ palette("default")
 # Second example
 data(liver.toxicity)
 X = as.matrix(liver.toxicity$gene)
-Y = liver.toxicity$treatment[,4]
+Y = as.factor(liver.toxicity$treatment[,4])
 
 # if training is perfomed on 4/5th of the original data
 samp = sample(1:5, nrow(X), replace = TRUE)  

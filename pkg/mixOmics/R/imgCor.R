@@ -23,8 +23,8 @@
 imgCor <-
 function(X, 
          Y, 
-		 axis.labelX = TRUE,
-		 axis.labelY = TRUE,
+	 axis.labelX = TRUE,
+	 axis.labelY = TRUE,
          type = c("combine", "separate"), 
          col = jet.colors(64)) 
 {

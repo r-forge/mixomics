@@ -4,6 +4,8 @@
 \alias{plotVar.rcc}
 \alias{plotVar.pls}
 \alias{plotVar.spls}
+\alias{plotVar.plsda}
+\alias{plotVar.splsda}
 
 \title{Plot of Variables}
 
@@ -18,10 +20,18 @@ This function provides variables representation for (regularized) CCA and (spars
 
 \method{plotVar}{pls}(object, comp = 1:2, rad.in = 0.5, 
         X.label = FALSE, Y.label = FALSE, keep.var = FALSE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	
+        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
+
+\method{plotVar}{plsda}(object, comp = 1:2, rad.in = 0.5, 
+        X.label = FALSE, Y.label = FALSE, keep.var = FALSE, 
+        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)		
 
 \method{plotVar}{spls}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, Y.label = FALSE, keep.var = FALSE, 
+        X.label = FALSE, Y.label = FALSE, keep.var = TRUE, 
+        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	 
+
+\method{plotVar}{splsda}(object, comp = 1:2, rad.in = 0.5, 
+        X.label = FALSE, Y.label = FALSE, keep.var = TRUE, 
         pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	 
 }
 
@@ -42,7 +52,7 @@ This function provides variables representation for (regularized) CCA and (spars
   \item{cex}{numeric vector of character expansion sizes for the plotted character and symbols.}
   \item{font}{numeric vector of font to be used. See \code{\link{par}} for details.}
   \item{keep.var}{boolean. If \code{TRUE} only the variables with loadings not zero are plotted
-    (as selected by \code{spls}). Defaults to \code{FALSE}.}
+    (as selected by \code{spls} or \code{splsda}). Defaults to \code{FALSE} for the pls functions and \code{TRUE} for spls functions.}
   \item{\ldots}{not used currently.}
 }
 
