@@ -39,7 +39,7 @@ function(X,
     if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0)
         stop("invalid number of variates, 'ncomp'.")
 		
-	# / Testing of the inputs 	
+	# / Testing the input Y
 	
 	if(is.null(dim(Y))){			
 			if(is.factor(Y)){
@@ -47,12 +47,13 @@ function(X,
 				}else {stop(" Y should be a factor, please use 'as.factor(Y)' ")						
 			}
 	}		
-	# \ Testing of the inputs
+	# \ Testing input Y
 
 	result = pls(X, Yprim, ncomp = ncomp, mode = "regression", max.iter = max.iter, 
                  tol = tol, scaleY = scaleY)
 
 	result$Yprim = Yprim
+	result$names$Y = levels(Y)
     class(result) = "plsda"
     return(invisible(result))	
 }

@@ -39,19 +39,20 @@ function(X,
     if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0)
         stop("invalid number of variates, 'ncomp'.")
 		
-	# / Testing of the inputs 	
+	# / Testing input Y
 	if(is.null(dim(Y))){			
 			if(is.factor(Y)){
 				Yprim = unmap(as.numeric(Y))					
 				}else {stop(" Y should be a factor, please use 'as.factor(Y)' ")						
 			}
 	}	
-	# \ Testing of the inputs
+	# \ Testing input Y
 
 	result = spls(X, Yprim, ncomp = ncomp, mode = "regression", keepX = keepX, max.iter = max.iter, 
                  tol = tol, scaleY = scaleY)
 
 	result$Yprim = Yprim
+	result$names$Y = levels(Y)
     class(result) = "plsda"
     return(invisible(result))	
 }

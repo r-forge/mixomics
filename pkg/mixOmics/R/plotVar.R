@@ -20,7 +20,7 @@
 
 
 #----------------------------------------------#
-#-- Includes plotIndiv for PLS, sPLS and rCC --#
+#-- Includes plotVar for PLS, sPLS and rCC --#
 #----------------------------------------------#
 
 plotVar <-
@@ -28,7 +28,7 @@ function(object, ...) UseMethod("plotVar")
 
 
 #--------------------- PLS, plsda (sPLS, sPLSDA below)---------------------#
-plotVar.pls <- plotVar.spls <- plotVar.plsda <- plotVar.splsda <-
+plotVar.pls <-  plotVar.plsda <-
 function(object, 
          comp = 1:2, 
          rad.in = 0.5, 

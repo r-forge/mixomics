@@ -98,13 +98,11 @@ palette("default")
 data(liver.toxicity)
 X = as.matrix(liver.toxicity$gene)
 Y = as.factor(liver.toxicity$treatment[,4])
-
-# if training is perfomed on 4/5th of the original data
-samp = sample(1:5, nrow(X), replace = TRUE)  
-test = which(samp == 1)
-train = setdiff(1:nrow(X), test)
-
-splsda.train = splsda(X[train,], Y[train], ncomp = 1, keepX = 20, scaleY = TRUE,  mode = 'regression')
+ncomp = 2
+keepX = 20
+splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)),  mode = 'regression')
+col = as.numeric(Y)
+plotIndiv(splsda.liver, col = col)
 }
 
 \keyword{regression}
