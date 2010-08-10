@@ -53,7 +53,7 @@ function(X,
 
 	result$Yprim = Yprim
 	result$names$Y = levels(Y)
-    class(result) = "plsda"
+    class(result) = "splsda"
     return(invisible(result))	
 }
 

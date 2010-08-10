@@ -111,7 +111,7 @@ keepX = 20
 ncomp = 2
 
 splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)), mode = 'regression')
-plotVar(splsda.liver, X.label = FALSE, Y.label = TRUE, keep.var = TRUE)
+plotVar(splsda.liver, X.label = FALSE, Y.label = TRUE)
 }
 
 \keyword{multivariate}
