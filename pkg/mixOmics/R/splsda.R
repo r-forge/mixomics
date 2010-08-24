@@ -42,16 +42,16 @@ function(X,
 	# / Testing input Y
 	if(is.null(dim(Y))){			
 			if(is.factor(Y)){
-				Yprim = unmap(as.numeric(Y))					
+				ind.mat = unmap(as.numeric(Y))					
 				}else {stop(" Y should be a factor, please use 'as.factor(Y)' ")						
 			}
 	}	
 	# \ Testing input Y
 
-	result = spls(X, Yprim, ncomp = ncomp, mode = "regression", keepX = keepX, max.iter = max.iter, 
-                 tol = tol, scaleY = scaleY)
+	result = spls(X, ind.mat, ncomp = ncomp, mode = mode, keepX = keepX, max.iter = max.iter, 
+                  tol = tol, scaleY = scaleY)
 
-	result$Yprim = Yprim
+	result$ind.mat = ind.mat
 	result$names$Y = levels(Y)
     class(result) = "splsda"
     return(invisible(result))	
