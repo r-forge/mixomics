@@ -9,12 +9,13 @@ embeds variable selection for this purpose.
 }
 
 \usage{
-splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, scaleY =TRUE, mode = 'regression', tol = 1e-06)
+splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, 
+       scaleY =TRUE, mode = 'regression', tol = 1e-06)
 }	
 
 \arguments{
   \item{X}{numeric matrix of predictors. \code{NA}s are allowed.}
-  \item{Y}{a factor or or a class vector for the discrete outcome.}
+  \item{Y}{a factor or a class vector for the discrete outcome.}
   \item{ncomp}{the number of components to include in the model (see Details).}
   \item{keepX}{numeric vector of length \code{ncomp}, the number of variables
     to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
@@ -26,17 +27,18 @@ splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, scaleY =
 }
 
 \details{
-\code{splsda} function fit sPLS models with \eqn{1, \ldots ,}\code{ncomp} components
-to the indicator matrix \code{Y}. If a factor is supplied, the appropriate indicator 
+\code{splsda} function fit sPLS models with \eqn{1,...,}\code{ncomp} components
+to the factor or class vector \code{Y}. The appropriate indicator 
 matrix is created.
 }
 
 \value{
-\code{splsda} returns an object of class \code{"spls"}, a list 
+\code{splsda} returns an object of class \code{"splsda"}, a list 
 that contains the following components:
 
   \item{X}{the centered and standardized original predictor matrix.}
-  \item{Y}{the indicator matrix.}
+  \item{Y}{the centered and standardized indicator response vector or matrix.}
+  \item{ind.mat}{the indicator matrix.}
   \item{ncomp}{the number of components included in the model.}
   \item{keepX}{number of X variables kept in the model on each component.}
   \item{mat.c}{matrix of coefficients to be used internally by \code{predict}.}
@@ -92,7 +94,6 @@ legend(-0.35, -0.19, c("After", "Before"), pch = c(16, 16),
        col = c("red", "blue"), cex = 1, pt.cex = c(1.2, 1.2), 
        title = "Treatment")
 palette("default")
-
 
 # Second example
 data(liver.toxicity)

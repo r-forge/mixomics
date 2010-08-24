@@ -24,17 +24,18 @@ plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE, mode = "regression", tol =
 }
 
 \details{
-\code{plsda} function fit PLS models with \eqn{1, \ldots ,}\code{ncomp} components
-to the indicator matrix \code{Y}. If a factor is supplied, the appropriate indicator 
+\code{plsda} function fit PLS models with \eqn{1,...,}\code{ncomp} components
+to the factor or class vector \code{Y}. The appropriate indicator 
 matrix is created.
 }
 
 \value{
-\code{plsda} returns an object of class \code{"pls"}, a list 
+\code{plsda} returns an object of class \code{"plsda"}, a list 
 that contains the following components:
 
   \item{X}{the centered and standardized original predictor matrix.}
-  \item{Y}{the indicator matrix.}
+  \item{Y}{the centered and standardized indicator response vector or matrix.}
+  \item{ind.mat}{the indicator matrix.}
   \item{ncomp}{the number of components included in the model.}
   \item{mat.c}{matrix of coefficients to be used internally by \code{predict}.}
   \item{variates}{list containing the \code{X} and \code{Y} variates.}
