@@ -10,7 +10,7 @@ embeds variable selection for this purpose.
 
 \usage{
 splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, 
-       scaleY =TRUE, mode = 'regression', tol = 1e-06)
+       scaleY =TRUE, mode = 'regression', tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -24,6 +24,7 @@ splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500,
   \item{mode}{indicates the mode of analysis.
   It can be either 'regression', 'classic' or 'invariant'}
   \item{tol}{a positive real, the tolerance used in the iterative algorithm.} 
+  \item{...}{arguments to pass to \code{\link{nearZeroVar}}.}
 }
 
 \details{
@@ -46,6 +47,7 @@ that contains the following components:
   \item{loadings}{list containing the estimated loadings for the \code{X} and 
 	\code{Y} variates.}
   \item{names}{list containing the names to be used for individuals and variables.}
+  \item{nzv}{list containing the zero- or near-zero predictors information.}
 }
 
 \references{
@@ -85,7 +87,7 @@ In: Krishnaiah, P. R. (editors), \emph{Multivariate Analysis}. Academic Press, N
 # First example
 data(breast.tumors)
 X <- breast.tumors$gene.exp
-Y <- as.factor(breast.tumors$sample$treatment)
+Y <- breast.tumors$sample$treatment
 
 res <- splsda(X, Y, ncomp = 2, keepX = c(25, 25))
 palette(c("red", "blue"))
@@ -95,13 +97,13 @@ legend(-0.35, -0.19, c("After", "Before"), pch = c(16, 16),
        title = "Treatment")
 palette("default")
 
+
 # Second example
 data(liver.toxicity)
-X = as.matrix(liver.toxicity$gene)
-Y = as.factor(liver.toxicity$treatment[,4])
-ncomp = 2
-keepX = 20
-splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)),  mode = 'regression')
+X <- as.matrix(liver.toxicity$gene)
+Y <- liver.toxicity$treatment[, 4]
+
+splsda.liver = splsda(X, Y, ncomp = 2, keepX = c(20, 20))
 col = as.numeric(Y)
 plotIndiv(splsda.liver, col = col)
 }

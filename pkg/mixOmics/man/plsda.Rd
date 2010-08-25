@@ -9,7 +9,8 @@ to classify samples.
 }
 
 \usage{
-plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE, mode = "regression", tol = 1e-06)
+plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE, 
+      mode = "regression", tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -18,9 +19,10 @@ plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE, mode = "regression", tol =
   \item{ncomp}{the number of components to include in the model. Default to 2.}
   \item{max.iter}{integer, the maximum number of iterations.}  
   \item{scaleY}{logical, indicates if Y should be scaled or not.}
-  \item{mode}{indicates the mode of analysis.
-  It can be either 'regression', 'classic' or 'invariant'}
+  \item{mode}{character string. What type of algorithm to use, (partially) matching 
+    one of \code{"regression"}, \code{"invariant"} or \code{"classic"}.}
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
+  \item{...}{arguments to pass to \code{\link{nearZeroVar}}.}
 }
 
 \details{
@@ -41,6 +43,7 @@ that contains the following components:
   \item{variates}{list containing the \code{X} and \code{Y} variates.}
   \item{loadings}{list containing the estimated loadings for the variates.}
   \item{names}{list containing the names to be used for individuals and variables.}
+  \item{nzv}{list containing the zero- or near-zero predictors information.}
 }
 
 \references{
@@ -65,20 +68,22 @@ Tenenhaus, M. (1998). \emph{La régression PLS: théorie et pratique}. Paris: Edit
 # First example
 data(breast.tumors)
 X <- breast.tumors$gene.exp
-Y <- as.factor(breast.tumors$sample$treatment)
+Y <- breast.tumors$sample$treatment
 
-res <- plsda(X, Y, ncomp = 2)
+plsda.breast <- plsda(X, Y, ncomp = 2)
 palette(c("red", "blue"))
-plotIndiv(res, ind.names = TRUE, col = as.numeric(Y))
+plotIndiv(plsda.breast, ind.names = TRUE, col = as.numeric(Y))
 legend(18, -9, c("After", "Before"), pch = c(16, 16), 
        col = c("red", "blue"), cex = 1, pt.cex = c(1.2, 1.2), 
        title = "Treatment")
 palette("default")
 
+
 # Second example
 data(liver.toxicity)
-X = as.matrix(liver.toxicity$gene)
-Y = as.factor(liver.toxicity$treatment[,4])
+X <- as.matrix(liver.toxicity$gene)
+Y <- liver.toxicity$treatment[, 4]
+
 plsda.liver = plsda(X, Y, ncomp = 2,  mode = 'regression')
 col = as.numeric(Y)
 plotIndiv(plsda.liver, col = col)
