@@ -26,7 +26,8 @@ function(X,
          mode = c("regression", "canonical", "invariant", "classic"),
          max.iter = 500, 
          tol = 1e-06, 
-         scaleY = TRUE)
+         scaleY = TRUE,
+         ...)
 {
 
     #-- validation des arguments --#
@@ -40,7 +41,6 @@ function(X,
         stop("'X' and/or 'Y' must be a numeric matrix.")
      
     n = nrow(X)
-    p = ncol(X)
     q = ncol(Y)
      
     if ((n != nrow(Y))) 
@@ -48,7 +48,16 @@ function(X,
      
     if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0)
         stop("invalid number of variates, 'ncomp'.")
-     
+		
+    nzv = nearZeroVar(X, ...)
+    if (length(nzv$Position > 0)) {
+        warning("Zero- or near-zero variance predictors. 
+  Reset predictors matrix to not near-zero variance predictors.
+  See $nzv for problematic predictors.")
+        X = X[, -nzv$Position]
+    }
+	p = ncol(X)
+	
     ncomp = round(ncomp)
     if(ncomp > p) {
         warning("Reset maximum number of variates 'ncomp' to ncol(X) = ", p, ".")
@@ -76,8 +85,8 @@ function(X,
     if (is.null(ind.names)) {
         ind.names = 1:n
         rownames(X) = rownames(Y) = ind.names
-    }
-     
+    }		
+    	
     #-- centrer et réduire les données --#
     X = scale(X, center = TRUE, scale = TRUE)
     if(scaleY == TRUE) Y = scale(Y, center = TRUE, scale = TRUE) 
@@ -260,7 +269,8 @@ function(X,
 	              loadings = list(X = mat.a, Y = mat.b), 
 	              names = list(X = X.names, Y = Y.names, indiv = ind.names)
                 )
-     
+    if (length(nzv$Position > 0)) result$nzv = nzv  
+	
     class(result) = "pls"
     return(invisible(result))
 }
