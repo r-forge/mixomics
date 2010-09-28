@@ -106,6 +106,14 @@ function(X,
         X.test = matrix(X[omit, ], nrow = length(omit))
 		Y.test = matrix(Y[omit, ], nrow = length(omit))
 		
+        X.train = scale(X.train, center = TRUE, scale = FALSE)
+        xmns = attr(X.train, "scaled:center")
+
+        Y.train = scale(Y.train, center = TRUE, scale = FALSE)
+        ymns = attr(Y.train, "scaled:center")
+
+        X.test = scale(X.test, center = xmns, scale = FALSE)
+		
         #-- pls or spls --#
         if (method == "pls") {
             object = pls(X = X.train , Y = Y.train, ncomp = ncomp, 
@@ -119,7 +127,9 @@ function(X,
 		
         Y.hat = predict(object, X.test)$predict
 
-        for (h in 1:ncomp) {        		
+        for (h in 1:ncomp) {
+			Y.mat = matrix(Y.hat[, , h], nrow = dim(Y.hat)[1], ncol= dim(Y.hat)[2])		
+            Y.hat[, , h] = sweep(Y.mat, 2, ymns, FUN = "+")		
             press.mat[omit, , h] = (Y.test - Y.hat[, , h])^2
             Ypred[omit, , h] = Y.hat[, , h]
         }
