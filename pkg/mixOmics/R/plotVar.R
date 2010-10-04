@@ -19,9 +19,9 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#----------------------------------------------#
-#-- Includes plotVar for PLS, sPLS and rCC --#
-#----------------------------------------------#
+#------------------------------------------------------------------#
+#-- Includes plotVar for PLS, sPLS, PLS-DA, SPLS-DA, rCC and PCA --#
+#------------------------------------------------------------------#
 
 plotVar <-
 function(object, ...) UseMethod("plotVar")
@@ -638,5 +638,65 @@ function(object,
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
-par(def.par)  
+    par(def.par)  
+}
+
+# ------------------------------ PCA object ------------------------------------
+plotVar.pca <-
+function(object, 
+         comp = 1:2,
+         rad.in = 0.5, 		 
+         var.label = FALSE,		 
+         ...) 
+{
+
+    # validation des arguments #
+    #--------------------------#
+    if (length(comp) != 2)
+        stop("'comp' must be a numeric vector of length 3.")
+
+    if (!is.numeric(comp) || any(comp < 1))
+        stop("invalid vector for 'comp'.")
+
+    p = ncol(object$rotation)
+	q = nrow(object$rotation)
+	
+    if (any(comp > p)) 
+        stop("the elements of 'comp' must be smaller or equal than ", p, ".")
+    comp = round(comp)
+	
+    if (is.logical(var.label)) {
+        if (isTRUE(var.label)) var.label = rownames(object$rotation)
+    }
+	
+	if (length(var.label) > 1) {
+        if (length(var.label) != q)
+            stop("'var.label' must be a character vector of length ", q, " or a boolean atomic vector.")
+    }
+	
+    # calcul des coordonnées #
+    #------------------------#
+    cord.X = object$rotation[, comp] 
+
+    # le plot des variables #
+    #-----------------------#
+    def.par = par(no.readonly = TRUE)
+	
+    par(pty = "s")
+    plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1), 
+         xlab = paste("Comp ", comp[1]), ylab = paste("Comp ", comp[2]))
+
+    if (length(var.label) > 1) {
+        text(cord.X[, 1], cord.X[, 2], var.label, ...)
+    }
+    else {
+        points(cord.X[, 1], cord.X[, 2], ...)
+    }
+
+    abline(v = 0, h = 0, lty = 2)
+    lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
+    lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
+          rad.in * sin(seq(0, 2 * pi, l = 100)))
+  
+    par(def.par)  
 }
