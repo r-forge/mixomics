@@ -12,7 +12,7 @@
 
 \description{
 This function provides scatter plots of individuals (experimental units)
-in three dimensions for (r)CCA and (s)PLS regression.
+in three dimensions for (r)CCA, (s)PLS regression and PCA.
 }
 
 \usage{
@@ -53,7 +53,8 @@ in three dimensions for (r)CCA and (s)PLS regression.
 }
 
 \arguments{
-  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"spls"} or \code{"pca"}.}
+  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"plsda"}, 
+    \code{"spls"}, \code{"plsda"} or \code{"pca"}.}
   \item{comp}{an integer vector of length 3, the components that will be used on the \eqn{x}-axis,  
 	the \eqn{y}-axis and \eqn{z}-axis respectively to project the individuals.}
   \item{ind.names}{either a character vector of names for the individuals to be plotted, 

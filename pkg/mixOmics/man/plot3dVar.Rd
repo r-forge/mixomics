@@ -12,7 +12,7 @@
 
 \description{
 This function provides variables representation in three dimensions for 
-(regularized) CCA and (sparse) PLS regression.
+(regularized) CCA, (sparse) PLS regression and PCA.
 }
 
 \usage{
@@ -46,7 +46,7 @@ This function provides variables representation in three dimensions for
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)	 
 		  
-\method{plot3dVar}{pca}(object, comp = 1:3, X.label = FALSE,
+\method{plot3dVar}{pca}(object, comp = 1:3, var.label = FALSE,
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
@@ -59,8 +59,8 @@ This function provides variables representation in three dimensions for
   \item{rad.in}{numeric between 0 and 1, the radius of the small sphere. Defaults to \code{1}.}
   \item{cutoff}{numeric between 0 and 1. Variables with correlations below this cutoff 
     in absolute value are not plotted (see Details).}
-  \item{X.label, Y.label}{either a character vector of names for the \eqn{X}- and  
-    \eqn{Y}-variables or \code{FALSE} for no names. If \code{TRUE}, the columns names 
+  \item{X.label, Y.label, var.label}{either a character vector of names for the variables 
+    or \code{FALSE} for no names. If \code{TRUE}, the columns names 
 	of the matrice are used as labels.}	
   \item{col}{character or integer vector of colors for plotted character and items. 
 	See Details.}

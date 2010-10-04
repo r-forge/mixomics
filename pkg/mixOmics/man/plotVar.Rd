@@ -6,11 +6,12 @@
 \alias{plotVar.spls}
 \alias{plotVar.plsda}
 \alias{plotVar.splsda}
+\alias{plotVar.pca}
 
 \title{Plot of Variables}
 
 \description{
-This function provides variables representation for (regularized) CCA and (sparse) PLS regression.
+This function provides variables representation for (regularized) CCA, (sparse) PLS regression and PCA.
 }
 
 \usage{
@@ -32,18 +33,22 @@ This function provides variables representation for (regularized) CCA and (spars
 
 \method{plotVar}{splsda}(object, comp = 1:2, rad.in = 0.5, 
         X.label = FALSE, Y.label = FALSE, keep.var = TRUE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	 
+        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
+
+\method{plotVar}{pca}(object, comp = 1:2, rad.in = 0.5, 
+        var.label = FALSE, \ldots)	
 }
 
 \arguments{
-  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"} or \code{"spls"}.}
+  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"plsda"}, 
+    \code{"spls"}, \code{"plsda"} or \code{"pca"}.}
   \item{comp}{integer vector of length two. The components that will be used on the horizontal 
 	and the vertical axis respectively to project the variables.}
   \item{rad.in}{numeric between 0 and 1, the radius of the inner circle. Defaults to \code{0.5}.}
   \item{cutoff}{numeric between 0 and 1. Variables with correlations below this cutoff 
     in absolute value are not plotted (see Details).}
-  \item{X.label, Y.label}{either a character vector of names for the \eqn{X}- and  
-    \eqn{Y}-variables or \code{FALSE} for no names. If \code{TRUE}, the columns names 
+  \item{X.label, Y.label, var.label}{either a character vector of names for the variables 
+    or \code{FALSE} for no names. If \code{TRUE}, the columns names 
 	of the matrice are used as labels.}	
   \item{col}{character or integer vector of colors for plotted character and symbols. 
 	See Details.}
