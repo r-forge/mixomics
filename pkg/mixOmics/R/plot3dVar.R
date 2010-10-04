@@ -641,8 +641,6 @@ function(object,
     # le plot 3d #
     #------------#
     opw = open3d(windowRect = c(500, 30, 1100, 630))
-    
-#    par3d(userMatrix = rotationMatrix(-pi/4, -1, 4, 1.25/pi))
 	par3d(userMatrix = rotationMatrix(pi/80, 1, -1/(100*pi), 0))
 	
     if (any(axes.box == "axes") || any(axes.box == "all"))
@@ -753,7 +751,7 @@ function(object,
 plot3dVar.pca <-
 function(object, 
          comp = 1:3,  
-         X.label = FALSE, 
+         var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -762,7 +760,7 @@ function(object,
          label.axes.box = "both",		
          xlab = NULL, 
          ylab = NULL, 
-         zlab = NULL,	 
+         zlab = NULL,		 
          ...) 
 {
 
@@ -774,7 +772,9 @@ function(object,
     if (!is.numeric(comp) || any(comp < 1))
         stop("invalid vector for 'comp'.")
 
-    p = ncol(object$x)
+    p = ncol(object$rotation)
+	q = nrow(object$rotation)
+	
     if (any(comp > p)) 
         stop("the elements of 'comp' must be smaller or equal than ", p, ".")
 
@@ -786,22 +786,21 @@ function(object,
 
     # le plot des variables #
     #-----------------------#
-    pch.type = matrix(1:6, ncol = 6)
-    colnames(pch.type) = c("s", "t", "c", "o", "i", "d")
+    pch.type = c("s", "t", "c", "o", "i", "d")
     pch.name = c("sphere", "tetra", "cube", "octa", "icosa", "dodeca")
-	
-    if (length(X.label) > 1 & length(X.label) != p)
-        stop("'X.label' must be a vector of length ", p, " or a boolean atomic vector.")
 
     if (is.null(pch)) pch = "s"
-
     if (is.null(cex)) cex = 1
-
-    if (is.null(col)) col = rep("blue", p)
-   
+    if (is.null(col)) col = rep("blue", q)
     if (is.null(font)) font = 2
-
-    if (X.label) X.label = rownames(object$x)
+    if (is.logical(var.label)) {
+        if (isTRUE(var.label)) var.label = rownames(object$rotation)
+    }
+	
+	if (length(var.label) > 1) {
+        if (length(var.label) != q)
+            stop("'var.label' must be a character vector of length ", q, ".")
+    }
 
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
@@ -812,13 +811,18 @@ function(object,
     opw = open3d(windowRect = c(500, 30, 1100, 630))
 	par3d(userMatrix = rotationMatrix(pi/80, 1, -1/(100*pi), 0))
 	
+    MaxAbs = max(abs(cord.X))
+    tickmark = round(seq(-MaxAbs, MaxAbs, length = 5), 2)
+    tick = seq(-1, 1, length = 5)	
+    cord.X = cord.X / MaxAbs
+
     if (any(axes.box == "axes") || any(axes.box == "all"))
         axes3d(c('x','y','z'), pos = c(0, 0, 0), nticks = 2, at = c(-1.2, 1.2), 
 		    tick = FALSE, labels = "")
 	
-    if (length(X.label) > 1) {
-        text3d(cord.X[, 1] + 0.05, cord.X[, 2], cord.X[, 3] + 0.05, text = X.label,
-               color = col[[1]], font = font[1], cex = cex[1])
+    if (length(var.label) > 1) {
+        text3d(cord.X[, 1], cord.X[, 2], cord.X[, 3], text = var.label,
+               color = col, font = font, cex = cex)
     }
 	
 	par3d(cex = 0.8)	
@@ -852,26 +856,27 @@ function(object,
 	points3d(0, -1.2, 0, size = 0.1, alpha = 0)
 	points3d(0, 0, -1.2, size = 0.1, alpha = 0)
 	
-	cex = 1.5*cex	
-	
-    if (length(X.label) == 1) {
-        switch(pch.name[pch.type[pch[1]]], 
+	cex = 1.5 * cex	
+
+    if (length(var.label) == 1) {
+        switch(pch.name[which(pch.type == pch)], 
             sphere = plot3d(x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], type = "s", 
-                            col = col[[1]], radius = cex[1]/50, add = TRUE),
+                            col = col, radius = cex/50, add = TRUE),
             tetra = shapelist3d(tetrahedron3d(), x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], 
-                            col = col[[1]], size = cex[1]/65),
+                            col = col, size = cex/65),
             cube = shapelist3d(cube3d(), x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], 
-                            col = col[[1]], size = cex[1]/70),
+                            col = col, size = cex/70),
             octa = shapelist3d(octahedron3d(), x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], 
-                            col = col[[1]], size = cex[1]/35),
+                            col = col, size = cex/35),
             icosa = shapelist3d(icosahedron3d(), x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], 
-                            col = col[[1]], size = cex[1]/50),
+                            col = col, size = cex/50),
             dodeca = shapelist3d(dodecahedron3d(), x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], 
-                            col = col[[1]], size = cex[1]/50))
+                            col = col, size = cex/50))
     }
-	
+
     if (any(axes.box == "box") || any(axes.box == "all")) {
-        axes3d(marklen = 25)
+        axes3d(marklen = 25, xat = tick, yat = tick, zat = tick,
+               xlab = tickmark, ylab = tickmark, zlab = tickmark)
         box3d()
 		if (any(label.axes.box == "box") || any(label.axes.box == "both")) {
             mtext3d(xlab, "x-+", line = 1)
@@ -881,7 +886,9 @@ function(object,
     }
 	
     if (any(axes.box == "bbox") || any(axes.box == "all")) {
-        bbox3d(color = c("#333377", "black"), emission = gray(0.5), 
+        bbox3d(color = c("#333377", "black"), emission = gray(0.5),
+               xat = tick, yat = tick, zat = tick,		
+               xlab = tickmark, ylab = tickmark, zlab = tickmark, 
                specular = gray(0.1), shininess = 5, alpha = 0.8, marklen = 25) 
         if (any(label.axes.box == "box") || any(label.axes.box == "both")) {
             mtext3d(xlab, "x-+", line = 1)
@@ -892,5 +899,3 @@ function(object,
 
     title3d(...)	
 }
-
-
