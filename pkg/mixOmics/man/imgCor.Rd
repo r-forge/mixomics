@@ -83,10 +83,12 @@ Y <- nutrimouse$gene
 imgCor(X, Y)
 
 ## 'separate' type plot
+\dontrun{
 imgCor(X, Y, type = "separate")
 
 ## 'separate' type plot without the name of datas
 imgCor(X, Y, X.names = FALSE, Y.names = FALSE, type = "separate")
+}
 }
 
 \keyword{multivariate}

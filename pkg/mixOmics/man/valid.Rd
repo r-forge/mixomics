@@ -30,7 +30,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
   \item{ncomp}{the number of components to include in the model. Default is from one to \code{min(6, ncol(X)}.}
   \item{mode}{character string. What type of algorithm to use, matching one of \code{"classic"}, \code{"invariant"} 
     or \code{"regression"}.}
-  \item{method}{Choose between pls or spls.}
+  \item{method}{Choose between \code{pls} or \code{spls}.}
   \item{keepX}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
     weights to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{keepY}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
@@ -41,7 +41,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
   \item{na.action}{action determining what should be done with missing values in \code{X}. 
     One of \code{"predict"} or \code{"omit"} (see Details).}
-  \item{predict.par}{further arguments sent to \code{\link{nipals} function.}
+  \item{predict.par}{further arguments sent to \code{\link{nipals}} function.}
 }
 
 \details{
