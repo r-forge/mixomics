@@ -10,7 +10,7 @@ function of the number of components.
 }
 
 \usage{
-plot(x, criterion = c("MSEP", "RMSEP", "R2"),
+\method{plot}{valid}(x, criterion = c("MSEP", "RMSEP", "R2"),
      xlab = "number of components", ylab = NULL,
      cTicks = 1:ncol(x[[1]]), layout = NULL, \dots)
 }

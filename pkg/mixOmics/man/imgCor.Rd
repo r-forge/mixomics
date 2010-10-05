@@ -11,11 +11,11 @@ two data sets.
 }
 
 \usage{
-imgCor(X, Y, type = c("separate", "combine"), col = jet.colors, 
+imgCor(X, Y, type = c("combine", "separate"), col = jet.colors, 
        X.names = TRUE, Y.names = TRUE,		 
        XsideColor = "blue", YsideColor = "red",
        symkey = TRUE, keysize = 1, 
-       div.interactive = TRUE,		 
+       interactive.div = TRUE,		 
        cexRow = NULL, cexCol = NULL, 
        margins = c(5, 5), lhei = NULL, lwid = NULL) 
 }
@@ -34,9 +34,9 @@ imgCor(X, Y, type = c("separate", "combine"), col = jet.colors,
     Possible character vector giving the names of the X-variables.}
   \item{Y.names}{logical, should the name of each data on the axis \code{Y} be shown ?
     Possible character vector giving the names of the Y-variables.}
-  \item{XsideColors}{character string. The color name for a horizontal side bar that may 
+  \item{XsideColor}{character string. The color name for a horizontal side bar that may 
     be used to annotate the columns of \code{X}.}
-  \item{YsideColors}{character string. The color name for a vertical side bar that may be 
+  \item{YsideColor}{character string. The color name for a vertical side bar that may be 
     used to annotate the rows of \code{Y}.}  
   \item{symkey}{boolean indicating whether the color key should be made symmetric about 0. 
 	Defaults to \code{TRUE}.}

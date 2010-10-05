@@ -21,6 +21,10 @@
 
 
 cim <-
+function(...) UseMethod("cim")
+
+
+cim.default <-
 function(mat, 
          breaks, 
          col = jet.colors, 

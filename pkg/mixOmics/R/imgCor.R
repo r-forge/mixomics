@@ -56,7 +56,7 @@ function(X,
     q = ncol(Y)	
 	
     if (!is.logical(X.names)) {
-        if (!is.vector(X.names) || (lenght(X.name) != p))
+        if (!is.vector(X.names) || (length(X.names) != p))
             stop("'X.names' must be a character vector of length ", p, ".")
     }
     else {
@@ -64,7 +64,7 @@ function(X,
     }
 	
     if (!is.logical(Y.names)) {
-        if (!is.vector(Y.names) || (lenght(Y.name) != q))
+        if (!is.vector(Y.names) || (length(Y.names) != q))
             stop("'Y.names' must be a character vector of length ", q, ".")
     }
     else {

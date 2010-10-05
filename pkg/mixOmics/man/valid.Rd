@@ -20,7 +20,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
       M = if(validation == "Mfold") 10 else nrow(X),
       max.iter = 500, 
       tol = 1e-06,
-      na.action = c("predict", "omit"),
+      na.action = c("omit", "predict"),
       predict.par = NULL)
 }
 
@@ -30,6 +30,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
   \item{ncomp}{the number of components to include in the model. Default is from one to \code{min(6, ncol(X)}.}
   \item{mode}{character string. What type of algorithm to use, matching one of \code{"classic"}, \code{"invariant"} 
     or \code{"regression"}.}
+  \item{method}{Choose between pls or spls.}
   \item{keepX}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
     weights to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{keepY}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
