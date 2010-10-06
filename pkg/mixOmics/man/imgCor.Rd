@@ -1,5 +1,5 @@
 \name{imgCor}
-%\encoding{latin1}
+\encoding{latin1}
 \alias{imgCor}
 \alias{imgCor.default}
 

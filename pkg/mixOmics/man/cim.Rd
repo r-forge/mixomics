@@ -1,5 +1,5 @@
 \name{cim}
-%\encoding{latin1}
+\encoding{latin1}
 \alias{cim}
 \alias{cim.default}
 \alias{cim.rcc}
