@@ -1,7 +1,7 @@
 \name{imgCor}
 \encoding{latin1}
 \alias{imgCor}
-\alias{imgCor.default}
+
 
 \title{Image Maps of Correlation Matrices between two Data Sets}
 
