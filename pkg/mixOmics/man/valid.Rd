@@ -82,6 +82,7 @@ Regression (PCR) and Partial Least Squares Regression (PLSR). \emph{Journal of C
 \seealso{\code{\link{predict}}, \code{\link{nipals}}, code{\link{plot.valid}}.}
 
 \examples{
+\dontrun{
 data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
@@ -89,6 +90,6 @@ Y <- liver.toxicity$clinic
 liver.val <- valid(X, Y, ncomp = 5, mode = "regression", 
                    method = "pls", validation = "loo")
 }
-
+}
 \keyword{regression}
 \keyword{multivariate}
