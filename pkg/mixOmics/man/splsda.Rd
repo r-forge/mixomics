@@ -10,7 +10,7 @@ embeds variable selection for this purpose.
 
 \usage{
 splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, 
-       scaleY =TRUE, mode = 'regression', tol = 1e-06, ...)
+       mode = 'regression', tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -20,7 +20,6 @@ splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500,
   \item{keepX}{numeric vector of length \code{ncomp}, the number of variables
     to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{max.iter}{integer, the maximum number of iterations.}   
-  \item{scaleY}{logical, indicates if Y should be scaled or not.}
   \item{mode}{indicates the mode of analysis.
   It can be either 'regression', 'classic' or 'invariant'}
   \item{tol}{a positive real, the tolerance used in the iterative algorithm.} 

@@ -9,7 +9,7 @@ to classify samples.
 }
 
 \usage{
-plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE, 
+plsda(X, Y, ncomp = 2, max.iter = 500, 
       mode = "regression", tol = 1e-06, ...)
 }	
 
@@ -18,7 +18,6 @@ plsda(X, Y, ncomp = 2, max.iter = 500, scaleY = TRUE,
   \item{Y}{a factor or a class vector for the discrete outcome.}
   \item{ncomp}{the number of components to include in the model. Default to 2.}
   \item{max.iter}{integer, the maximum number of iterations.}  
-  \item{scaleY}{logical, indicates if Y should be scaled or not.}
   \item{mode}{character string. What type of algorithm to use, (partially) matching 
     one of \code{"regression"}, \code{"invariant"} or \code{"classic"}.}
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
