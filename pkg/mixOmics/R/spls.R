@@ -28,7 +28,6 @@ function(X,
          tol = 1e-06,
          keepX = c(rep(ncol(X), ncomp)), 
          keepY = c(rep(ncol(Y), ncomp)),
-         scaleY = TRUE,
          ...)
 {
 
@@ -103,7 +102,7 @@ function(X,
      
     #-- centrer et réduire les données --#
     X = scale(X, center = TRUE, scale = TRUE)
-    if(scaleY == TRUE) Y = scale(Y, center = TRUE, scale = TRUE) 
+    Y = scale(Y, center = TRUE, scale = TRUE) 
 
 
     X.temp = X

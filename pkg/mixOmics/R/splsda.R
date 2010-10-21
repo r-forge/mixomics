@@ -26,7 +26,6 @@ function(X,
          ncomp = 2, 
 		 keepX = c(rep(ncol(X), ncomp)),
          max.iter = 500,
-         scaleY = TRUE,
          mode = "regression",		 
          tol = 1e-06,
          ...)
@@ -54,7 +53,7 @@ function(X,
         stop("unequal number of rows in 'X' and 'Y'.")
 
     result = spls(X, ind.mat, ncomp = ncomp, mode = mode, keepX = keepX, 
-                  max.iter = max.iter, tol = tol, scaleY = scaleY, ...)
+                  max.iter = max.iter, tol = tol, ...)
 
     result$ind.mat = ind.mat
     result$names$Y = levels(Y)

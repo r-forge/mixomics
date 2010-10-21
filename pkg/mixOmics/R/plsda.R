@@ -25,7 +25,6 @@ function(X,
          Y, 
          ncomp = 2, 
          max.iter = 500,
-         scaleY = TRUE,
          mode = "regression",		 
          tol = 1e-06,
          ...)
@@ -54,7 +53,7 @@ function(X,
         stop("unequal number of rows in 'X' and 'Y'.")
 
     result = pls(X, ind.mat, ncomp = ncomp, mode = mode, 
-                 max.iter = max.iter, tol = tol, scaleY = scaleY, ...)
+                 max.iter = max.iter, tol = tol, ...)
 
     result$ind.mat = ind.mat
     result$names$Y = levels(Y)

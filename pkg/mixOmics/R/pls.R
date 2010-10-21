@@ -25,8 +25,7 @@ function(X,
          ncomp = 2, 
          mode = c("regression", "canonical", "invariant", "classic"),
          max.iter = 500, 
-         tol = 1e-06, 
-         scaleY = TRUE,
+         tol = 1e-06,
          ...)
 {
 
@@ -89,7 +88,7 @@ function(X,
     	
     #-- centrer et réduire les données --#
     X = scale(X, center = TRUE, scale = TRUE)
-    if(scaleY == TRUE) Y = scale(Y, center = TRUE, scale = TRUE) 
+    Y = scale(Y, center = TRUE, scale = TRUE) 
      
     X.temp = X
     Y.temp = Y
