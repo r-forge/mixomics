@@ -20,20 +20,16 @@ This function provides variables representation for (regularized) CCA, (sparse) 
         pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
 
 \method{plotVar}{pls}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, Y.label = FALSE, keep.var = FALSE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
+        X.label = FALSE, Y.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
 
 \method{plotVar}{plsda}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, Y.label = FALSE, keep.var = FALSE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)		
+        X.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)		
 
 \method{plotVar}{spls}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, Y.label = FALSE, keep.var = TRUE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	 
+        X.label = FALSE, Y.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	 
 
 \method{plotVar}{splsda}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, Y.label = FALSE, keep.var = TRUE, 
-        pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
+        X.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)
 
 \method{plotVar}{pca}(object, comp = 1:2, rad.in = 0.5, 
         var.label = FALSE, \ldots)	
@@ -56,8 +52,6 @@ This function provides variables representation for (regularized) CCA, (sparse) 
 	or integers. See \code{\link{points}} for all alternatives.}
   \item{cex}{numeric vector of character expansion sizes for the plotted character and symbols.}
   \item{font}{numeric vector of font to be used. See \code{\link{par}} for details.}
-  \item{keep.var}{boolean. If \code{TRUE} only the variables with loadings not zero are plotted
-    (as selected by \code{spls} or \code{splsda}). Defaults to \code{FALSE} for the pls functions and \code{TRUE} for spls functions.}
   \item{\ldots}{not used currently.}
 }
 
@@ -70,6 +64,11 @@ components correspond to the equiangular vector between \eqn{X}- and \eqn{Y}-var
 For (sparse) PLS regression mode the components correspond to the \eqn{X}-variates. If mode is
 canonical, the components for \eqn{X} and \eqn{Y} variables correspond to
 the \eqn{X}- and \eqn{Y}-variates respectively. 
+
+For \code{plsda} and \code{splsda} objects, only the X variables are represented.
+
+For \code{spls} and \code{splsda} objects, only the X and Y variables selected on dimensions \code{comp} are represented.
+
 
 The arguments \code{col}, \code{pch}, \code{cex} and \code{font} can be either vectors of
 length two or a list with two vector components of length \eqn{p} and \eqn{q} respectively, 

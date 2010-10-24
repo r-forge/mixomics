@@ -23,25 +23,25 @@ This function provides variables representation in three dimensions for
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
 
 \method{plot3dVar}{pls}(object, comp = 1:3, rad.in = 1, 
-          keep.var = FALSE, X.label = FALSE, Y.label = FALSE,
+          X.label = FALSE, Y.label = FALSE,
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
 
 \method{plot3dVar}{spls}(object, comp = 1:3, rad.in = 1, 
-          keep.var = TRUE, X.label = FALSE, Y.label = FALSE,
+          X.label = FALSE, Y.label = FALSE,
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
 
 \method{plot3dVar}{plsda}(object, comp = 1:3, rad.in = 1, 
-          keep.var = FALSE, X.label = FALSE, Y.label = FALSE,
+          X.label = FALSE, 
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
 
 \method{plot3dVar}{splsda}(object, comp = 1:3, rad.in = 1, 
-          keep.var = TRUE, X.label = FALSE, Y.label = FALSE,
+          X.label = FALSE, 
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)	 
@@ -67,8 +67,6 @@ This function provides variables representation in three dimensions for
   \item{pch}{character indicating the type of item to plot, possibly vector (see Details).}
   \item{cex}{numeric character (or item) expansion (see Details).}
   \item{font}{numeric font to be used. See \code{\link[rgl]{text3d}} for details.}
-  \item{keep.var}{boolean. If \code{TRUE} only the variables with loadings not zero are plotted
-    (as selected by \code{spls} or \code{splsda}). Defaults to \code{FALSE} for the pls functions and \code{TRUE} for spls functions.}
   \item{axes.box}{character string or vector specifying the axes box type. Should be a subset 
     of \code{c("axes", "box", "bbox", "all")}.}
   \item{label.axes.box}{character string indicating whether to label the axes and/or boxes.
@@ -84,6 +82,12 @@ between each variable and the selected components are plotted as scatter plot in
 For the objects of class \code{rcc}, \code{pls} and \code{spls} a sphere of radius given by \code{rad.in} 
 centred in the origin is displayed. If \code{cutoff} is not \code{NULL} 
 the \code{rad.in} is ignored and the radius of the sphere is equal to \code{cutoff}.
+
+
+For \code{plsda} and \code{splsda} objects, only the X variables are represented.
+
+For \code{spls} and \code{splsda} objects, only the X and Y variables selected on dimensions \code{comp} are represented.
+
 
 The arguments \code{cex}, \code{pch} and \code{font} are vectors of
 length two for the objects of class \code{rcc}, \code{pls} and \code{spls}. 
