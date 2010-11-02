@@ -44,6 +44,7 @@ S3method(plotIndiv, spls)
 S3method(plotIndiv, plsda)
 S3method(plotIndiv, splsda)
 S3method(plotIndiv, rcc)
+S3method(plotIndiv, pca)
 
 S3method(plotVar, pls)
 S3method(plotVar, spls)

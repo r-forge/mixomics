@@ -87,6 +87,11 @@ In the last case, multiple arguments values can be specified so that each item (
 can be given its own graphic attributes. Default values exist for this arguments. 
 Supported types for \code{pch} are: \code{"s"} for spheres, \code{"t"} for tetrahedrons, \code{"c"} for cubes, 
 \code{"o"} for octahedrons, \code{"i"} for icosahedrons and \code{"d"} dodecahedrons. Partial matching is used.    
+
+The pointing device of your graphics user-interface can also be used to set the viewpoint interactively. With the pointing device the buttons are by default set as follows:
+- left adjust viewpoint position
+- middle adjust field of view angle
+- right or wheel adjust zoom factor 
 }
 
 \author{Ignacio González}

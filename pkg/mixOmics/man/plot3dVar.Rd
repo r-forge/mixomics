@@ -104,7 +104,12 @@ vector determine the color for the \eqn{X}- and \eqn{Y}-variables respectively.
 Otherwise, multiple colors can be specified so that each item (variable)
 can be given its own color. In this case, the first component of the list 
 correspond to the \eqn{X}-color attribut and the second component correspond to 
-the \eqn{Y}-color attribut.  
+the \eqn{Y}-color attribute.  
+
+The pointing device of your graphics user-interface can also be used to set the viewpoint interactively. With the pointing device the buttons are by default set as follows:
+- left adjust viewpoint position
+- middle adjust field of view angle
+- right or wheel adjust zoom factor 
 }
 
 \author{Ignacio González.}

@@ -29,7 +29,6 @@ plot3dVar.pls <-
 function(object, 
          comp = 1:3, 
          rad.in = 1, 
-##         keep.var = FALSE, 
          X.label = FALSE, 
          Y.label = FALSE,
          pch = NULL, 
@@ -59,24 +58,7 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-##    if (isTRUE(keep.var)) {
-##        keep.X = apply(abs(object$loadings$X), 1, sum) > 0
-##        keep.Y = apply(abs(object$loadings$Y), 1, sum) > 0
 
-##        if (object$mode == "canonical") {
-#            cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-#                     use = "pairwise")
-#            cord.Y = cor(object$Y[, keep.Y], object$variates$Y[, comp], 
-#                     use = "pairwise")
-#        }
-#        else {
-#            cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-#                     use = "pairwise")
-#            cord.Y = cor(object$Y[, keep.Y], object$variates$X[, comp], 
-#                     use = "pairwise")
-#        }
-#    }
-#    else {
       if (object$mode == "canonical") {
           cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
           cord.Y = cor(object$Y, object$variates$Y[, comp], use = "pairwise")
@@ -85,7 +67,6 @@ function(object,
           cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
           cord.Y = cor(object$Y, object$variates$X[, comp], use = "pairwise")
       }
-#  }
 
     p = ncol(object$X)
     q = ncol(object$Y)
@@ -134,18 +115,9 @@ function(object,
         font = c(2, 3)
     }
 
-#    if (keep.var) {
-#        col[[1]] = col[[1]][keep.X]
-#        col[[2]] = col[[2]][keep.Y]
-#    }
 
     if (X.label) X.label = object$names$X
     if (Y.label) Y.label = object$names$Y
-
-#    if (keep.var) {
-#        if (length(X.label) == p) X.label = X.label[keep.X]
-#        if (length(Y.label) == q) Y.label = Y.label[keep.Y]
-#    }
 
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
@@ -268,9 +240,7 @@ plot3dVar.plsda <-
 function(object, 
          comp = 1:3, 
          rad.in = 1, 
-#         keep.var = FALSE, 
          X.label = FALSE, 
-#         Y.label = FALSE,
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -298,36 +268,15 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-#    if (isTRUE(keep.var)) {
-#        keep.X = apply(abs(object$loadings$X), 1, sum) > 0
-#        keep.Y = apply(abs(object$loadings$Y), 1, sum) > 0
-
-#        if (object$mode == "canonical") {
-#            cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-#                     use = "pairwise")
-#            cord.Y = cor(object$Y[, keep.Y], object$variates$Y[, comp], 
-#                     use = "pairwise")
-#        }
-#        else {
-#            cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-#                     use = "pairwise")
-#            cord.Y = cor(object$Y[, keep.Y], object$variates$X[, comp], 
-#                     use = "pairwise")
-#        }
-#    }
-#    else {
       if (object$mode == "canonical") {
           cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
 #          cord.Y = cor(object$Y, object$variates$Y[, comp], use = "pairwise")
       }
       else {
           cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#          cord.Y = cor(object$Y, object$variates$X[, comp], use = "pairwise")
       }
-#    }
 
     p = ncol(object$X)
-#    q = ncol(object$Y)
 
     # le plot des variables #
     #-----------------------#
@@ -338,9 +287,7 @@ function(object,
     if (length(X.label) > 1 & length(X.label) != p)
         stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
-#    if (length(Y.label) > 1 & length(Y.label) != q)
-#        stop("'Y.label' must be a vector of length 'ncol(Y)' or a boolean atomic vector.")
-		
+
     if (is.null(pch)) {
         pch = c("s")
     }
@@ -350,7 +297,6 @@ function(object,
     }
 
     if (is.null(col)) {
-#        col = list(rep("red", p), rep("blue", q))
         col = list(rep("red", p))
     }
     else {
@@ -372,19 +318,8 @@ function(object,
         font = c(2)
     }
 
-#    if (keep.var) {
-#        col[[1]] = col[[1]][keep.X]
-#        col[[2]] = col[[2]][keep.Y]
-#    }
 
     if (X.label) X.label = object$names$X
-#    if (Y.label) Y.label = object$names$Y
-
-#    if (keep.var) {
-#        if (length(X.label) == p) X.label = X.label[keep.X]
-#        if (length(Y.label) == q) Y.label = Y.label[keep.Y]
-#    }
-
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
 	if (is.null(zlab)) zlab = paste("Comp ", comp[3])
@@ -404,10 +339,6 @@ function(object,
                color = col[[1]], font = font[1], cex = cex[1])
     }
 	
-#    if (length(Y.label) > 1) {
-#        text3d(cord.Y[, 1] + 0.05, cord.Y[, 2], cord.Y[, 3] + 0.05, text = Y.label,
-#               color = col[[2]], font = font[2], cex = cex[2])
-#    }
 	par3d(cex = 0.8)	
 	
     if (any(axes.box == "axes") || any(axes.box == "all")) { 
@@ -457,22 +388,6 @@ function(object,
                             col = col[[1]], size = cex[1]/50))
     }
    
-#    if (length(Y.label) == 1) {
-#        switch(pch.name[pch.type[, pch[2]]], 
-#            sphere = plot3d(x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], type = "s", 
-#                            col = col[[2]], radius = cex[2]/50, add = TRUE),
-#            tetra = shapelist3d(tetrahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/65),
-#            cube = shapelist3d(cube3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/70),
-#            octa = shapelist3d(octahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/35),
-#            icosa = shapelist3d(icosahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/50),
-#            dodeca = shapelist3d(dodecahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/50))
-#    }
-	
     spheres3d(0, 0, 0, radius = rad.in, front = "fill", back = "fill", emission = gray(0.9), alpha = 0.6)
 	spheres3d(0, 0, 0, radius = rad.in, front = "line", back = "line", emission = gray(0.9))
 	
@@ -506,7 +421,6 @@ plot3dVar.spls <-
 function(object, 
          comp = 1:3, 
          rad.in = 1, 
-#         keep.var = TRUE, 
          X.label = FALSE, 
          Y.label = FALSE,
          pch = NULL, 
@@ -552,17 +466,6 @@ function(object,
             cord.Y = cor(object$Y[, keep.Y], object$variates$X[, comp], 
                      use = "pairwise")
         }
-#    }
-#    else {
-#        if (object$mode == "canonical") {
-#            cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#            cord.Y = cor(object$Y, object$variates$Y[, comp], use = "pairwise")
-#        }
-#        else {
-#            cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#            cord.Y = cor(object$Y, object$variates$X[, comp], use = "pairwise")
-#        }
-#    }
 
     p = ncol(object$X)
     q = ncol(object$Y)
@@ -611,18 +514,14 @@ function(object,
         font = c(2, 3)
     }
 
-#    if (keep.var) {
       col[[1]] = col[[1]][keep.X]
       col[[2]] = col[[2]][keep.Y]
-#    }
 
     if (X.label) X.label = object$names$X
     if (Y.label) Y.label = object$names$Y
 
-#    if (keep.var) {
       if (length(X.label) == p) X.label = X.label[keep.X]
       if (length(Y.label) == q) Y.label = Y.label[keep.Y]
-#    }
 
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
@@ -743,9 +642,7 @@ plot3dVar.splsda <-
 function(object, 
          comp = 1:3, 
          rad.in = 1, 
-#         keep.var = TRUE, 
          X.label = FALSE, 
-#         Y.label = FALSE,
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -773,36 +670,18 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-#    if (isTRUE(keep.var)) {
       keep.X = apply(abs(object$loadings$X), 1, sum) > 0
-#      keep.Y = apply(abs(object$loadings$Y), 1, sum) > 0
 
       if (object$mode == "canonical") {
           cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
                    use = "pairwise")
-#          cord.Y = cor(object$Y[, keep.Y], object$variates$Y[, comp], 
-#                   use = "pairwise")
       }
       else {
           cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
                    use = "pairwise")
-#          cord.Y = cor(object$Y[, keep.Y], object$variates$X[, comp], 
-#                   use = "pairwise")
       }
-#  }
-#    else {
-#        if (object$mode == "canonical") {
-#            cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#            cord.Y = cor(object$Y, object$variates$Y[, comp], use = "pairwise")
-#        }
-#        else {
-#            cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#            cord.Y = cor(object$Y, object$variates$X[, comp], use = "pairwise")
-#        }
-#    }
 
     p = ncol(object$X)
-#    q = ncol(object$Y)
 
     # le plot des variables #
     #-----------------------#
@@ -813,10 +692,7 @@ function(object,
     if (length(X.label) > 1 & length(X.label) != p)
         stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
-#    if (length(Y.label) > 1 & length(Y.label) != q)
-#        stop("'Y.label' must be a vector of length 'ncol(Y)' or a boolean atomic vector.")
-		
-    if (is.null(pch)) {
+   if (is.null(pch)) {
         pch = c("s")
     }
 
@@ -846,18 +722,11 @@ function(object,
         font = c(2)
     }
 
-#    if (keep.var) {
       col[[1]] = col[[1]][keep.X]
-#      col[[2]] = col[[2]][keep.Y]
-#    }
 
     if (X.label) X.label = object$names$X
-#    if (Y.label) Y.label = object$names$Y
 
-#    if (keep.var) {
       if (length(X.label) == p) X.label = X.label[keep.X]
-#      if (length(Y.label) == q) Y.label = Y.label[keep.Y]
-#    }
 
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
@@ -878,10 +747,6 @@ function(object,
                color = col[[1]], font = font[1], cex = cex[1])
     }
 	
-#    if (length(Y.label) > 1) {
-#        text3d(cord.Y[, 1] + 0.05, cord.Y[, 2], cord.Y[, 3] + 0.05, text = Y.label,
-#               color = col[[2]], font = font[2], cex = cex[2])
-#    }
 	par3d(cex = 0.8)	
 	
     if (any(axes.box == "axes") || any(axes.box == "all")) { 
@@ -931,21 +796,6 @@ function(object,
                             col = col[[1]], size = cex[1]/50))
     }
    
-#    if (length(Y.label) == 1) {
-#        switch(pch.name[pch.type[, pch[2]]], 
-#            sphere = plot3d(x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], type = "s", 
-#                            col = col[[2]], radius = cex[2]/50, add = TRUE),
-#            tetra = shapelist3d(tetrahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/65),
-#            cube = shapelist3d(cube3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/70),
-#            octa = shapelist3d(octahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/35),
-#            icosa = shapelist3d(icosahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/50),
-#            dodeca = shapelist3d(dodecahedron3d(), x = cord.Y[, 1], y = cord.Y[, 2], z = cord.Y[, 3], 
-#                            col = col[[2]], size = cex[2]/50))
-#    }
 	
     spheres3d(0, 0, 0, radius = rad.in, front = "fill", back = "fill", emission = gray(0.9), alpha = 0.6)
 	spheres3d(0, 0, 0, radius = rad.in, front = "line", back = "line", emission = gray(0.9))
