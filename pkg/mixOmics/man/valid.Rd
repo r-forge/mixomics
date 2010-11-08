@@ -74,7 +74,7 @@ selection when integrating Omics data. \emph{Statistical Applications in Genetic
 Biology} \bold{7}, article 35.
 
 Mevik, B.-H., Cederkvist, H. R. (2004). Mean Squared Error of Prediction (MSEP) Estimates for Principal Component 
-Regression (PCR) and Partial Least Squares Regression (PLSR). \emph{Journal of Chemometrics} \bold{18}(9), 422–429.
+Regression (PCR) and Partial Least Squares Regression (PLSR). \emph{Journal of Chemometrics} \bold{18}(9), 422-429.
 }
 
 \author{Sébastien Déjean, Ignacio González and Kim-Anh Lê Cao.}
