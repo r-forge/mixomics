@@ -5,40 +5,44 @@
 \title{Principal Components Analysis}
 
 \description{ 
-Performs a principal components analysis on the given data matrix that can contain missing values
-by using the nipals algorithm. 
+Performs a principal components analysis on the given data matrix that can 
+contain missing values. If the data is complete 'pca' uses Singular Value 
+Decomposition and if there is data missing it uses the NIPALS algorithm. 
 }
 
 \usage{
-pca(x, ncomp = NULL, retx = TRUE, 
+pca(X, ncomp = 3, retx = TRUE, 
     center = TRUE, scale. = FALSE, 
     comp.tol = NULL, max.iter = 500, 
     tol = 1e-09)
 }
 
 \arguments{
-  \item{x}{a numeric matrix (or data frame) which provides the 
+  \item{X}{a numeric matrix (or data frame) which provides the 
     data for the principal components analysis. It can contain missing values.}
-  \item{ncomp}{integer, the number of components to keep to perform the 
-	reconstitution of the data using the nipals algorithm. If \code{NULL}, 
-    a criterion of stop is given.}	
+  \item{ncomp}{integer, if data is complete 'ncomp' decides the number of components and associated 
+    eigenvalues to display from the pcasvd algorithm and if the data has missing values, ncomp gives the 
+    number of components to keep to perform the reconstitution of the data using the nipals algorithm. If \code{NULL}, 
+     function sets ncomp = min(nrow(X),ncol(X))}	
   \item{retx}{a logical value indicating whether the rotated variables should be returned.} 
   \item{center}{a logical value indicating whether the variables should be shifted to be zero centered. 
-    Alternately, a vector of length equal the number of columns of \code{x} can be supplied. 
+    Alternately, a vector of length equal the number of columns of \code{X} can be supplied. 
     The value is passed to \code{\link{scale}}.} 
   \item{scale.}{a logical value indicating whether the variables should be scaled to have 
     unit variance before the analysis takes place. The default is FALSE for consistency with \code{prcomp} 
     function, but in general scaling is advisable. Alternatively, a vector of length equal the number of 
-    columns of \code{x} can be supplied. The value is passed to \code{\link{scale}}.} 
+    columns of \code{X} can be supplied. The value is passed to \code{\link{scale}}.} 
   \item{comp.tol}{a value indicating the magnitude below which components should be omitted.} 
   \item{max.iter}{integer, the maximum number of iterations in the nipals algorithm.}
   \item{tol}{a positive real, the tolerance used in the nipals algorithm.}
 }
 
 \details{
-The calculation is done by a singular value decomposition of the (centered and possibly scaled) data matrix, 
-by using the nipals algorithm. Unlike \code{\link{princomp}}, the print method for these objects prints the 
-results in a nice format and the \code{plot} method produces a scree plot.
+The calculation is done either by a singular value decomposition of the (possibly centered and scaled) 
+data matrix, if the data is complete or by using the nipals algorithm if there is data missing. Unlike 
+\code{\link{princomp}}, the print method for these objects prints the results in a nice format and the 
+\code{plot} method produces a bar plot of the percentage of variance explaned by the principal 
+components (PCs).
 
 Note that \code{scale. = TRUE} cannot be used if there are zero or constant (for \code{center = TRUE}) variables. 
  
@@ -50,11 +54,10 @@ which would omit essentially constant components.
 
 \value{
 \code{pca} returns a list with class "pca" and "prcomp" containing the following components: 
-  \item{sdev}{the standard deviations of the principal components (i.e., the square roots of the 
-    eigenvalues of the covariance/correlation matrix, though the calculation is actually 
+  \item{eigenvalues}{The eigenvalues of the covariance/correlation matrix, though the calculation is actually 
     done with the singular values of the data matrix).} 
   \item{rotation}{the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors).}
-  \item{x}{if \code{retx} is true the value of the rotated data (the centred (and scaled if requested) data 
+  \item{X}{if \code{retx} is true the value of the rotated data (the centred (and scaled if requested) data 
     multiplied by the rotation matrix) is returned.}  
   \item{center, scale}{the centering and scaling used, or \code{FALSE}.} 
 }
@@ -72,7 +75,7 @@ data(multidrug)
 ## the 'prcomp' function cannot be applied
 pca.res <- pca(multidrug$ABC.trans, ncomp = 4, scale = TRUE)
 plot(pca.res)
-summary(pca.res)
+print(pca.res)
 biplot(pca.res, xlabs = multidrug$cell.line$Class, cex = 0.7)
 }
 
