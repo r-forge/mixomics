@@ -22,17 +22,23 @@
 
 
 pca <-
-function(X, 
+<<<<<<< .minefunction(X, 
+         ncomp = 3,
+#         retx = TRUE, 
+=======function(X, 
          ncomp = 3,
          retx = TRUE, 
-         center = TRUE, 
+>>>>>>> .theirs         center = TRUE, 
          scale. = FALSE, 
          comp.tol = NULL,
          max.iter = 500, 
          tol = 1e-09) 
 {
+<<<<<<< .mine
+    retx  =TRUE  # to return pc's
     X = as.matrix(X)
-	
+=======    X = as.matrix(X)
+>>>>>>> .theirs	
     X.names = dimnames(X)[[2]]
     if (is.null(X.names)) X.names = paste("X", 1:ncol(X), sep = "")
 
@@ -56,7 +62,25 @@ function(X,
     NA.X = any(is.na.X)       
 
     if (is.null(ncomp)) {
-        ncomp = min(nrow(X),ncol(X))
+<<<<<<< .mine        ncomp = min(nrow(X),ncol(X))
+    }
+# REMOVED 16-2-11 the estimation of the rank (too long or crashes when p >> n)
+#        comp = 1
+#        rank.old = 0
+#        repeat {
+#            s = nipals(x, ncomp = comp, reconst = TRUE, max.iter = max.iter, tol = tol)
+#            rank = sum(s$eig > (s$eig[1L] * .Machine$double.eps))
+#
+#            if ((rank - rank.old) == 0) break
+#            comp = comp + 1
+#
+#            if (comp > (ncol(x) - 1)) break	
+#            rank.old = rank			
+#        }
+#		ncomp = comp
+#    }
+ 
+=======        ncomp = min(nrow(X),ncol(X))
     }
 # REMOVED 16-2-11
 #        comp = 1
@@ -74,8 +98,19 @@ function(X,
 #		ncomp = comp
 #    }
  
-
-# If there are missing values use NIPALS agorithm
+>>>>>>> .theirs
+<<<<<<< .mine# If there are missing values use NIPALS agorithm
+    if(na.X){
+        result = nipals(X, ncomp = ncomp, reconst = retx, max.iter = max.iter, tol = tol)
+        result$eig = (result$eig/sqrt(max(1, nrow(X) - 1)))^2
+        result$rotation = result$p
+ 
+  
+    dimnames(result$rotation) = list(X.names, paste("PC", 1:ncol(result$rotation), sep = ""))
+    dimnames(result$p) = list(X.names, paste("PC", 1:ncol(result$p), sep = ""))
+    r = list(X = X, ncomp = ncomp, NA.X = NA.X, sdev = result$eig, rotation = result$rotation, center = if (is.null(cen)) FALSE else cen, 
+             scale = if (is.null(sc)) FALSE else sc)
+=======# If there are missing values use NIPALS agorithm
     if(na.X){
         result = nipals(X, ncomp = ncomp, reconst = retx, max.iter = max.iter, tol = tol)
         result$eig = (result$eig/sqrt(max(1, nrow(X) - 1)))^2
@@ -88,8 +123,11 @@ function(X,
 # KA: changed eig to sdev
     r = list(ncomp = ncomp, NA.X = NA.X, sdev = result$eig, rotation = result$rotation, center = if (is.null(cen)) FALSE else cen, 
              scale = if (is.null(sc)) FALSE else sc)
-
-#        if (retx) {
+>>>>>>> .theirs
+<<<<<<< .mine    if (retx) {
+        r$x = result$rec %*% result$p
+        dimnames(r$x) = list(ind.names, paste("X", 1:ncol(result$p), sep = ""))
+=======#        if (retx) {
 #            r$x = result$rec %*% result$rotation
 #            dimnames(r$x) = list(ind.names, paste("X", 1:ncol(result$rotation), sep = ""))
 #        }
@@ -97,11 +135,25 @@ function(X,
     if (retx) {
         r$x = result$rec %*% result$p
         dimnames(r$x) = list(ind.names, paste("X", 1:ncol(result$p), sep = ""))
-    }
+>>>>>>> .theirs    }
 
 
     }
-# If data is complete us PCASVD, singular value decomposition
+<<<<<<< .mine# If data is complete use PCASVD, singular value decomposition
+    if(!na.X){
+        result = pcasvd(X, ncomp=ncomp, center=center, scale.=scale.)
+        result$eig = (result$sdev^2)
+
+# REMOVED 16-2-11 rank estimation (too long or crashes when p>>n)
+#    if (!is.null(comp.tol)) {
+#        rank = sum(s$eig > (s$eig[1L] * comp.tol))
+#        if (rank < ncol(x)) {
+#            s$p = s$p[, 1L:rank, drop = FALSE]
+#            s$eig = s$eig[1L:rank]
+
+    dimnames(result$rotation) = list(X.names, paste("PC", 1:ncol(result$rotation), sep = ""))
+    r = list(X = X, ncomp = ncomp, NA.X = NA.X, sdev = (result$eig), rotation = (result$rotation), center = if (is.null(cen)) FALSE else cen, 
+=======# If data is complete us PCASVD, singular value decomposition
     if(!na.X){
         result = pcasvd(X, ncomp=ncomp, center=center, scale.=scale.)
         result$eig = (result$sdev^2)
@@ -116,8 +168,11 @@ function(X,
     dimnames(result$rotation) = list(X.names, paste("PC", 1:ncol(result$rotation), sep = ""))
 # KA: changed eig to sdev
     r = list(ncomp = ncomp, NA.X = NA.X, sdev = (result$eig), rotation = (result$rotation), center = if (is.null(cen)) FALSE else cen, 
-             scale = if (is.null(sc)) FALSE else sc)
-
+>>>>>>> .theirs             scale = if (is.null(sc)) FALSE else sc)
+<<<<<<< .mine    if (retx){
+        r$x = X %*% result$rotation
+        dimnames(r$x) = list(ind.names, paste("X", 1:ncol(result$rotation), sep = ""))
+=======
 #            if (retx) {
 #            r$x = X %*% (result$rotation)
 #        }
@@ -125,7 +180,7 @@ function(X,
     if (retx){
         r$x = X %*% result$rotation
         dimnames(r$x) = list(ind.names, paste("X", 1:ncol(result$rotation), sep = ""))
-    }
+>>>>>>> .theirs    }
     }
 
     class(r) = c("pca", "prcomp")
