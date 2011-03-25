@@ -1,3 +1,11 @@
+Changes in 2.9-5
+================
+
+New features:
+-------------
+- sPCA has been modified to get orthogonal principal components
+
+
 Changes in 2.9-4
 ================
 

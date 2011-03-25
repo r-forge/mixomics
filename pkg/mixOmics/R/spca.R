@@ -47,6 +47,7 @@ function(X,
     X.temp=as.matrix(X)
     n=nrow(X)
     p=ncol(X)
+    
     # put a names on the rows and columns
     X.names = dimnames(X)[[2]]
     if (is.null(X.names)) X.names = paste("X", 1:p, sep = "")
@@ -101,14 +102,23 @@ function(X,
             v.temp=t(X.temp)%*%u.old
             v.old=v.new
             
+            if(h>=2){
+               u.new=(lsfit(y=X%*%v.old, x=X%*%mat.v[,1:(h-1)],intercept=FALSE)$res)
+               u.new=u.new/sqrt(drop(crossprod(u.new)))
+            }
+            
+
             #--penalisation on loading vectors--#
             if(nx!=0){
                v.new = ifelse(abs(v.temp) > abs(v.temp[order(abs(v.temp))][nx]), 
                (abs(v.temp) - abs(v.temp[order(abs(v.temp))][nx])) * sign(v.temp), 0)
             }
             
-            u.new = as.vector(X.temp %*% v.new)
-            u.new=u.new/sqrt(drop(crossprod(u.new)))
+            if(h==1){  
+               u.new = as.vector(X.temp %*% v.new)
+               u.new=u.new/sqrt(drop(crossprod(u.new)))
+            }
+            
             
             
             #--checking convergence--#
@@ -122,18 +132,14 @@ function(X,
 
 
        v.final = v.new/sqrt(drop(crossprod(v.new)))
-       
-       
-       u.final = X%*%v.final
-       u.final = u.final/sqrt(sum(u.final^2))
-        
+             
        #--deflation of data--#
        X.temp= X.temp - svd.X$d[1] * svd.X$u[,1] %*% t(svd.X$v[,1])
        
        
        vect.iter[h]=iter
        mat.v[,h]=v.final
-       mat.u[,h]=u.final
+       mat.u[,h]=u.new
        
        #--calculating adjusted variances explained--#
        X.var = X %*% mat.v[,1:h]%*%solve(t(mat.v[,1:h])%*%mat.v[,1:h])%*%t(mat.v[,1:h])
@@ -141,15 +147,10 @@ function(X,
        
         
     }#fin h
-    varX = vect.varX/sum(X^2)
-    names(varX) =  colnames(mat.u) = colnames(mat.v) = paste("PC", 1:ncomp, sep = "")
-
-    rownames(mat.u)  = ind.names
-    rownames(mat.v)  = X.names    
-
+    
     result = (list(X = X,
 		   ncomp=ncomp,		
-                   varX= varX,
+                   varX=vect.varX/sum(X^2),
                    keepX=vect.keepX,
                    iter=vect.iter,
                    rotation = mat.v,
