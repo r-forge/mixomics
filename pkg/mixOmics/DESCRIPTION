@@ -1,10 +1,8 @@
 Package: mixOmics
 Type: Package
-<<<<<<< .mineTitle: Omics Data Integration Project
+Title: Omics Data Integration Project
 Version: 2.9-4
-=======Title: Integrate Omics data project
-Version: 2.9-2
->>>>>>> .theirsDate: 2010-02-15
+Date: 2010-02-15
 Depends: igraph, rgl, lattice
 Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao and Pierre Monget
 Maintainer: Kim-Anh Le Cao <k.lecao@uq.edu.au>

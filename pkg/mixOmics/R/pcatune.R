@@ -65,52 +65,102 @@ function(X,
     result$ncomp=ncomp.
     
 #  list eigenvalues, prop. of explained varience and cumulative proportion of explained variance
-        per.var = as.vector(result$sdev/sum(result$sdev))
-        cum.var=as.vector(cumsum(per.var))
+        prop.var = as.vector(result$sdev/sum(result$sdev))
+        cum.var=as.vector(cumsum(prop.var))
         result$sdev=as.vector(result$sdev)
         names(result$sdev) = paste("PC", 1:length(result$sdev), sep = "")
-        names(per.var) = paste("PC", 1:length(per.var), sep = "")
+        names(prop.var) = paste("PC", 1:length(prop.var), sep = "")
         names(cum.var) = paste("PC", 1:length(cum.var), sep = "")
 
+# reduce the output if too many components
+# note: if NA values, we have an estimation of the variance using NIPALS
+	if(result$ncomp > 10){
+        cat("Eigenvalues for the first 10 principal components:", "\n")
+        print(result$sdev[1:10])
+        cat("\n")
+	if(!na.X) {
+	        cat("Proportion of explained variance for the first 10 principal components:", "\n")
+	        print(prop.var[1:10])
+	        cat("\n")
+	        cat("Cumulative proportion explained variance for the first 10 principal components:", "\n")
+	        print(cum.var[1:10])
+	        cat("\n")
+		} else {
+		cat("Estimated proportion of explained variance for the first 10 principal components:", "\n")
+        	print(prop.var[1:10])
+        	cat("\n")
+        	cat("Estimated cumulative proportion explained variance for the first 10 principal components:", "\n")
+        	print(cum.var[1:10])
+        	cat("\n")
+		} # end NA.X
+	cat("(for all principal components, see object$var, object$prop.var and object$cum.var)")
+        cat("\n")
+	}else{
         cat("Eigenvalues for the first ", result$ncomp, "principal components:", "\n")
         print(result$sdev[1:result$ncomp])
         cat("\n")
+		if(!na.X) {
+        	cat("Proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
+        	print(prop.var[1:result$ncomp])
+        	cat("\n")
+        	cat("Cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
+        	print(cum.var[1:result$ncomp])
+        	cat("\n")
+		}else{
+		cat("Estimated proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
+        	print(prop.var[1:result$ncomp])
+        	cat("\n")
+        	cat("Estimated cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
+        	print(cum.var[1:result$ncomp])
+        	cat("\n")
+		} # end NA.X
+	}
 
-    if(!na.X) {
-    
-        cat("Proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
-        print(per.var[1:result$ncomp])
-        cat("\n")
+#    if(!na.X) {
+#    
+#        cat("Proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
+#        print(prop.var[1:result$ncomp])
+#        cat("\n")#
 
-        cat("Cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
-        print(cum.var[1:result$ncomp])
-        cat("\n")
+#        cat("Cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
+#        print(cum.var[1:result$ncomp])
+#        cat("\n")
+
 
 #  Plot the principal components and explained variance
-        per.var = (result$sdev)/sum(result$sdev)
-        per.var=as.vector(per.var[1:result$ncomp])
-        barplot(per.var, names.arg = seq(1,result$ncomp,by=1), xlab="Principal Components", ylab="Proportion of Explained Variance")
-        }
+# note: if NA values, we have an estimation of the variance using NIPALS
+    if(!na.X) {
+#        prop.var = (result$sdev)/sum(result$sdev)
+#        prop.var=as.vector(prop.var[1:result$ncomp])
+        barplot(prop.var, names.arg = seq(1,result$ncomp,by=1), xlab="Principal Components", ylab="Proportion of Explained Variance")
+        } else {
+#        prop.var = (result$sdev)/sum(result$sdev)
+#        prop.var=as.vector(prop.var[1:result$ncomp])
+        barplot(prop.var, names.arg = seq(1,result$ncomp,by=1), xlab="Principal Components", ylab="Estimated Proportion of Explained Variance")
+	}
 
-    if(na.X) {    
-    
-        cat("Estimated proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
-        print(per.var[1:result$ncomp])
-        cat("\n")
+#    if(na.X) {    
+#    
+#        cat("Estimated proportion of explained variance for the first ", result$ncomp, "principal components:", "\n")
+#        print(prop.var[1:result$ncomp])
+#        cat("\n")
 
-        cat("Estimated cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
-        print(cum.var[1:result$ncomp])
-        cat("\n")
+#        cat("Estimated cumulative proportion explained variance for the first ", result$ncomp, "principal components:", "\n")
+#        print(cum.var[1:result$ncomp])
+#        cat("\n")
 
 
 #        cat("Proportions of explained variance is estimated based on the assumption that the number of principal components is min(n,p) and accounts for 100% of the explained variance", "\n")
 #        cat("\n")
 
 #  Plot the principal components and explained variance
-        per.var = (result$sdev)/sum(result$sdev)
-        per.var=as.vector(per.var[1:result$ncomp])
-        barplot(per.var, names.arg = seq(1,result$ncomp,by=1), xlab="Principal Components", ylab="Estimated Proportion of Explained Variance")
-        }
+#        prop.var = (result$sdev)/sum(result$sdev)
+#        prop.var=as.vector(prop.var[1:result$ncomp])
+#        barplot(prop.var, names.arg = seq(1,result$ncomp,by=1), xlab="Principal Components", ylab="Estimated Proportion of Explained Variance")
+#        }
+
+	r = list(var = result$sdev, prop.var = prop.var, cum.var = cum.var)
+	return(invisible(r))
 
 }
 

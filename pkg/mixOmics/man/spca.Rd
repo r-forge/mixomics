@@ -5,8 +5,7 @@
 \title{Sparse Principal Components Analysis}
 
 \description{ 
-Performs a sparse principal components analysis that creates sparse loading vectors on the given data matrix 
-by using singualr value decomposition.}
+Performs a sparse principal components analysis to perform variable selection by using singular value decomposition.}
 
 \usage{
 spca(X, ncomp = 3, center = TRUE, 
@@ -40,6 +39,7 @@ KeepX is the number of variables to keep in loading vectors. The difference betw
 the degree of sparsity, which refers to the number of zeros in each loading vector.
 
 Note that spca does not apply to the data matrix with missing values. 
+The biplot function for spca is not available.
 }    
 
 \value{
@@ -64,10 +64,18 @@ low rank matrix approximation. \emph{Journal of Multivariate Analysis} \bold{99}
 \examples{
 data(liver.toxicity)
 spca.rat <- spca(liver.toxicity$gene, ncomp = 3, keepX=rep(50,3))
-#summary(spca.rat)
-#spca.rat$keepX ##number of variables kept in each loading vector
-#spca.rat$rotation ##sparse loading vectors
-#spca.rat$x ##principal components
+spca.rat
+
+# variable representation
+plotVar(spca.rat, X.label = TRUE, cex = 0.5)
+plot3dVar(spca.rat)
+
+# samples representation
+plotIndiv(spca.rat, ind.names = liver.toxicity$treatment[,3], cex = 0.5, col = as.numeric(liver.toxicity$treatment[,3]))
+plot3dIndiv(spca.rat, col = as.numeric(liver.toxicity$treatment[,3]), cex = 0.01)
+
+
+
 }
 
 \keyword{algebra}

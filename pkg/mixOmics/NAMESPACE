@@ -74,6 +74,7 @@ S3method(print, splsda)
 S3method(print, rcc)
 S3method(print, summary)
 S3method(print, pca)
+S3method(print, spca)
 
 S3method(plot3dIndiv, pls)
 S3method(plot3dIndiv, spls)

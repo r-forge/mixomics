@@ -909,7 +909,7 @@ plotVar.spca <-
 function(object, 
          comp = 1:2, 
          rad.in = 0.5, 
-         X.label = FALSE, 
+         var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -931,6 +931,7 @@ function(object,
     comp1 = round(comp[1])
     comp2 = round(comp[2])
 
+
     # calcul des coordonnées #
     #------------------------#
         keep.X = apply(abs(object$rotation), 1, sum) > 0
@@ -943,8 +944,8 @@ function(object,
 
     # le plot des variables #
     #-----------------------#
-    if (length(X.label) > 1 & length(X.label) != p)
-        stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
+    if (length(var.label) > 1 & length(var.label) != p)
+        stop("'var.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
     if (is.null(pch)) {
         pch = list(rep(16, p))
@@ -1033,16 +1034,16 @@ function(object,
 
     def.par = par(no.readonly = TRUE)
 
-    if (isTRUE(X.label)) X.label = object$names$X
+    if (isTRUE(var.label)) var.label = object$names$X
 
-    if (length(X.label) == p) X.label = X.label[keep.X]
+    if (length(var.label) == p) var.label = var.label[keep.X]
 
     par(pty = "s")
     plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1), 
          xlab = paste("Comp ", comp1), ylab = paste("Comp ", comp2))
 
-    if (length(X.label) > 1) {
-        text(cord.X[, 1], cord.X[, 2], X.label, col = col[[1]], 
+    if (length(var.label) > 1) {
+        text(cord.X[, 1], cord.X[, 2], var.label, col = col[[1]], 
              font = font[[1]], cex = cex[[1]])
     }
     else {
@@ -1071,17 +1072,24 @@ function(object,
     # validation des arguments #
     #--------------------------#
     if (length(comp) != 2)
-        stop("'comp' must be a numeric vector of length 3.")
+        stop("'comp' must be a numeric vector of length 2.")
 
     if (!is.numeric(comp) || any(comp < 1))
         stop("invalid vector for 'comp'.")
 
-    p = ncol(object$rotation)
+#    p = ncol(object$rotation)
 	q = nrow(object$rotation)
 	
-    if (any(comp > p)) 
-        stop("the elements of 'comp' must be smaller or equal than ", p, ".")
-    comp = round(comp)
+    if (any(comp > object$ncomp)) 
+        stop("the elements of 'comp' must be smaller or equal than ", object$ncomp, ".")
+
+    comp1 = round(comp[1])
+    comp2 = round(comp[2])
+
+
+#    if (any(comp > p)) 
+#        stop("the elements of 'comp' must be smaller or equal than ", p, ".")
+#    comp = round(comp)
 	
     if (is.logical(var.label)) {
         if (isTRUE(var.label)) var.label = rownames(object$rotation)
@@ -1094,7 +1102,9 @@ function(object,
 	
     # calcul des coordonnées #
     #------------------------#
-    cord.X = object$x[, comp] 
+##    cord.X = object$x[, comp] 
+      cord.X = cor(object$X, object$x[, c(comp1, comp2)], use = "pairwise")
+
 
     # le plot des variables #
     #-----------------------#

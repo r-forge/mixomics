@@ -20,5 +20,5 @@
 plot.pca <- function(x, ...){
     per.var = (x$sdev)/sum(x$sdev)
     per.var.vec=as.vector(per.var[1: x$ncomp])
-    barplot(per.var.vec, names.arg = seq(1, x$ncomp,by=1), xlab="Principal Components", ylab="Percentage of Explained Variance")
+    barplot(per.var.vec, names.arg = seq(1, x$ncomp,by=1), xlab="Principal Components", ylab="Proportion of Explained Variance")
 }

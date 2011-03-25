@@ -36,7 +36,7 @@ This function provides variables representation for (regularized) CCA, (sparse) 
         var.label = FALSE, \ldots)
 
 \method{plotVar}{spca}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	
+        var.label = FALSE, pch = NULL, cex = NULL, col = NULL, font = NULL, \ldots)	
 }
 
 \arguments{

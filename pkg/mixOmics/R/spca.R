@@ -141,10 +141,15 @@ function(X,
        
         
     }#fin h
-    
+    varX = vect.varX/sum(X^2)
+    names(varX) =  colnames(mat.u) = colnames(mat.v) = paste("PC", 1:ncomp, sep = "")
+
+    rownames(mat.u)  = ind.names
+    rownames(mat.v)  = X.names    
+
     result = (list(X = X,
 		   ncomp=ncomp,		
-                   varX=vect.varX/sum(X^2),
+                   varX= varX,
                    keepX=vect.keepX,
                    iter=vect.iter,
                    rotation = mat.v,

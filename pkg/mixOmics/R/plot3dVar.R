@@ -1073,7 +1073,8 @@ function(object,
 # ------------------------------ PCA object ------------------------------------
 plot3dVar.pca <-
 function(object, 
-         comp = 1:3,  
+         comp = 1:3, 
+	 rad.in = 1, 
          var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
@@ -1086,6 +1087,7 @@ function(object,
          zlab = NULL,		 
          ...) 
 {
+
 
     # validation des arguments #
     #--------------------------#
@@ -1197,6 +1199,10 @@ function(object,
                             col = col, size = cex/50))
     }
 
+    spheres3d(0, 0, 0, radius = rad.in, front = "fill", back = "fill", emission = gray(0.9), alpha = 0.6)
+	spheres3d(0, 0, 0, radius = rad.in, front = "line", back = "line", emission = gray(0.9))
+
+
     if (any(axes.box == "box") || any(axes.box == "all")) {
         axes3d(marklen = 25, xat = tick, yat = tick, zat = tick,
                xlab = tickmark, ylab = tickmark, zlab = tickmark)
@@ -1237,7 +1243,7 @@ plot3dVar.spca <-
 function(object, 
          comp = 1:3, 
          rad.in = 1, 
-         X.label = FALSE, 
+         var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -1278,8 +1284,8 @@ function(object,
     colnames(pch.type) = c("s", "t", "c", "o", "i", "d")
     pch.name = c("sphere", "tetra", "cube", "octa", "icosa", "dodeca")
 	
-    if (length(X.label) > 1 & length(X.label) != p)
-        stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
+    if (length(var.label) > 1 & length(var.label) != p)
+        stop("'var.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
    if (is.null(pch)) {
         pch = c("s")
@@ -1313,9 +1319,9 @@ function(object,
 
       col[[1]] = col[[1]][keep.X]
 
-    if (X.label) X.label = object$names$X
+    if (var.label) var.label = object$names$X
 
-      if (length(X.label) == p) X.label = X.label[keep.X]
+      if (length(var.label) == p) var.label = var.label[keep.X]
 
     if (is.null(xlab)) xlab = paste("Comp ", comp[1])
 	if (is.null(ylab)) ylab = paste("Comp ", comp[2])
@@ -1331,8 +1337,8 @@ function(object,
         axes3d(c('x','y','z'), pos = c(0, 0, 0), nticks = 2, at = c(-1.2, 1.2), 
 		    tick = FALSE, labels = "")
 	
-    if (length(X.label) > 1) {
-        text3d(cord.X[, 1] + 0.05, cord.X[, 2], cord.X[, 3] + 0.05, text = X.label,
+    if (length(var.label) > 1) {
+        text3d(cord.X[, 1] + 0.05, cord.X[, 2], cord.X[, 3] + 0.05, text = var.label,
                color = col[[1]], font = font[1], cex = cex[1])
     }
 	
@@ -1369,7 +1375,7 @@ function(object,
 	
 	cex = 1.5*cex	
 	
-    if (length(X.label) == 1) {
+    if (length(var.label) == 1) {
         switch(pch.name[pch.type[, pch[1]]], 
             sphere = plot3d(x = cord.X[, 1], y = cord.X[, 2], z = cord.X[, 3], type = "s", 
                             col = col[[1]], radius = cex[1]/50, add = TRUE),
