@@ -191,6 +191,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+	return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 # ----------------------plsda ---------------------------#
@@ -222,12 +223,7 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-        if (object$mode == "canonical") {
-            cord.X = cor(object$X, object$variates$X[, c(comp1, comp2)], use = "pairwise")
-        }
-        else {
-            cord.X = cor(object$X, object$variates$X[, c(comp1, comp2)], use = "pairwise")
-        }
+    cord.X = cor(object$X, object$variates$X[, c(comp1, comp2)], use = "pairwise")
 
     p = ncol(object$X)
 
@@ -344,7 +340,8 @@ function(object,
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
-    par(def.par)  
+    par(def.par) 
+    return(invisible(list(coord.X = cord.X)))
 }
 
 
@@ -530,6 +527,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+    return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 	
@@ -563,15 +561,9 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-        keep.X = apply(abs(object$loadings$X), 1, sum) > 0
-
-##        if (object$mode == "canonical") {
-##            cord.X = cor(object$X[, keep.X], object$variates$X[, c(comp1, comp2)], 
-##                     use = "pairwise")
-##        }else{
-            cord.X = cor(object$X[, keep.X], object$variates$X[, c(comp1, comp2)], 
-                     use = "pairwise")
-##        }
+    keep.X = apply(abs(object$loadings$X), 1, sum) > 0
+    cord.X = cor(object$X[, keep.X], object$variates$X[, c(comp1, comp2)], 
+                 use = "pairwise")
 
     p = ncol(object$X)
 
@@ -601,7 +593,6 @@ function(object,
             }
         }
     }
-
 
     if (is.null(cex)) {
         cex = list(rep(1, p))
@@ -690,6 +681,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+    return(invisible(list(coord.X = cord.X)))
 }
 
 
@@ -706,7 +698,7 @@ function(object,
          cex = NULL, 
          col = NULL, 
          font = NULL,
-	 ...) 
+	  ...) 
 {
 
     # validation des arguments #
@@ -901,6 +893,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+    return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 
@@ -934,11 +927,9 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-        keep.X = apply(abs(object$rotation), 1, sum) > 0
-
-
-            cord.X = cor(object$X[, keep.X], object$x[, c(comp1, comp2)], 
-                     use = "pairwise")
+    keep.X = apply(abs(object$rotation), 1, sum) > 0
+    cord.X = cor(object$X[, keep.X], object$x[, c(comp1, comp2)], 
+                 use = "pairwise")
 
     p = ncol(object$X)
 
@@ -1057,6 +1048,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+    return(invisible(list(coord.X = cord.X)))
 }
 
 
@@ -1077,7 +1069,6 @@ function(object,
     if (!is.numeric(comp) || any(comp < 1))
         stop("invalid vector for 'comp'.")
 
-#    p = ncol(object$rotation)
 	q = nrow(object$rotation)
 	
     if (any(comp > object$ncomp)) 
@@ -1085,11 +1076,6 @@ function(object,
 
     comp1 = round(comp[1])
     comp2 = round(comp[2])
-
-
-#    if (any(comp > p)) 
-#        stop("the elements of 'comp' must be smaller or equal than ", p, ".")
-#    comp = round(comp)
 	
     if (is.logical(var.label)) {
         if (isTRUE(var.label)) var.label = rownames(object$rotation)
@@ -1102,8 +1088,7 @@ function(object,
 	
     # calcul des coordonnées #
     #------------------------#
-##    cord.X = object$x[, comp] 
-      cord.X = cor(object$X, object$x[, c(comp1, comp2)], use = "pairwise")
+    cord.X = cor(object$X, object$x[, c(comp1, comp2)], use = "pairwise")
 
 
     # le plot des variables #
@@ -1127,6 +1112,7 @@ function(object,
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
     par(def.par)  
+    return(invisible(list(coord.X = cord.X)))
 }
 
 

@@ -48,7 +48,7 @@ This function provides variables representation in three dimensions for
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)	 
 		  
 \method{plot3dVar}{pca}(object, comp = 1:3, rad.in = 1, 
-	  var.label = FALSE,
+	      var.label = FALSE,
           pch = NULL, cex = NULL, col = NULL, font = NULL, 
           axes.box = "all", label.axes.box = "both",		
           xlab = NULL, ylab = NULL, zlab = NULL, \ldots)
@@ -96,8 +96,8 @@ the \code{rad.in} is ignored and the radius of the sphere is equal to \code{cuto
 
 For \code{plsda} and \code{splsda} objects, only the X variables are represented.
 
-For \code{spls} and \code{splsda} objects, only the X and Y variables selected on dimensions \code{comp} are represented.
-
+For \code{spls} and \code{splsda} objects, only the X and Y variables selected on dimensions 
+\code{comp} are represented.
 
 The arguments \code{cex}, \code{pch} and \code{font} are vectors of
 length two for the objects of class \code{rcc}, \code{pls} and \code{spls}. 
@@ -116,10 +116,17 @@ can be given its own color. In this case, the first component of the list
 correspond to the \eqn{X}-color attribut and the second component correspond to 
 the \eqn{Y}-color attribute.  
 
-The pointing device of your graphics user-interface can also be used to set the viewpoint interactively. With the pointing device the buttons are by default set as follows:
+The pointing device of your graphics user-interface can also be used to set the viewpoint interactively. 
+With the pointing device the buttons are by default set as follows:
 - left adjust viewpoint position
 - middle adjust field of view angle
 - right or wheel adjust zoom factor 
+}
+
+\value{
+A list containing the following components:
+  \item{coord.X}{matrix of \eqn{X}-variables coordinates.}
+  \item{coord.Y}{matrix of \eqn{Y}-variables coordinates.}
 }
 
 \author{Ignacio González.}

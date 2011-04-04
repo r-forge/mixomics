@@ -231,6 +231,7 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 
@@ -268,13 +269,7 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-      if (object$mode == "canonical") {
-          cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-#          cord.Y = cor(object$Y, object$variates$Y[, comp], use = "pairwise")
-      }
-      else {
-          cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
-      }
+    cord.X = cor(object$X, object$variates$X[, comp], use = "pairwise")
 
     p = ncol(object$X)
 
@@ -412,6 +407,7 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X)))
 }
 
 
@@ -450,7 +446,6 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-#    if (isTRUE(keep.var)) {
         keep.X = apply(abs(object$loadings$X), 1, sum) > 0
         keep.Y = apply(abs(object$loadings$Y), 1, sum) > 0
 
@@ -635,6 +630,7 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 # ------------------------------ sPLS-DA ---------------------------------------------
@@ -670,16 +666,8 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-      keep.X = apply(abs(object$loadings$X), 1, sum) > 0
-
-##      if (object$mode == "canonical") {
-##          cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-##                   use = "pairwise")
-##      }
-##      else {
-          cord.X = cor(object$X[, keep.X], object$variates$X[, comp], 
-                   use = "pairwise")
-##      }
+    keep.X = apply(abs(object$loadings$X), 1, sum) > 0
+    cord.X = cor(object$X[, keep.X], object$variates$X[, comp], use = "pairwise")
 
     p = ncol(object$X)
 
@@ -821,6 +809,7 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X)))
 }
 
 
@@ -1068,13 +1057,14 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
 # ------------------------------ PCA object ------------------------------------
 plot3dVar.pca <-
 function(object, 
          comp = 1:3, 
-	 rad.in = 1, 
+	     rad.in = 1, 
          var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
@@ -1227,15 +1217,8 @@ function(object,
     }
 
     title3d(...)	
+    return(invisible(list(coord.X = cord.X)))
 }
-
-
-
-
-
-
-
-
 
 
 # ----------------------------- sPCA---------------------------------------------
@@ -1271,10 +1254,8 @@ function(object,
 
     # calcul des coordonnées #
     #------------------------#
-      keep.X = apply(abs(object$rotation), 1, sum) > 0
-
-          cord.X = cor(object$X[, keep.X], object$x[, comp], 
-                   use = "pairwise")
+    keep.X = apply(abs(object$rotation), 1, sum) > 0
+    cord.X = cor(object$X[, keep.X], object$x[, comp], use = "pairwise")
 
     p = ncol(object$X)
 
@@ -1415,6 +1396,7 @@ function(object,
         }
     }
 
-    title3d(...)	
+    title3d(...)
+    return(invisible(list(coord.X = cord.X)))	
 }
 
