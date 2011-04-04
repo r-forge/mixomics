@@ -149,14 +149,15 @@ function(X,
     }#fin h
     
     result = (list(X = X,
-		   ncomp=ncomp,		
-                   varX=vect.varX/sum(X^2),
-                   keepX=vect.keepX,
-                   iter=vect.iter,
+		           ncomp = ncomp,		
+                   varX = vect.varX/sum(X^2),
+                   keepX = vect.keepX,
+                   iter = vect.iter,
                    rotation = mat.v,
-                   x=mat.u,
+                   x = mat.u,
                    names = list(X = X.names, indiv = ind.names)
               ))
+			  
     class(result) = c("spca", "prcomp", "pca")
     return(invisible(result))
 }
