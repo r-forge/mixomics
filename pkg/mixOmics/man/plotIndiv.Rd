@@ -7,6 +7,7 @@
 \alias{plotIndiv.plsda}
 \alias{plotIndiv.splsda}
 \alias{plotIndiv.pca}
+\alias{plotIndiv.spca}
 
 \title{Plot of Individuals (Experimental Units)}
 
@@ -32,6 +33,9 @@ representation in (r)CCA, (s)PLS regression and PCA.
           col = "black", cex = 1, pch = 1, \ldots)
 
 \method{plotIndiv}{pca}(object, comp = 1:2, ind.names = TRUE,
+          x.label = NULL, y.label = NULL, \ldots)
+
+\method{plotIndiv}{spca}(object, comp = 1:2, ind.names = TRUE,
           x.label = NULL, y.label = NULL, \ldots)		  
 }
 
