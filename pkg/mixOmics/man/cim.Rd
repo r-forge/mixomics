@@ -106,7 +106,8 @@ from the menu, or from the 'Stop' menu on the graphics window.
 }
 
 \value{
-A object of class \code{"rcc"}, a list containing the following components:
+A list containing the following components:
+  \item{simMat}{the similarity matrix used by \code{cim}.}
   \item{rowInd}{row index permutation vectors as returned 
     by \code{\link{order.dendrogram}}.}
   \item{colInd}{column index permutation vectors as returned 

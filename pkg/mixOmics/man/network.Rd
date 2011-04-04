@@ -123,7 +123,9 @@ network can take some seconds.
 }
  
 \value{
-\code{network} return a \code{graph} object (see the \pkg{igraph R} package).
+\code{network} return a list containing the following components:
+  \item{simMat}{the similarity (adjacent) matrix used by \code{network}.}
+  \item{gR}{a \code{graph} object (see the \pkg{igraph R} package).}
 }
 
 \references{
