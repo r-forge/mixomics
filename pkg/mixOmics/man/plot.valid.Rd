@@ -47,9 +47,9 @@ X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
 
 liver.val <- valid(X, Y, ncomp = 5, mode = "regression", 
-                   method = "pls", validation = "loo")
+                   method = "pls", validation = "Mfold")
 				   
-plot.valid(liver.val, criterion = "RMSEP", type = "l", layout = c(2, 2))
+plot(liver.val, criterion = "RMSEP", type = "l", layout = c(2, 2))
 }
 }
 
