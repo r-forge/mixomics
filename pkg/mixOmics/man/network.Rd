@@ -21,6 +21,9 @@ and (sparse) PLS regression.
 
 \method{network}{rcc}(object, comp = 1, X.names = NULL, Y.names = NULL, \ldots)
 
+\method{network}{pls}(object, comp = 1, X.names = NULL, Y.names = NULL, 
+        keep.var = TRUE, \ldots)
+
 \method{network}{spls}(object, comp = 1, X.names = NULL, Y.names = NULL, 
         keep.var = TRUE, \ldots)		
 }
