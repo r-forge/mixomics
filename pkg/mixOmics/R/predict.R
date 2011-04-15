@@ -156,8 +156,7 @@ function(object, newdata, method = c("max.dist", "class.dist", "centroids.dist",
         B.hat[, , h] = B
     }  #end h
 	
-	G = matrix(0, nrow = q, ncol = ncomp)
-	obsLevels = c(1:q)   
+	G = matrix(0, nrow = q, ncol = ncomp)  
 	cl = matrix(nrow = nrow(newdata), ncol = ncomp)
 	
 	for (i in 1:q) {
@@ -170,20 +169,22 @@ function(object, newdata, method = c("max.dist", "class.dist", "centroids.dist",
 	}	
 			
 	# ----    max distance -----------------
+	
 	if (method == "max.dist") {
 
-	function.pred = function(x){
-		tmp = numeric(nrow(x))
-		for(j in 1:nrow(x)){
-			tmp[j] = (which(x[j,] == max(x[j,]))[1])
-		}
-		return(tmp)
-	}
-	cl = apply(Y.hat, 3, function.pred)
+	    function.pred = function(x){
+            nr = nrow(x)
+		    tmp = vector("numeric", nr)
+		    for(j in 1:nr){
+			    tmp[j] = (which(x[j, ] == max(x[j, ]))[1])
+		    }
+		    return(tmp)
+	    }
+	    cl = matrix(apply(Y.hat, 3, function.pred), ncol = ncomp)
 	} #end method
 	
 	# ----    class distance -----------------
-
+	
 	if (method == "class.dist") {
 	
 		class.fun = function(x, q) {
@@ -194,8 +195,13 @@ function(object, newdata, method = c("max.dist", "class.dist", "centroids.dist",
 		}
 	
 		for (h in 1:ncomp) {
-			cl.id = apply(Y.hat[, , h], 1, class.fun, q = q)
-			cl[, h]  = as.factor(obsLevels[cl.id])
+            if (is.null(dim(Y.hat[, , h]))) {
+			    cl.id = class.fun(Y.hat[, , h], q = q)
+			}
+			else {
+	            cl.id = apply(Y.hat[, , h], 1, class.fun, q = q)
+			}
+			cl[, h] = cl.id
 		}
 	}	
 
@@ -216,8 +222,8 @@ function(object, newdata, method = c("max.dist", "class.dist", "centroids.dist",
 		}
 		
 		for (h in 1:ncomp) {
-			cl.id = apply(as.matrix(t.pred[, 1:h]), 1, centroids.fun, G = G, h = h)
-			cl[, h]  = as.factor(obsLevels[cl.id])		
+			cl.id = apply(matrix(t.pred[, 1:h], ncol = h), 1, centroids.fun, G = G, h = h)
+			cl[, h] = cl.id		
 		}
 	}	
 
@@ -243,8 +249,8 @@ function(object, newdata, method = c("max.dist", "class.dist", "centroids.dist",
 		}
 		
 		for (h in 1:ncomp) {
-			cl.id = apply(as.matrix(t.pred[, 1:h]), 1, Sr.fun, G = G, Yprim = Yprim, h = h)
-			cl[, h]  = as.factor(obsLevels[cl.id])		
+			cl.id = apply(matrix(t.pred[, 1:h], ncol = h), 1, Sr.fun, G = G, Yprim = Yprim, h = h)
+			cl[, h] = cl.id		
 		}
 	}
 	
