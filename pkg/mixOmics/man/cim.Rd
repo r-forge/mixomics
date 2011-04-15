@@ -51,8 +51,8 @@ represent "high-dimensional" data sets.
   \item{hclustfun}{function used to compute the hierarchical clustering for both rows and columns. 
     Defaults to \code{\link[stats]{hclust}}. Should take as argument a result of \code{distfun} and return 
     an object to which \code{as.dendrogram} can be applied.}
-  \item{dendrogram}{character string indicating whether to draw \code{'none'}, \code{'row'}, 
-    \code{'column'} or \code{'both'} dendrograms. Defaults to \code{'both'}.}	
+  \item{dendrogram}{character string indicating whether to draw \code{"none"}, \code{"row"}, 
+    \code{"column"} or \code{"both"} dendrograms. Defaults to \code{"both"}.}	
   \item{labRow}{character vectors with row labels to use. 
 	Defaults to \code{rownames(mat)}.}
   \item{labCol}{character vectors with column labels to use. 

@@ -3,7 +3,8 @@
 \alias{loo}
 \alias{Mfold}
 \alias{bin.color}
-
+\alias{map}
+\alias{unmap}
 
 \title{Regularized CCA Internal Functions}
 

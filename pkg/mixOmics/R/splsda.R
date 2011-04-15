@@ -30,6 +30,8 @@ function(X,
          tol = 1e-06,
          ...)
 {
+    X = as.matrix(X)
+	
     #-- validation des arguments --#
     if (length(dim(X)) != 2 || !is.numeric(X)) 
         stop("'X' must be a numeric matrix.")

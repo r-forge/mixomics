@@ -63,7 +63,8 @@ This function provides variables representation in three dimensions for
 }
 
 \arguments{
-  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"spls"} or \code{"pca"}.}
+  \item{object}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"plsda"}, 
+    \code{"spls"}, \code{"plsda"}, \code{"pca"} or \code{"spca"}.}
   \item{comp}{an integer vector of length 3, the components that will be used on the \eqn{x}-axis,  
 	the \eqn{y}-axis and \eqn{z}-axis respectively to project the variables.}
   \item{rad.in}{numeric between 0 and 1, the radius of the small sphere. Defaults to \code{1}.}
@@ -94,9 +95,9 @@ centred in the origin is displayed. If \code{cutoff} is not \code{NULL}
 the \code{rad.in} is ignored and the radius of the sphere is equal to \code{cutoff}.
 
 
-For \code{plsda} and \code{splsda} objects, only the X variables are represented.
+For \code{plsda} and \code{splsda} objects, only the \eqn{X} variables are represented.
 
-For \code{spls} and \code{splsda} objects, only the X and Y variables selected on dimensions 
+For \code{spls} and \code{splsda} objects, only the \eqn{X} and \eqn{Y} variables selected on dimensions 
 \code{comp} are represented.
 
 The arguments \code{cex}, \code{pch} and \code{font} are vectors of
@@ -155,18 +156,18 @@ plot3dVar(nutri.res, cutoff = 0.7, X.label = TRUE, cex = c(0.8, 0.8))
 data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
-toxicity.spls.1 <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50), 
-                        keepY = c(10, 10, 10))
+toxi.spls.1 <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50), 
+                    keepY = c(10, 10, 10))
         
-plot3dVar(toxicity.spls.1, rad.in = 0.5, keep.var = TRUE, 
-    cex = c(1, 0.8), main = "Variables 3D representation") 
+plot3dVar(toxi.spls.1, rad.in = 0.5, keep.var = TRUE, cex = c(1, 0.8), 
+          main = "Variables 3D representation") 
 
-toxicity.spls.2 <- spls(X, Y, ncomp = 3, keepX = c(10, 10, 10), 
-                        keepY = c(10, 10, 10))
+toxi.spls.2 <- spls(X, Y, ncomp = 3, keepX = c(10, 10, 10), 
+                    keepY = c(10, 10, 10))
 					  
-plot3dVar(toxicity.spls.2, rad.in = 0.5, keep.var = TRUE, 
-    Y.label = TRUE, main = "Variables 3D representation", 
-    label.axes.box = "axes")
+plot3dVar(toxi.spls.2, rad.in = 0.5, Y.label = TRUE, 
+          main = "Variables 3D representation", 
+          label.axes.box = "axes")
 	
 ## 3D variable representation for objects of class 'pca'	   
 data(multidrug)
@@ -176,15 +177,15 @@ plot3dVar(pca.res)
 
 ## variable representation for objects of class 'splsda'
 data(liver.toxicity)
-X = as.matrix(liver.toxicity$gene)
-Y = as.factor(liver.toxicity$treatment[,4])
+X <- liver.toxicity$gene
+Y <- as.factor(liver.toxicity$treatment[, 4])
 
-keepX = 20
-ncomp = 3
+ncomp <- 3
+keepX <- rep(20, ncomp)
 
-splsda.liver = splsda(X, Y, ncomp = ncomp, keepX = c(rep(keepX, ncomp)), mode = 'regression')
+splsda.liver <- splsda(X, Y, ncomp = ncomp, keepX = keepX, 
+                       mode = "regression")
 plot3dVar(splsda.liver, X.label = FALSE, Y.label = TRUE, keep.var = TRUE)
-
 }
 }
 

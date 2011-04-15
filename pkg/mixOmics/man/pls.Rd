@@ -68,7 +68,7 @@ In: Krishnaiah, P. R. (editors), \emph{Multivariate Analysis}. Academic Press, N
 \author{Sébastien Déjean and Ignacio González and Kim-Anh Lê Cao.}
 
 \seealso{\code{\link{spls}}, \code{\link{summary}}, \code{\link{mat.rank}}, 
-\code{\link{plotIndiv}}, \code{\link{plotVar}}.}
+\code{\link{plotIndiv}}, \code{\link{plotVar}}, \code{\link{predict}}, \code{\link{valid}}.}
 
 \examples{
 data(linnerud)

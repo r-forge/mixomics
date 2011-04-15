@@ -146,7 +146,8 @@ data(multidrug)
 pca.res <- pca(multidrug$ABC.trans, ncomp = 4, scale = TRUE)
 
 palette(rainbow(9))
-plot3dIndiv(pca.res, cex = 4, col = as.numeric(as.factor(multidrug$cell.line$Class)))
+col = as.numeric(as.factor(multidrug$cell.line$Class))
+plot3dIndiv(pca.res, cex = 4, col = col)
 palette("default")				 
 }
 }

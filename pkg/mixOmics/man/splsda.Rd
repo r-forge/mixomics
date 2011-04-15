@@ -9,8 +9,8 @@ embeds variable selection for this purpose.
 }
 
 \usage{
-splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)), max.iter = 500, 
-       mode = 'regression', tol = 1e-06, ...)
+splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)),
+       max.iter = 500, mode = 'regression', tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -80,17 +80,18 @@ In: Krishnaiah, P. R. (editors), \emph{Multivariate Analysis}. Academic Press, N
 \seealso{\code{\link{spls}}, \code{\link{summary}}, 
 \code{\link{plotIndiv}}, \code{\link{plotVar}}, 
 \code{\link{plot3dIndiv}}, \code{\link{plot3dVar}},
-\code{\link{cim}}, \code{\link{network}}.}
+\code{\link{cim}}, \code{\link{network}}, \code{\link{predict}}.}
 
 \examples{
-# First example
+## First example
 data(breast.tumors)
 X <- breast.tumors$gene.exp
 Y <- breast.tumors$sample$treatment
 
 res <- splsda(X, Y, ncomp = 2, keepX = c(25, 25))
 palette(c("red", "blue"))
-plotIndiv(res, ind.names = TRUE, col = as.numeric(Y))
+col <- as.numeric(as.factor(Y))
+plotIndiv(res, ind.names = TRUE, col = col)
 legend(-0.35, -0.19, c("After", "Before"), pch = c(16, 16), 
        col = c("red", "blue"), cex = 1, pt.cex = c(1.2, 1.2), 
        title = "Treatment")
@@ -103,8 +104,8 @@ X <- as.matrix(liver.toxicity$gene)
 Y <- liver.toxicity$treatment[, 4]
 
 splsda.liver = splsda(X, Y, ncomp = 2, keepX = c(20, 20))
-col = as.numeric(Y)
-plotIndiv(splsda.liver, col = col)
+col <- as.numeric(as.factor(Y))
+plotIndiv(splsda.liver, col = col, ind.names = Y)
 }
 
 \keyword{regression}

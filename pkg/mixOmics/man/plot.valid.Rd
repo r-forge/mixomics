@@ -20,7 +20,7 @@ function of the number of components.
   \item{criterion}{character string. What type of validation criterion to plot. One of 
     \code{"MSEP"}, \code{"RMSEP"} or \code{"R2"}.}
   \item{xlab, ylab}{titles for \eqn{x} and \eqn{y} axes.  Typically character strings, 
-    but can be expressions (e.g., \code{expression(R^2)}.}  
+    but can be expressions (e.g., \code{expression(R^2)}).}  
   \item{cTicks}{integer vector. Axis tickmark locations for the used number of components.
     Default is from one to \code{ncomp} (see \code{\link{valid}}).}
   \item{layout}{numeric vector of length two giving the number of rows and columns in a 

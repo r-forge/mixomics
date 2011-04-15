@@ -29,11 +29,10 @@ function(X,
          ncomp = 3, 
          center = TRUE, 
          scale. = TRUE,
+         keepX = c(rep(ncol(X), ncomp)),
          iter.max = 500, 
-         tol = 1e-06, 
-         keepX = c(rep(ncol(X), ncomp)))
+         tol = 1e-06)
 {
-
 
     #--scaling the data--#
     X=scale(X,center=center,scale=scale.)
@@ -76,10 +75,6 @@ function(X,
     colnames(mat.v)=c(1:ncomp)
     rownames(mat.v)=colnames(X)
 
-    
-    
-    
-
     #--loop on h--#
     for(h in 1:ncomp){
        
@@ -107,7 +102,6 @@ function(X,
                u.new=u.new/sqrt(drop(crossprod(u.new)))
             }
             
-
             #--penalisation on loading vectors--#
             if(nx!=0){
                v.new = ifelse(abs(v.temp) > abs(v.temp[order(abs(v.temp))][nx]), 
@@ -118,8 +112,6 @@ function(X,
                u.new = as.vector(X.temp %*% v.new)
                u.new=u.new/sqrt(drop(crossprod(u.new)))
             }
-            
-            
             
             #--checking convergence--#
             if(crossprod(u.new-u.old)<tol){u.stab=TRUE}

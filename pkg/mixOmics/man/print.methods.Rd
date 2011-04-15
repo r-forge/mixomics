@@ -20,11 +20,16 @@ Produce \code{print} methods for class \code{"rcc"},
 
 \method{print}{spls}(x, \ldots)
 
+\method{print}{pca}(x, \ldots)
+
+\method{print}{spca}(x, \ldots)
+
 \method{print}{summary}(x, \ldots)
 }
 
 \arguments{
-  \item{x}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"spls"} or \code{"summary"}.}
+  \item{x}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"plsda"}, 
+    \code{"spls"}, \code{"splsda"}, \code{"pca"}, \code{"spca"} or \code{"summary"}.}
   \item{\ldots}{not used currently.}
 }
 
@@ -46,7 +51,7 @@ and the available components for Communalities Analysis,
 Redundancy Analysis and Variable Importance in the Projection (VIP).
 }
 
-\author{Sébastien Déjean Ignacio González and Kim-Anh Lê Cao.}
+\author{Sébastien Déjean, Ignacio González and Kim-Anh Lê Cao.}
 
 \seealso{\code{\link{rcc}}, \code{\link{pls}}, \code{\link{spls}}, \code{\link{vip}}.}
 

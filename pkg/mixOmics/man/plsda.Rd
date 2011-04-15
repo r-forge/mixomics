@@ -61,31 +61,31 @@ Tenenhaus, M. (1998). \emph{La régression PLS: théorie et pratique}. Paris: Edit
 
 \seealso{\code{\link{splsda}}, \code{\link{summary}}, 
 \code{\link{plotIndiv}}, \code{\link{plotVar}}, 
-\code{\link{plot3dIndiv}}, \code{\link{plot3dVar}}.}
+\code{\link{plot3dIndiv}}, \code{\link{plot3dVar}}, \code{\link{predict}}.}
 
 \examples{
-# First example
+## First example
 data(breast.tumors)
 X <- breast.tumors$gene.exp
 Y <- breast.tumors$sample$treatment
 
 plsda.breast <- plsda(X, Y, ncomp = 2)
 palette(c("red", "blue"))
-plotIndiv(plsda.breast, ind.names = TRUE, col = as.numeric(Y))
+col <- as.numeric(as.factor(Y))
+plotIndiv(plsda.breast, ind.names = TRUE, col = col)
 legend(18, -9, c("After", "Before"), pch = c(16, 16), 
        col = c("red", "blue"), cex = 1, pt.cex = c(1.2, 1.2), 
        title = "Treatment")
 palette("default")
 
-
-# Second example
+## Second example
 data(liver.toxicity)
-X <- as.matrix(liver.toxicity$gene)
+X <- liver.toxicity$gene
 Y <- liver.toxicity$treatment[, 4]
 
-plsda.liver = plsda(X, Y, ncomp = 2,  mode = 'regression')
-col = as.numeric(Y)
-plotIndiv(plsda.liver, col = col)
+plsda.liver <- plsda(X, Y, ncomp = 2, mode = 'regression')
+col <- as.numeric(as.factor(Y))
+plotIndiv(plsda.liver, col = col, ind.names = Y)
 }
 
 \keyword{regression}

@@ -11,24 +11,22 @@ Decomposition, if there are some missing values, it uses the NIPALS algorithm.
 }
 
 \usage{
-pca(X, ncomp = 3, 
-    center = TRUE, scale. = FALSE, 
-    comp.tol = NULL, max.iter = 500, 
-    tol = 1e-09)
+pca(X, ncomp = 3, center = TRUE, scale. = FALSE, 
+    comp.tol = NULL, max.iter = 500, tol = 1e-09)
 }
 
 \arguments{
   \item{X}{a numeric matrix (or data frame) which provides the 
     data for the principal components analysis. It can contain missing values.}
-  \item{ncomp}{integer, if data is complete 'ncomp' decides the number of components and associated 
-    eigenvalues to display from the pcasvd algorithm and if the data has missing values, ncomp gives the 
-    number of components to keep to perform the reconstitution of the data using the NIPALS algorithm. If \code{NULL}, 
-     function sets ncomp = min(nrow(X),ncol(X))}	
+  \item{ncomp}{integer, if data is complete \code{ncomp} decides the number of components and associated 
+    eigenvalues to display from the \code{pcasvd} algorithm and if the data has missing values, 
+	\code{ncomp} gives the number of components to keep to perform the reconstitution of the data using 
+	the NIPALS algorithm. If \code{NULL}, function sets \code{ncomp = min(nrow(X), ncol(X))}}	
   \item{center}{a logical value indicating whether the variables should be shifted to be zero centered. 
     Alternately, a vector of length equal the number of columns of \code{X} can be supplied. 
     The value is passed to \code{\link{scale}}.} 
   \item{scale.}{a logical value indicating whether the variables should be scaled to have 
-    unit variance before the analysis takes place. The default is FALSE for consistency with \code{prcomp} 
+    unit variance before the analysis takes place. The default is \code{FALSE} for consistency with \code{prcomp} 
     function, but in general scaling is advisable. Alternatively, a vector of length equal the number of 
     columns of \code{X} can be supplied. The value is passed to \code{\link{scale}}.} 
   \item{comp.tol}{a value indicating the magnitude below which components should be omitted.} 
@@ -52,7 +50,7 @@ which would omit essentially constant components.
 }    
 
 \value{
-\code{pca} returns a list with class "pca" and "prcomp" containing the following components: 
+\code{pca} returns a list with class \code{"pca"} and \code{"prcomp"} containing the following components: 
   \item{ncomp}{The number of principal components used.}
   \item{sdev}{The eigenvalues of the covariance/correlation matrix, though the calculation is actually 
     done with the singular values of the data matrix or by using NIPALS.} 
@@ -81,15 +79,14 @@ print(pca.res)
 biplot(pca.res, xlabs = multidrug$cell.line$Class, cex = 0.7)
 
 # samples representation
-plotIndiv(pca.res, ind.names = multidrug$cell.line$Class, cex = 0.5, col = as.numeric(as.factor(multidrug$cell.line$Class)))
-plot3dIndiv(pca.res, col = as.numeric(as.factor(multidrug$cell.line$Class)), cex = 0.2)
+plotIndiv(pca.res, ind.names = multidrug$cell.line$Class, cex = 0.5, 
+          col = as.numeric(as.factor(multidrug$cell.line$Class)))
+plot3dIndiv(pca.res, cex = 0.2,
+            col = as.numeric(as.factor(multidrug$cell.line$Class)))
 
 # variables representation
 plotVar(pca.res, var.label = TRUE)
 plot3dVar(pca.res, rad.in = 0.5, var.label = TRUE, cex = 0.5)
-
-
-
 }
 
 \keyword{algebra}

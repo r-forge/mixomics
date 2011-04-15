@@ -63,7 +63,7 @@ If \code{validation = "loo"}, leave-one-out cross-validation is performed.
   \item{msep}{Mean Square Error Prediction for each Y variable.}
   \item{rmsep}{Root Mean Square Error Prediction for each Y variable.}
   \item{r2}{a matrix of \eqn{R^2} values of the \eqn{Y}-variables for models 
-    with \eqn{1, ... ,\code{ncomp}} components.}
+    with \eqn{1,...,\code{ncomp}} components.}
 }
 
 \references{
@@ -79,7 +79,7 @@ Regression (PCR) and Partial Least Squares Regression (PLSR). \emph{Journal of C
 
 \author{Sébastien Déjean, Ignacio González and Kim-Anh Lê Cao.}
 
-\seealso{\code{\link{predict}}, \code{\link{nipals}}, code{\link{plot.valid}}.}
+\seealso{\code{\link{predict}}, \code{\link{nipals}}, \code{\link{plot.valid}}.}
 
 \examples{
 \dontrun{
@@ -88,7 +88,9 @@ X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
 
 liver.val <- valid(X, Y, ncomp = 5, mode = "regression", 
-                   method = "pls", validation = "loo")
+                   method = "pls", validation = "Mfold")
+				   
+plot(liver.val, criterion = "R2")
 }
 }
 \keyword{regression}
