@@ -180,15 +180,15 @@ function(X,
             if (nx != 0) { 
                 a = ifelse(abs(a) > abs(a[order(abs(a))][nx]), 
                     (abs(a) - abs(a[order(abs(a))][nx])) * sign(a), 0)
-                a = a / drop(sqrt(crossprod(a)))
             }
-             
+            a = a / drop(sqrt(crossprod(a)))
+		     
             if (ny != 0) {
                 b = ifelse(abs(b) > abs(b[order(abs(b))][ny]),
                     (abs(b) - abs(b[order(abs(b))][ny])) * sign(b), 0)
-                b = b / drop(sqrt(crossprod(b)))
             }
-             
+            b = b / drop(sqrt(crossprod(b)))
+			 
             if (na.X) {
                 t = X.aux %*% a
                 A = drop(a) %o% n.ones
