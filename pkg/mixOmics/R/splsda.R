@@ -25,8 +25,7 @@ function(X,
          Y,		
          ncomp = 2, 
 		 keepX = c(rep(ncol(X), ncomp)),
-         max.iter = 500,
-         mode = "regression",		 
+         max.iter = 500,		 
          tol = 1e-06,
          ...)
 {
@@ -54,9 +53,13 @@ function(X,
     if ((n != nrow(ind.mat))) 
         stop("unequal number of rows in 'X' and 'Y'.")
 
-    result = spls(X, ind.mat, ncomp = ncomp, mode = mode, keepX = keepX, 
+    result = spls(X, ind.mat, ncomp = ncomp, mode = "regression", keepX = keepX, 
                   max.iter = max.iter, tol = tol, ...)
-
+       
+    cl = match.call()
+    cl[[1]] = as.name('splsda')
+    result$call = cl
+	 
     result$ind.mat = ind.mat
     result$names$Y = levels(Y)
     class(result) = "splsda"

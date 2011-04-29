@@ -157,9 +157,6 @@ function(object,
         }
     }
 
-
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(X.label)) X.label = object$names$X
     if (isTRUE(Y.label)) Y.label = object$names$Y
 
@@ -189,8 +186,7 @@ function(object,
     lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
-  
-    par(def.par)  
+    
 	return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
@@ -318,8 +314,6 @@ function(object,
         }
     }
 
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(X.label)) X.label = object$names$X
 
     par(pty = "s")
@@ -340,7 +334,6 @@ function(object,
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
-    par(def.par) 
     return(invisible(list(coord.X = cord.X)))
 }
 
@@ -491,8 +484,6 @@ function(object,
       font[[1]] = font[[1]][keep.X]
       font[[2]] = font[[2]][keep.Y]
 
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(X.label)) X.label = object$names$X
     if (isTRUE(Y.label)) Y.label = object$names$Y
 
@@ -525,8 +516,7 @@ function(object,
     lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
-  
-    par(def.par)  
+    
     return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
@@ -656,10 +646,7 @@ function(object,
         cex[[1]] = cex[[1]][keep.X]
         font[[1]] = font[[1]][keep.X]
 
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(X.label)) X.label = object$names$X
-
     if (length(X.label) == p) X.label = X.label[keep.X]
 
     par(pty = "s")
@@ -680,7 +667,6 @@ function(object,
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
   
-    par(def.par)  
     return(invisible(list(coord.X = cord.X)))
 }
 
@@ -855,8 +841,6 @@ function(object,
         font[[2]] = font[[2]][gp.Y]
     }
 
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(X.label)) X.label = object$names$X
     if (isTRUE(Y.label)) Y.label = object$names$Y
 
@@ -891,8 +875,7 @@ function(object,
     lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
-  
-    par(def.par)  
+   
     return(invisible(list(coord.X = cord.X, coord.Y = cord.Y)))
 }
 
@@ -1023,10 +1006,7 @@ function(object,
         cex[[1]] = cex[[1]][keep.X]
         font[[1]] = font[[1]][keep.X]
 
-    def.par = par(no.readonly = TRUE)
-
     if (isTRUE(var.label)) var.label = object$names$X
-
     if (length(var.label) == p) var.label = var.label[keep.X]
 
     par(pty = "s")
@@ -1046,8 +1026,7 @@ function(object,
     lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
-  
-    par(def.par)  
+    
     return(invisible(list(coord.X = cord.X)))
 }
 
@@ -1090,11 +1069,8 @@ function(object,
     #------------------------#
     cord.X = cor(object$X, object$x[, c(comp1, comp2)], use = "pairwise")
 
-
     # le plot des variables #
-    #-----------------------#
-    def.par = par(no.readonly = TRUE)
-	
+    #-----------------------#	
     par(pty = "s")
     plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1), 
          xlab = paste("Comp ", comp[1]), ylab = paste("Comp ", comp[2]))
@@ -1110,8 +1086,7 @@ function(object,
     lines(cos(seq(0, 2 * pi, l = 100)), sin(seq(0, 2 * pi, l = 100)))
     lines(rad.in * cos(seq(0, 2 * pi, l = 100)), 
           rad.in * sin(seq(0, 2 * pi, l = 100)))
-  
-    par(def.par)  
+    
     return(invisible(list(coord.X = cord.X)))
 }
 

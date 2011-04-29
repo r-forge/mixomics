@@ -23,55 +23,111 @@
 plot.valid <- 
 function (x, 
           criterion = c("MSEP", "RMSEP", "R2"),
+          pred.method = "all",
           xlab = "number of components", 
           ylab = NULL,
-          cTicks = 1:ncol(x[[1]]),
+          cTicks = NULL,
           layout = NULL,		  
           ...)
 {
 
-    if (missing(criterion)) 
-        stop("Choose a validation criterion: 'msep', 'rmsep' or 'R2'.")
-    y = switch(criterion, MSEP = x$msep, RMSEP = x$rmsep, R2 = x$r2)
-	
-    if (is.null(ylab))
-       ylab = switch(criterion, MSEP = "MSEP", RMSEP = "RMSEP", R2 = expression(R^~2))
-	
-    nResp = nrow(y)  # Number of response variables
-	nComp = ncol(y)  # Number of components
-
-    if (nResp > 1) {
-        if (is.null(layout)) {
-            nRows = min(c(3, nResp))
-            nCols = min(c(3, ceiling(nResp / nRows)))
-            layout = c(nRows, nCols)
+    #-- plot for pls and spls ----------------------------------------#
+    if (any(class(x) == "pls.mthd") | any(class(x) == "spls.mthd")) {
+         
+        if (!any(criterion %in% c("MSEP", "RMSEP", "R2"))) 
+            stop("Choose a validation criterion: MSEP, RMSEP or R2.")
+        y = switch(criterion, MSEP = x$msep, RMSEP = x$rmsep, R2 = x$r2)
+        	
+        if (is.null(ylab))
+            ylab = switch(criterion, MSEP = "MSEP", RMSEP = "RMSEP", R2 = expression(R^~2))
+         	
+        nResp = nrow(y)  # Number of response variables
+        nComp = ncol(y)  # Number of components
+         
+        if (nResp > 1) {
+            if (is.null(layout)) {
+                nRows = min(c(3, nResp))
+                nCols = min(c(3, ceiling(nResp / nRows)))
+                layout = c(nRows, nCols)
+            }
+            else {
+                if (length(layout) != 2 || !is.numeric(layout) || any(is.na(layout)))
+                    stop("'layout' must be a numeric vector of length 2.")
+                nRows = layout[1]
+                nCols = layout[2]		
+           }
+    		
+            if (nRows * nCols < nResp) devAskNewPage(TRUE) 
+            ynames = rownames(y)
         }
-		else {
-            if (length(layout) != 2 || !is.numeric(layout) || any(is.na(layout)))
-                stop("'layout' must be a numeric vector of length 2.")
-            nRows = layout[1]
-            nCols = layout[2]		
+        else {
+            ynames = "Y"		
         }
-		
-        if (nRows * nCols < nResp) devAskNewPage(TRUE) 
-        ynames = rownames(y)
-    }
-	else {
-        ynames = "Y"		
-    }
+         
+        val = comps = vector("numeric")
+        varName = vector("character")
+         	
+        for (i in 1:nResp) {
+            val = c(val, y[i, ])
+            comps = c(comps, 1:nComp)
+            varName = c(varName, rep(ynames[i], nComp))
+        }
+         
+        df = data.frame(val = val, comps = comps, varName = varName)
+        if (is.null(cTicks)) cTicks = 1:ncol(x[[1]])
+        yList = list(relation = "free")
+			
+	} # end plot for pls and spls	
+	
+    #-- plot for plsda and splsda ----------------------------------------#
+    if (any(class(x) == "plsda.mthd") | any(class(x) == "splsda.mthd")) {
      
-    val = comps = vector("numeric")
-    varName = vector("character")
-    	
-    for (i in 1:nResp) {
-        val = c(val, y[i, ])
-        comps = c(comps, 1:nComp)
-        varName = c(varName, rep(ynames[i], nComp))
-    }
-     
-    df = data.frame(val = val, comps = comps, varName = varName)
-
+        if (any(pred.method == "all")) pred.method = colnames(x) 
+		 
+        if (!any(pred.method %in% colnames(x))) 
+            stop("Choose the prediction methods.")
+			
+        x = matrix(x[, pred.method], ncol = length(pred.method))
+        	
+        if (is.null(ylab))
+            ylab = "error rate"
+         	
+        nResp = ncol(x)  # Number of prediction methods
+        nComp = nrow(x)  # Number of components
+         
+        if (nResp > 1) {
+            if (is.null(layout)) {
+                nRows = min(c(2, nResp))
+                nCols = min(c(2, ceiling(nResp / nRows)))
+                layout = c(nRows, nCols)
+            }
+            else {
+                if (length(layout) != 2 || !is.numeric(layout) || any(is.na(layout)))
+                    stop("'layout' must be a numeric vector of length 2.")
+                nRows = layout[1]
+                nCols = layout[2]		
+           }
+ 		 
+            if (nRows * nCols < nResp) devAskNewPage(TRUE) 
+        }
+         
+        ynames = pred.method         
+        val = comps = vector("numeric")
+        varName = vector("character")
+          	
+        for (i in 1:nResp) {
+            val = c(val, x[, i])
+            comps = c(comps, 1:nComp)
+            varName = c(varName, rep(ynames[i], nComp))
+        }
+         
+        df = data.frame(val = val, comps = comps, varName = varName)
+        if (is.null(cTicks)) cTicks = 1:nComp
+        yList = list()		 
+			
+    } # end plot for plsda and splsda	
+	
     xyplot(val ~ comps | varName, data = df, xlab = xlab, ylab = ylab,	
-	    scales = list(y = list(relation = "free"), x = list(at = cTicks)), 
-		as.table = TRUE, layout = layout, ...)
+	    scales = list(y = yList, x = list(at = cTicks)), 
+        as.table = TRUE, layout = layout, ...)
 }
