@@ -28,9 +28,9 @@ s.match,
 spca,
 spls,
 splsda,
-unmap, 
-vip, 
-valid)
+unmap,
+valid, 
+vip)
 
 
 S3method(cim, default)
@@ -91,7 +91,7 @@ S3method(plot3dVar, plsda)
 S3method(plot3dVar, splsda)
 S3method(plot3dVar, spca)
 
-
 S3method(network, default)
 S3method(network, rcc)
+S3method(network, pls)
 S3method(network, spls)

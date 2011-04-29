@@ -2,7 +2,7 @@ Package: mixOmics
 Type: Package
 Title: Omics Data Integration Project
 Version: 2.9-5
-Date: 2010-02-15
+Date: 2011-04-28
 Depends: igraph, rgl, lattice
 Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao and Pierre
         Monget
