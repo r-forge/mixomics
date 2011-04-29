@@ -41,12 +41,12 @@ data matrix, if the data is complete or by using the NIPALS algorithm if there i
 \code{plot} method produces a bar plot of the percentage of variance explaned by the principal 
 components (PCs).
 
-Note that \code{scale. = TRUE} cannot be used if there are zero or constant (for \code{center = TRUE}) variables. 
+Note that \code{scale.= TRUE} cannot be used if there are zero or constant (for \code{center = TRUE}) variables. 
  
 Components are omitted if their standard deviations are less than or equal to \code{comp.tol} times 
 the standard deviation of the first component. With the default null setting, no components are omitted. 
-Other settings for \code{comp.tol} could be \code{comp.tol = 0} or \code{comp.tol = sqrt(.Machine$double.eps)}, 
-which would omit essentially constant components.
+Other settings for \code{comp.tol} could be \code{comp.tol = sqrt(.Machine$double.eps)}, 
+which would omit essentially constant components, or \code{comp.tol = 0}.
 }    
 
 \value{

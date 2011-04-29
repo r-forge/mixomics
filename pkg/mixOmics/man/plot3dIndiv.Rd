@@ -76,7 +76,7 @@ in three dimensions for (r)CCA, (s)PLS regression and PCA.
   \item{pch}{character indicating the type of item to plot, possibly vector (see Details).}
   \item{font}{character font to be used, possibly vector (see Details).}
   \item{axes.box}{character string specifying the axes box type. Should be a 
-    of \code{c("box", "bbox", "both")}.}
+    of \code{c("box",} \code{"bbox",} \code{"both")}.}
   \item{\dots}{further title parameters are passed to \code{\link[rgl]{title3d}}.}
 }
 
@@ -133,7 +133,7 @@ toxicity.spls <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50),
                       keepY = c(10, 10, 10))
 		  	
 Time.Group = liver.toxicity$treatment[, "Time.Group"]				  
-col <- rep(c("blue", "red", "darkgreen", "darkviolet"), c(16, 16, 16, 16))
+col <- rep(c("blue", "red", "darkgreen", "darkviolet"), rep(16, 4))
 plot3dIndiv(toxicity.spls, ind.names = Time.Group, 
                  col = col, cex = 0.8)		  
 		  				  
@@ -147,7 +147,7 @@ pca.res <- pca(multidrug$ABC.trans, ncomp = 4, scale = TRUE)
 
 palette(rainbow(9))
 col = as.numeric(as.factor(multidrug$cell.line$Class))
-plot3dIndiv(pca.res, cex = 4, col = col)
+plot3dIndiv(pca.res, cex = 0.25, col = col)
 palette("default")				 
 }
 }

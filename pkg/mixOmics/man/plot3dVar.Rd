@@ -183,8 +183,7 @@ Y <- as.factor(liver.toxicity$treatment[, 4])
 ncomp <- 3
 keepX <- rep(20, ncomp)
 
-splsda.liver <- splsda(X, Y, ncomp = ncomp, keepX = keepX, 
-                       mode = "regression")
+splsda.liver <- splsda(X, Y, ncomp = ncomp, keepX = keepX)
 plot3dVar(splsda.liver, X.label = FALSE, Y.label = TRUE, keep.var = TRUE)
 }
 }

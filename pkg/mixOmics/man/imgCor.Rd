@@ -14,8 +14,7 @@ two data sets.
 imgCor(X, Y, type = c("combine", "separate"), col = jet.colors, 
        X.names = TRUE, Y.names = TRUE,		 
        XsideColor = "blue", YsideColor = "red",
-       symkey = TRUE, keysize = 1, 
-       interactive.div = TRUE,		 
+       symkey = TRUE, keysize = 1, interactive.div = TRUE,		 
        cexRow = NULL, cexCol = NULL, 
        margins = c(5, 5), lhei = NULL, lwid = NULL) 
 }

@@ -9,8 +9,7 @@ to classify samples.
 }
 
 \usage{
-plsda(X, Y, ncomp = 2, max.iter = 500, 
-      mode = "regression", tol = 1e-06, ...)
+plsda(X, Y, ncomp = 2, max.iter = 500, tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -18,8 +17,6 @@ plsda(X, Y, ncomp = 2, max.iter = 500,
   \item{Y}{a factor or a class vector for the discrete outcome.}
   \item{ncomp}{the number of components to include in the model. Default to 2.}
   \item{max.iter}{integer, the maximum number of iterations.}  
-  \item{mode}{character string. What type of algorithm to use, (partially) matching 
-    one of \code{"regression"}, \code{"invariant"} or \code{"classic"}.}
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
   \item{...}{arguments to pass to \code{\link{nearZeroVar}}.}
 }
@@ -61,7 +58,7 @@ Tenenhaus, M. (1998). \emph{La régression PLS: théorie et pratique}. Paris: Edit
 
 \seealso{\code{\link{splsda}}, \code{\link{summary}}, 
 \code{\link{plotIndiv}}, \code{\link{plotVar}}, 
-\code{\link{plot3dIndiv}}, \code{\link{plot3dVar}}, \code{\link{predict}}.}
+\code{\link{plot3dIndiv}}, \code{\link{plot3dVar}}, \code{\link{predict}}, \code{\link{valid}}.}
 
 \examples{
 ## First example
@@ -83,7 +80,7 @@ data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$treatment[, 4]
 
-plsda.liver <- plsda(X, Y, ncomp = 2, mode = 'regression')
+plsda.liver <- plsda(X, Y, ncomp = 2)
 col <- as.numeric(as.factor(Y))
 plotIndiv(plsda.liver, col = col, ind.names = Y)
 }

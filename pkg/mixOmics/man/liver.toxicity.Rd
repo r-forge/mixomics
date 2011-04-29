@@ -42,8 +42,9 @@ and pre-processed by Bushel \emph{et al}. (2007).
 
 \source{
 The two liver toxicity data sets are a companion resource for the paper of 
-Bushel \emph{et al.} (2007), and was downloaded from
-\url{http://www.biomedcentral.com/1752-0509/1/15/additional/}. 
+Bushel \emph{et al.} (2007), and was downloaded from:
+
+\url{http://www.biomedcentral.com/1752-0509/1/15/additional/} 
 }
 
 \references{

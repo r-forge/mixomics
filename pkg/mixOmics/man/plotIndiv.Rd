@@ -100,7 +100,7 @@ Y <- liver.toxicity$clinic
 toxicity.spls <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50), 
                       keepY = c(10, 10, 10))
 		  
-col <- rep(c("blue", "red", "darkgreen", "darkviolet"), c(16, 16, 16, 16))
+col <- rep(c("blue", "red", "darkgreen", "darkviolet"), rep(16, 4))
 cex <- rep(c(1, 1.2, 1, 1.4), c(16, 16, 16, 16))
 pch <- rep(c(15, 16, 17, 18), c(16, 16, 16, 16))
 plotIndiv(toxicity.spls, comp = 1:2, ind.names = FALSE,

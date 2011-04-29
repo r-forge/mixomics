@@ -32,7 +32,7 @@ spca(X, ncomp = 3, center = TRUE, scale. = TRUE,
 The calculation employs singular value decomposition of the (centered and scaled) data matrix and LASSO to generate
 sparsity on the loading vectors.
 
-\code{scale. = TRUE} is highly recommended as it will help obtaining orthogonal sparse loading vectors. 
+\code{scale.= TRUE} is highly recommended as it will help obtaining orthogonal sparse loading vectors. 
 
 \code{keepX} is the number of variables to keep in loading vectors. The difference between number of columns 
 of \code{X} and \code{keepX} is the degree of sparsity, which refers to the number of zeros in each loading vector.
@@ -69,7 +69,7 @@ plotVar(spca.rat, X.label = TRUE, cex = 0.5)
 plot3dVar(spca.rat)
 
 ## samples representation
-plotIndiv(spca.rat, ind.names = liver.toxicity$treatment[,3], cex = 0.5, 
+plotIndiv(spca.rat, ind.names = liver.toxicity$treatment[, 3], cex = 0.5, 
           col = as.numeric(liver.toxicity$treatment[, 3]))
 plot3dIndiv(spca.rat, cex = 0.01, 
             col = as.numeric(liver.toxicity$treatment[, 3]))

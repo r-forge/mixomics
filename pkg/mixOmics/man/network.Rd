@@ -2,10 +2,11 @@
 \encoding{latin1}
 \alias{network.default}
 \alias{network.rcc}
+\alias{network.pls}
 \alias{network.spls}
 \alias{network}
 
-\title{Relevance Network for (Regularized) CCA and (sparse) PLS regression}
+\title{Relevance Network for (r)CCA and (s)PLS regression}
 
 \description{
 Display relevance associations network for (regularized) canonical correlation analysis 
@@ -14,10 +15,13 @@ and (sparse) PLS regression.
 
 \usage{
 \method{network}{default}(mat, threshold = 0.5, X.names = NULL, Y.names = NULL,
-   color.node = c("white", "white"), shape.node = c("circle", "rectangle"), 
-   color.edge = c("blue", "red"), lty.edge = c("solid", "solid"), 
-   lwd.edge = c(1, 1), show.edge.labels = FALSE, show.color.key = TRUE, 
-   symkey = TRUE, keysize = 1, breaks, interactive = FALSE, alpha = 1, \ldots)
+        color.node = c("white", "white"), 
+        shape.node = c("circle", "rectangle"), 
+        color.edge = c("blue", "red"), 
+        lty.edge = c("solid", "solid"), 
+        lwd.edge = c(1, 1), show.edge.labels = FALSE, 
+        show.color.key = TRUE, symkey = TRUE, keysize = 1, 
+        breaks, interactive = FALSE, alpha = 1, \ldots)
 
 \method{network}{rcc}(object, comp = 1, X.names = NULL, Y.names = NULL, \ldots)
 
@@ -180,8 +184,8 @@ network(nutri.res, comp = 1:3, threshold = 0.55, interactive = TRUE)
 data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
-toxicity.spls <- spls(X, Y, ncomp = 3,
-                      keepX = c(50, 50, 50), keepY = c(10, 10, 10))
+toxicity.spls <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50), 
+                      keepY = c(10, 10, 10))
 \dontrun{
 network(toxicity.spls, comp = 1:3, threshold = 0.8, 
         X.names = NULL, Y.names = NULL, keep.var = TRUE,

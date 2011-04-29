@@ -144,7 +144,6 @@ Y <- nutrimouse$gene
 cim(cor(X, Y), dendrogram = "none")
 
 ## CIM representation for objects of class 'rcc'
-\dontrun{
 nutri.res <- rcc(X, Y, ncomp = 3, lambda1 = 0.064, lambda2 = 0.008)
 
 dends <- cim(nutri.res, comp = 1:3, xlab = "genes", 
@@ -153,7 +152,6 @@ dends <- cim(nutri.res, comp = 1:3, xlab = "genes",
 op <- par(mar = c(5, 4, 4, 4), cex = 0.8)			 
 plot(dends$ddr, axes = FALSE, horiz = TRUE)
 par(op)
-}
 
 ## interactive 'zoom' 
 \dontrun{
@@ -162,7 +160,6 @@ cim(nutri.res, comp = 1:3, zoom = TRUE)
 }
 
 ## CIM representation for objects of class 'spls'
-\dontrun{
 data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
@@ -171,7 +168,6 @@ toxicity.spls <- spls(X, Y, ncomp = 3, keepX = c(50, 50, 50),
                       keepY = c(10, 10, 10))
 
 cim(toxicity.spls, comp = 1:3)
-}
 }
 
 \keyword{multivariate}

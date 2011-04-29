@@ -5,6 +5,8 @@
 \alias{print.pls}
 \alias{print.spls}
 \alias{print.summary}
+\alias{print.pca}
+\alias{print.spca}
 
 \title{Print Methods for CCA, (s)PLS and Summary objects}
 

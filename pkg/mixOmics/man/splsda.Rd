@@ -10,7 +10,7 @@ embeds variable selection for this purpose.
 
 \usage{
 splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)),
-       max.iter = 500, mode = 'regression', tol = 1e-06, ...)
+       max.iter = 500, tol = 1e-06, ...)
 }	
 
 \arguments{
@@ -20,8 +20,6 @@ splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)),
   \item{keepX}{numeric vector of length \code{ncomp}, the number of variables
     to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{max.iter}{integer, the maximum number of iterations.}   
-  \item{mode}{indicates the mode of analysis.
-  It can be either 'regression', 'classic' or 'invariant'}
   \item{tol}{a positive real, the tolerance used in the iterative algorithm.} 
   \item{...}{arguments to pass to \code{\link{nearZeroVar}}.}
 }
@@ -80,7 +78,7 @@ In: Krishnaiah, P. R. (editors), \emph{Multivariate Analysis}. Academic Press, N
 \seealso{\code{\link{spls}}, \code{\link{summary}}, 
 \code{\link{plotIndiv}}, \code{\link{plotVar}}, 
 \code{\link{plot3dIndiv}}, \code{\link{plot3dVar}},
-\code{\link{cim}}, \code{\link{network}}, \code{\link{predict}}.}
+\code{\link{cim}}, \code{\link{network}}, \code{\link{predict}}, \code{\link{valid}}.}
 
 \examples{
 ## First example
@@ -97,8 +95,7 @@ legend(-0.35, -0.19, c("After", "Before"), pch = c(16, 16),
        title = "Treatment")
 palette("default")
 
-
-# Second example
+## Second example
 data(liver.toxicity)
 X <- as.matrix(liver.toxicity$gene)
 Y <- liver.toxicity$treatment[, 4]

@@ -1,11 +1,13 @@
 \name{internal-functions}
 \encoding{latin1}
-\alias{bin.color}
 \alias{loo}
 \alias{Mfold}
+\alias{bin.color}
+\alias{map}
+\alias{unmap}
 \alias{pcasvd}
 
-\title{Internal Functions in mixOmics}
+\title{Internal Functions}
 
 \description{
 Internal functions not to be used by the user.

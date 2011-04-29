@@ -2,32 +2,30 @@
 \encoding{latin1}
 \alias{valid}
 
-\title{Compute validation criterion for PLS and sparse PLS}
+\title{Compute validation criterion for PLS, sPLS, PLS-DA and sPLS-DA}
 
 \description{
-Function to estimate the mean squared error of prediction (MSEP), 
-root mean squared error of prediction (RMSEP) and \eqn{R^2} for fitted PLS and 
-sPLS regression models. M-fold and leave-one-out cross-validation are implemented.
+Function to estimate measures of the prediction error for fitted PLS, sparse PLS,
+PLS-DA and sparse PLS-DA models. M-fold and leave-one-out cross-validation are implemented.
 }
 
 \usage{
 valid(X, Y, ncomp = min(6, ncol(X)), 
+      method = c("pls", "spls", "plsda", "splsda"),
+      pred.method = c("all", "max.dist", "class.dist", 
+                      "centroids.dist", "mahalanobis.dist"),
       mode = c("regression", "invariant", "classic"),
-      method = c("pls", "spls"),
-      keepX = if(method == "pls") NULL else c(rep(ncol(X), ncomp)),
-      keepY = if(method == "pls") NULL else c(rep(ncol(Y), ncomp)),
+      keepX = NULL, keepY = NULL, 
       validation = c("loo", "Mfold"),
       M = if(validation == "Mfold") 10 else nrow(X),
       max.iter = 500, 
-      tol = 1e-06,
-      na.action = c("omit", "predict"),
-      predict.par = NULL)
+      tol = 1e-06)
 }
 
 \arguments{
-  \item{X}{numeric matrix of predictors. \code{NA}s are allowed.}
-  \item{Y}{numeric vector or matrix of responses (for multi-response models). \code{NA}s are allowed.}
-  \item{ncomp}{the number of components to include in the model. Default is from one to \code{min(6, ncol(X)}.}
+  \item{X}{numeric matrix of predictors.}
+  \item{Y}{numeric vector or matrix of responses (for multi-response models).}
+  \item{ncomp}{the number of components to include in the model. Default is \code{1:min(6, ncol(X))}.}
   \item{mode}{character string. What type of algorithm to use, matching one of \code{"classic"}, \code{"invariant"} 
     or \code{"regression"}.}
   \item{method}{Choose between \code{pls} or \code{spls}.}
@@ -35,35 +33,40 @@ valid(X, Y, ncomp = min(6, ncol(X)),
     weights to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{keepY}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
     weights to keep in \eqn{Y}-loadings. By default all variables are kept in the model.}
+  \item{pred.method}{prediction method to be applied for \code{plsda} or \code{splsda}. Should be a subset 
+    of \code{"max.dist"}, \code{"class.dist"}, \code{"centroids.dist"}, \code{"mahalanobis.dist"}. 
+	Default is \code{"all"}. See \code{\link{predict}}.}
   \item{validation}{character.  What kind of (internal) validation to use.  See below.}
   \item{M}{the number of folds in the Mfold cross-validation.}
   \item{max.iter}{integer, the maximum number of iterations.}
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
-  \item{na.action}{action determining what should be done with missing values in \code{X}. 
-    One of \code{"predict"} or \code{"omit"} (see Details).}
-  \item{predict.par}{further arguments sent to \code{\link{nipals}} function.}
 }
 
 \details{
-If \code{na.action = "predict"} the estimation of the missing values is performed 
-by the reconstitution of the data matrix using the \code{nipals} function. Otherwise, missing 
-values are handled by deletion of incomplete cases. 
-
-The validation criterion \code{"MSEP"}, \code{"RMSEP"} or \code{"R2"} allows one to assess the 
-predictive validity of the model using M-fold or leave-one-out cross-validation.
-Note that only the \code{classic}, \code{regression} and \code{invariant} modes can be applied.
+For fitted PLS and sPLS regression models, \code{valid} estimates the 
+mean squared error of prediction (MSEP), root mean squared error of prediction 
+(RMSEP) and \eqn{R^2} to assess the predictive validity of the model using M-fold or 
+leave-one-out cross-validation. Note that only the \code{classic}, \code{regression} and 
+\code{invariant} modes can be applied.
 
 If \code{validation = "Mfold"}, M-fold cross-validation is performed. 
 How many folds to generate is selected by specifying the number of folds in \code{M}.
 If \code{validation = "loo"}, leave-one-out cross-validation is performed.
+
+For fitted PLS-DA and sPLS-DA models, \code{valid} estimates the classification error rate 
+using cross-validation. How many folds to generate is selected such that there is at least 1 
+sample for each class in the test set.
 }
 
 \value{
-\code{valid} produces a list with the following components: 
+For PLS and sPLS models, \code{valid} produces a list with the following components: 
   \item{msep}{Mean Square Error Prediction for each Y variable.}
   \item{rmsep}{Root Mean Square Error Prediction for each Y variable.}
   \item{r2}{a matrix of \eqn{R^2} values of the \eqn{Y}-variables for models 
-    with \eqn{1,...,\code{ncomp}} components.}
+    with \eqn{1,...,}\code{ncomp} components.}
+	
+For PLS-DA and sPLS-DA models, \code{valid} produces a matrix. The dimensions 
+	correspond to the components in the model and to the prediction method used, respectively.
 }
 
 \references{
@@ -82,6 +85,7 @@ Regression (PCR) and Partial Least Squares Regression (PLSR). \emph{Journal of C
 \seealso{\code{\link{predict}}, \code{\link{nipals}}, \code{\link{plot.valid}}.}
 
 \examples{
+## validation for objects of class 'pls' or 'spls'
 \dontrun{
 data(liver.toxicity)
 X <- liver.toxicity$gene
@@ -90,8 +94,18 @@ Y <- liver.toxicity$clinic
 liver.val <- valid(X, Y, ncomp = 5, mode = "regression", 
                    method = "pls", validation = "Mfold")
 				   
-plot(liver.val, criterion = "R2")
+plot(liver.val, criterion = "R2", type = "l", layout = c(2, 2))
 }
+
+## validation for objects of class 'plsda' or 'splsda'
+data(srbct)
+X <- srbct$gene
+Y <- srbct$class  
+  
+error <- valid(X, Y, ncomp = 10, method = "splsda", M = 3, 
+               keepX = rep(10, 10), pred.method = "all")
+
+plot(error, type = "l")
 }
 \keyword{regression}
 \keyword{multivariate}

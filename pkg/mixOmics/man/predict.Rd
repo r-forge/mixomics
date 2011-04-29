@@ -5,10 +5,10 @@
 \alias{predict.pls}
 \alias{predict.spls}
 
-\title{Predict Method for PLS, sparse PLS, PLSDA Regression or Sparse PLSDA}
+\title{Predict Method for PLS, sPLS, PLS-DA or sPLS-DA}
 
 \description{
-Predicted values based on PLS, sparse PLS, PLSDA or sparse PLSDA models. New responses and 
+Predicted values based on PLS, sparse PLS, PLS-DA or sparse PLS-DA models. New responses and 
 variates are predicted using a fitted model and a new matrix of observations.
 }
 
@@ -17,19 +17,19 @@ variates are predicted using a fitted model and a new matrix of observations.
 
 \method{predict}{spls}(object, newdata, ...)
 
-\method{predict}{plsda}(object, newdata, method = c("max.dist", "class.dist", 
-          "centroids.dist", "mahalanobis.dist"), ...)
+\method{predict}{plsda}(object, newdata, method = c("all", "max.dist", 
+        "class.dist", "centroids.dist", "mahalanobis.dist"), ...)
 
-\method{predict}{splsda}(object, newdata, method = c("max.dist", "class.dist", 
-          "centroids.dist", "mahalanobis.dist"), ...)
+\method{predict}{splsda}(object, newdata, method = c("all", "max.dist", 
+        "class.dist", "centroids.dist", "mahalanobis.dist"), ...)
 }
 
 \arguments{
   \item{object}{object of class inheriting from \code{"pls"}, \code{"spls"}, \code{"plsda"} or \code{"splsda"}.}
   \item{newdata}{data matrix in which to look for for explanatory variables to be used for prediction.}
-  \item{method}{method to be applied for \code{splsda} or \code{plsda} to predict the class of new data, 
-    (partially) matching one of \code{"max.dist"}, \code{"class.dist"}, \code{"centroids.dist"} or 
-	\code{"mahalanobis.dist"}. See Details.}
+  \item{method}{method to be applied for \code{plsda} or \code{splsda} to predict the class of new data, 
+    should be a subset of \code{"max.dist"}, \code{"class.dist"}, \code{"centroids.dist"}, 
+	\code{"mahalanobis.dist"} or \code{"all"}. See Details.}
   \item{...}{other arguments to be passed \code{predict.default}.}
 }
 
@@ -99,16 +99,15 @@ samp <- sample(1:5, nrow(X), replace = TRUE)
 test <- which(samp == 1)   # testing on the first fold
 train <- setdiff(1:nrow(X), test)
 
-plsda.train <- plsda(X[train, ], Y[train], ncomp = 2, mode = 'regression')
+plsda.train <- plsda(X[train, ], Y[train], ncomp = 2)
 test.predict <- predict(plsda.train, X[test, ], method = "class.dist")
-Prediction <- levels(Y)[test.predict$class[, 2]]
+Prediction <- levels(Y)[test.predict$class$class.dist[, 2]]
 cbind(Y = as.character(Y[test]), Prediction)
 
 ## Second example with splsda
-splsda.train <- splsda(X[train, ], Y[train], ncomp = 2, keepX = c(20, 20), 
-                       mode = 'regression')
-test.predict <- predict(splsda.train, X[test, ], method = "centroids.dist")
-Prediction <- levels(Y)[test.predict$class[, 2]]
+splsda.train <- splsda(X[train, ], Y[train], ncomp = 2, keepX = c(30, 30))
+test.predict <- predict(splsda.train, X[test, ], method = "class.dist")
+Prediction <- levels(Y)[test.predict$class$class.dist[, 2]]
 cbind(Y = as.character(Y[test]), Prediction)
 }
 
