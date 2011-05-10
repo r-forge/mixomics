@@ -11,8 +11,8 @@ in a one-step strategy.
 
 \usage{
 spls(X, Y, ncomp = 2, mode = c("regression", "canonical"),
-     max.iter = 500, tol = 1e-06, keepX = c(rep(ncol(X), ncomp)), 
-     keepY = c(rep(ncol(Y), ncomp)), ...)
+     max.iter = 500, tol = 1e-06, keepX = rep(ncol(X), ncomp), 
+     keepY = rep(ncol(Y), ncomp), ...)
 }	
 
 \arguments{

@@ -29,7 +29,7 @@ function(X,
          ncomp = 3, 
          center = TRUE, 
          scale. = TRUE,
-         keepX = c(rep(ncol(X), ncomp)),
+         keepX = rep(ncol(X), ncomp),
          iter.max = 500, 
          tol = 1e-06)
 {

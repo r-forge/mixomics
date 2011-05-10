@@ -26,8 +26,8 @@ function(X,
          mode = c("regression", "canonical"),
          max.iter = 500, 
          tol = 1e-06,
-         keepX = c(rep(ncol(X), ncomp)), 
-         keepY = c(rep(ncol(Y), ncomp)),
+         keepX = rep(ncol(X), ncomp), 
+         keepY = rep(ncol(Y), ncomp),
          ...)
 {
 

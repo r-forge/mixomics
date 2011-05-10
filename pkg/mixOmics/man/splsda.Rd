@@ -9,7 +9,7 @@ embeds variable selection for this purpose.
 }
 
 \usage{
-splsda(X, Y, ncomp = 2, keepX = c(rep(ncol(X), ncomp)),
+splsda(X, Y, ncomp = 2, keepX = rep(ncol(X), ncomp),
        max.iter = 500, tol = 1e-06, ...)
 }	
 
