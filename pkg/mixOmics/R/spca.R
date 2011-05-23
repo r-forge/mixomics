@@ -69,6 +69,9 @@ function(X,
     vect.keepX=vector(length=ncomp)
     names(vect.keepX) = c(1:ncomp)
 
+# KA: to add if biplot function (but to be fixed!)
+    #sdev = vector(length = ncomp)
+
     mat.u=matrix(nrow=n, ncol=ncomp)
     mat.v=matrix(nrow=p, ncol=ncomp)
     colnames(mat.u)=c(1:ncomp)
@@ -136,12 +139,18 @@ function(X,
        #--calculating adjusted variances explained--#
        X.var = X %*% mat.v[,1:h]%*%solve(t(mat.v[,1:h])%*%mat.v[,1:h])%*%t(mat.v[,1:h])
        vect.varX[h] = sum(X.var^2)
+
+# KA: to add if biplot function (but to be fixed!)
+       #sdev[h] = sqrt(svd.X$d[1])
        
         
     }#fin h
     
     result = (list(X = X,
-		           ncomp = ncomp,		
+		   ncomp = ncomp,	
+                   #sdev = sdev,  # KA: to add if biplot function (but to be fixed!)
+                   #center = center, # KA: to add if biplot function (but to be fixed!)
+                   #scale = scale,   # KA: to add if biplot function (but to be fixed!)
                    varX = vect.varX/sum(X^2),
                    keepX = vect.keepX,
                    iter = vect.iter,

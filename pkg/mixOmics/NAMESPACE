@@ -36,6 +36,7 @@ vip)
 S3method(cim, default)
 S3method(cim, rcc)
 S3method(cim, spls)
+S3method(cim, pls)
 
 S3method(image, estim.regul)
 

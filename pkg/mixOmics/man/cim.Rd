@@ -4,6 +4,7 @@
 \alias{cim.default}
 \alias{cim.rcc}
 \alias{cim.spls}
+\alias{cim.pls}
 
 \title{Clustered Image Maps (CIMs) ("heat maps")}
 
@@ -28,6 +29,9 @@ represent "high-dimensional" data sets.
 
 \method{cim}{spls}(object, comp = 1, X.names = NULL, Y.names = NULL, 
     keep.var = TRUE, \ldots)
+
+\method{cim}{pls}(object, comp = 1, X.names = NULL, Y.names = NULL, \ldots)
+
 }
 
 \arguments{
