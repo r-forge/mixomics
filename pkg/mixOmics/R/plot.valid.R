@@ -22,7 +22,7 @@
 
 plot.valid <- 
 function (x, 
-          criterion = c("MSEP", "RMSEP", "R2"),
+          criterion = c("MSEP", "RMSEP", "R2", "Q2"),
           pred.method = "all",
           xlab = "number of components", 
           ylab = NULL,
@@ -34,12 +34,13 @@ function (x,
     #-- plot for pls and spls ----------------------------------------#
     if (any(class(x) == "pls.mthd") | any(class(x) == "spls.mthd")) {
          
-        if (!any(criterion %in% c("MSEP", "RMSEP", "R2"))) 
-            stop("Choose a validation criterion: MSEP, RMSEP or R2.")
-        y = switch(criterion, MSEP = x$msep, RMSEP = x$rmsep, R2 = x$r2)
+        if (!any(criterion %in% c("MSEP", "RMSEP", "R2", "Q2"))) 
+            stop("Choose a validation criterion: MSEP, RMSEP, R2 or Q2.")
+        y = switch(criterion, MSEP = x$MSEP, RMSEP = sqrt(x$MSEP), R2 = x$R2, Q2 = x$Q2)
         	
         if (is.null(ylab))
-            ylab = switch(criterion, MSEP = "MSEP", RMSEP = "RMSEP", R2 = expression(R^~2))
+            ylab = switch(criterion, MSEP = "MSEP", RMSEP = "RMSEP", 
+                          R2 = expression(R^~2), Q2 = expression(Q^~2))
          	
         nResp = nrow(y)  # Number of response variables
         nComp = ncol(y)  # Number of components
@@ -74,10 +75,10 @@ function (x,
         }
          
         df = data.frame(val = val, comps = comps, varName = varName)
-        if (is.null(cTicks)) cTicks = 1:ncol(x[[1]])
+        if (is.null(cTicks)) cTicks = 1:ncol(y)
         yList = list(relation = "free")
 			
-	} # end plot for pls and spls	
+    } # end plot for pls and spls	
 	
     #-- plot for plsda and splsda ----------------------------------------#
     if (any(class(x) == "plsda.mthd") | any(class(x) == "splsda.mthd")) {

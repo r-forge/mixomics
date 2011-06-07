@@ -29,13 +29,14 @@ function(X,
          Y, 
          ncomp = min(6, ncol(X)), 
          method = c("pls", "spls", "plsda", "splsda"),
-         pred.method = c("all", "max.dist", "class.dist", "centroids.dist", "mahalanobis.dist"),
          mode = c("regression", "invariant", "classic"),
+         pred.method = c("all", "max.dist", "class.dist", "centroids.dist", "mahalanobis.dist"),
+         criterion = c("all", "MSEP", "R2", "Q2"),
          keepX = NULL, keepY = NULL, 
          validation = c("loo", "Mfold"),
          M = if(validation == "Mfold") 10 else nrow(X),
          max.iter = 500, 
-         tol = 1e-06)
+         tol = 1e-06, ...)
 {
 
     method = match.arg(method)
@@ -50,7 +51,9 @@ function(X,
 			
         mode = match.arg(mode)			
         if ((method == 'spls') & (mode == 'invariant')) 
-            stop("No 'invariant' mode with sPLS.")  
+            stop("No 'invariant' mode with sPLS.")
+        if ((method == 'spls') & (mode == 'classic')) 
+            stop("No 'classic' mode with sPLS.")			
 			
         validation = match.arg(validation)
          
@@ -60,22 +63,47 @@ function(X,
         n = nrow(X)
         p = ncol(X)
         q = ncol(Y)
-         
+        res = list()
+		 
         if (!is.numeric(X) || !is.numeric(Y)) 
             stop("'X' and/or 'Y' must be a numeric matrix.")
+			
+        if ((n != nrow(Y))) 
+            stop("unequal number of rows in 'X' and 'Y'.")
+			
+        if (any(is.na(X)) || any(is.na(Y))) 
+            stop("Missing data in 'X' and/or 'Y'. Use 'nipals' for dealing with NAs.")
+         
+		nzv = nearZeroVar(X, ...)
+        if (length(nzv$Position > 0)) {
+            warning("Zero- or near-zero variance predictors. 
+  Reset predictors matrix to not near-zero variance predictors.
+  See $nzv for problematic predictors.")
+            X = X[, -nzv$Position]
+		    res$nzv = nzv
+        }
+	    p = ncol(X)     
         	
         if (is.null(ncomp) || !is.numeric(ncomp) || ncomp <= 0 || ncomp > p)
             stop("Invalid number of components, 'ncomp'.")
-         
-        if (any(is.na(X)) || any(is.na(Y))) 
-            stop("Missing data in 'X' and/or 'Y'. Use 'nipals' for dealing with NAs.")
-			
-        if(is.null(keepX) && method == "spls") keepX = c(rep(ncol(X), ncomp))
-        if(is.null(keepY) && method == "spls") keepY = c(rep(ncol(Y), ncomp))
-          
-        #-- criteria --#
-        press.mat = Ypred = array(0, c(n, q, ncomp))
-        MSEP = R2 = matrix(0, nrow = q, ncol = ncomp) 
+        ncomp = round(ncomp)
+		  
+        if (method == "spls") {		
+            if(is.null(keepX)) keepX = c(rep(ncol(X), ncomp))
+            if(is.null(keepY)) keepY = c(rep(ncol(Y), ncomp))
+             
+            if (length(keepX) != ncomp) 
+                stop("length of 'keepX' must be equal to ", ncomp, ".")
+                 
+            if (length(keepY) != ncomp) 
+                stop("length of 'keepY' must be equal to ", ncomp, ".")
+                 
+            if (any(keepX > p)) 
+                stop("each component of 'keepX' must be lower or equal than ", p, ".")
+                 
+            if (any(keepY > q)) 
+                stop("each component of 'keepY' must be lower or equal than ", q, ".")	
+        }			
          
         #-- M fold or loo cross validation --#
         ##- define the folds
@@ -86,58 +114,78 @@ function(X,
             fold = split(1:n, rep(1:n, length = n)) 
             M = n
         }
+		 
+        #-- compute MSEP and/or R2 --#
+        if (any(criterion %in% c("all", "MSEP", "R2"))) {		
+            press.mat = Ypred = array(0, c(n, q, ncomp))
+            MSEP = R2 = matrix(0, nrow = q, ncol = ncomp)
          
-        for (i in 1:M) {
-            omit = fold[[i]]
-            X.train = X[-omit, ]
-            Y.train = Y[-omit, ]
-            X.test = matrix(X[omit, ], nrow = length(omit))
-		    Y.test = matrix(Y[omit, ], nrow = length(omit))
-	        	
-            X.train = scale(X.train, center = TRUE, scale = FALSE)
-            xmns = attr(X.train, "scaled:center")
-             
-            Y.train = scale(Y.train, center = TRUE, scale = FALSE)
-            ymns = attr(Y.train, "scaled:center")
-             
-            X.test = scale(X.test, center = xmns, scale = FALSE)
-	        	
-            #-- pls or spls --#
-            if (method == "pls") {
-                object = pls(X = X.train , Y = Y.train, ncomp = ncomp, 
-                             mode = mode, max.iter = max.iter, tol = tol)
-            } 
-            else {
-                object = spls(X = X.train , Y = Y.train, ncomp = ncomp, 
-                              mode = mode, max.iter = max.iter, tol = tol, 
-                              keepX = keepX, keepY = keepY)
+            for (i in 1:M) {
+                omit = fold[[i]]
+                X.train = X[-omit, ]
+                Y.train = Y[-omit, ]
+                X.test = matrix(X[omit, ], nrow = length(omit))
+		        Y.test = matrix(Y[omit, ], nrow = length(omit))
+	        	 
+                X.train = scale(X.train, center = TRUE, scale = FALSE)
+                xmns = attr(X.train, "scaled:center")
+                 
+                Y.train = scale(Y.train, center = TRUE, scale = FALSE)
+                ymns = attr(Y.train, "scaled:center")
+                 
+                X.test = scale(X.test, center = xmns, scale = FALSE)
+	        	 
+                #-- pls or spls --#
+                if (method == "pls") {
+                    object = pls(X = X.train , Y = Y.train, ncomp = ncomp, 
+                                 mode = mode, max.iter = max.iter, tol = tol)
+                } 
+                else {
+                    object = spls(X = X.train , Y = Y.train, ncomp = ncomp, 
+                                  mode = mode, max.iter = max.iter, tol = tol, 
+                                  keepX = keepX, keepY = keepY)
+                }
+		         
+                Y.hat = predict(object, X.test)$predict
+                 
+                for (h in 1:ncomp) {
+			        Y.mat = matrix(Y.hat[, , h], nrow = dim(Y.hat)[1], ncol= dim(Y.hat)[2])		
+                    Y.hat[, , h] = sweep(Y.mat, 2, ymns, FUN = "+")		
+                    press.mat[omit, , h] = (Y.test - Y.hat[, , h])^2
+                    Ypred[omit, , h] = Y.hat[, , h]
+                }
+            } #end i	
+         	 
+            for (h in 1:ncomp) { 
+                MSEP[, h] = apply(as.matrix(press.mat[, , h]), 2, mean, na.rm = TRUE)
+                R2[, h] = diag(cor(Y, Ypred[, , h], use = "pairwise"))		
             }
-		     
-            Y.hat = predict(object, X.test)$predict
+        	 
+            colnames(MSEP) = colnames(R2) = paste('ncomp', c(1:ncomp), sep = " ")
+            rownames(MSEP) = rownames(R2) = colnames(Y)        		
              
-            for (h in 1:ncomp) {
-			    Y.mat = matrix(Y.hat[, , h], nrow = dim(Y.hat)[1], ncol= dim(Y.hat)[2])		
-                Y.hat[, , h] = sweep(Y.mat, 2, ymns, FUN = "+")		
-                press.mat[omit, , h] = (Y.test - Y.hat[, , h])^2
-                Ypred[omit, , h] = Y.hat[, , h]
-            }
-           
-        }  #end i	
-         	
-        #-- compute MSEP and/or RMSEP --#
-        for (h in 1:ncomp) { 
-            MSEP[, h] = apply(as.matrix(press.mat[, , h]), 2, mean, na.rm = TRUE)
-            R2[, h] = diag(cor(Y, Ypred[, , h], use = "pairwise"))		
+            #-- valeurs sortantes --#
+            if (any(criterion %in% c("all", "MSEP"))) res$MSEP = MSEP
+			if (any(criterion %in% c("all", "R2"))) res$R2 = R2
         }
-        	
-	    RMSEP = sqrt(MSEP)
-        	
-        colnames(MSEP) = colnames(RMSEP)= colnames(R2) = paste('ncomp', c(1:ncomp), sep = " ")
-        rownames(MSEP) = rownames(RMSEP) = rownames(R2) = colnames(Y)        		
-         
-        #-- valeurs sortantes --#
-        res = list(msep = MSEP, rmsep = RMSEP, r2 = R2)
-     
+		
+        #-- compute Q2 --#
+        if (any(criterion %in% c("all", "Q2"))) {
+            if (method == "pls") {
+                Q2 = q2.pls(X, Y, ncomp, mode, M, fold, max.iter, tol)
+            }
+            else {
+                Q2 = q2.spls(X, Y, ncomp, mode, keepX, keepY, M, fold, max.iter, tol)
+            }
+			    
+            Y.names = dimnames(Y)[[2]]
+            if (is.null(Y.names)) Y.names = paste("Y", 1:q, sep = "")
+			
+            if (q > 1) colnames(Q2) = c(Y.names, "Total")
+			else colnames(Q2) = "Q2"
+            rownames(Q2) = paste('comp', 1:ncomp, sep = " ")
+            res$Q2 = t(Q2)
+        }		
     }
 
     #-------------------------- for plsda and splsda ------------------------#
@@ -163,7 +211,7 @@ function(X,
         }		
          
         pred.method = match.arg(pred.method, several.ok = TRUE)		
-        if (any(pred.method == "all")) nmthd = 4 
+        if (any(pred.method == "all")) nmthd = 3 
         else nmthd = length(pred.method)
 		
         cl = split(1:length(Y), Y)

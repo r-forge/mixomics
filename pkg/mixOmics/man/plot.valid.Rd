@@ -10,7 +10,7 @@ function of the number of components.
 }
 
 \usage{
-\method{plot}{valid}(x, criterion = c("MSEP", "RMSEP", "R2"),
+\method{plot}{valid}(x, criterion = c("MSEP", "RMSEP", "R2", "Q2"),
      pred.method = "all",
      xlab = "number of components", ylab = NULL,
      cTicks = NULL, layout = NULL, \dots)
@@ -19,7 +19,7 @@ function of the number of components.
 \arguments{
   \item{x}{an \code{valid} object.}
   \item{criterion}{character string. What type of validation criterion to plot for 
-    \code{pls} or \code{spls}. One of \code{"MSEP"}, \code{"RMSEP"} or \code{"R2"}. 
+    \code{pls} or \code{spls}. One of \code{"MSEP"}, \code{"RMSEP"}, \code{"R2"} or \code{"Q2"}. 
 	See \code{\link{valid}}.}
   \item{pred.method}{prediction method applied in \code{valid} for \code{plsda} or \code{splsda}. 
 	See \code{\link{valid}}.}
