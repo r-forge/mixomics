@@ -6,6 +6,8 @@
 \alias{map}
 \alias{unmap}
 \alias{pcasvd}
+\alias{q2.spls}
+\alias{q2.pls}
 
 \title{Internal Functions}
 
