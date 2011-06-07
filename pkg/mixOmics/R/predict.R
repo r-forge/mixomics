@@ -92,7 +92,7 @@ function(object, newdata, ...)
 # -------------------------- for plsda and splsda ---------------------------------------
 predict.plsda <- predict.splsda <-
 function(object, newdata, 
-         method = c("all", "max.dist", "class.dist", "centroids.dist", "mahalanobis.dist"), ...)  
+         method = c("all", "max.dist", "centroids.dist", "mahalanobis.dist"), ...)  
 {
 	#-- validation des arguments --#
     if (missing(newdata))
@@ -177,32 +177,6 @@ function(object, newdata,
         cls$max.dist = matrix(apply(Y.hat, 3, function.pred), ncol = ncomp)
         colnames(cls$max.dist) = paste(rep("comp", ncomp), 1:ncomp, sep = " ")
     }
-	
-	# ----    class distance -----------------
-	
-    if (any(method == "all") || any(method == "class.dist")) {
-     
-        cl = matrix(nrow = nrow(newdata), ncol = ncomp)
-        	
-        class.fun = function(x, q) {
-            x = matrix(x, q, q, byrow = TRUE)
-            diag(x) = diag(x) - 1
-            d = apply(x^2, 1, sum)
-            cl.id = which.min(d)
-        }
-        	
-        for (h in 1:ncomp) {
-            if (is.null(dim(Y.hat[, , h]))) {
-                cl.id = class.fun(Y.hat[, , h], q = q)
-            }
-            else {
-                cl.id = apply(Y.hat[, , h], 1, class.fun, q = q)
-            }
-            cl[, h] = cl.id
-        }
-        colnames(cl) = paste(rep("comp", ncomp), 1:ncomp, sep = " ")
-        cls$class.dist = cl
-    }	
 
 	# ----    centroids distance -----------------
 
