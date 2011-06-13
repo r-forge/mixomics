@@ -25,7 +25,7 @@ This function provides variables representation for (regularized) CCA, (sparse) 
         col = NULL, font = NULL, \ldots)
 
 \method{plotVar}{plsda}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, pch = NULL, cex = NULL, col = NULL, 
+        var.label = FALSE, pch = NULL, cex = NULL, col = NULL, 
         font = NULL, \ldots)		
 
 \method{plotVar}{spls}(object, comp = 1:2, rad.in = 0.5, 
@@ -33,7 +33,7 @@ This function provides variables representation for (regularized) CCA, (sparse) 
         col = NULL, font = NULL, \ldots)	 
 
 \method{plotVar}{splsda}(object, comp = 1:2, rad.in = 0.5, 
-        X.label = FALSE, pch = NULL, cex = NULL, col = NULL, 
+        var.label = FALSE, pch = NULL, cex = NULL, col = NULL, 
         font = NULL, \ldots)
 
 \method{plotVar}{pca}(object, comp = 1:2, rad.in = 0.5, 
@@ -130,7 +130,7 @@ ncomp <- 2
 keepX <- rep(20, ncomp)
 
 splsda.liver <- splsda(X, Y, ncomp = ncomp, keepX = keepX)
-plotVar(splsda.liver, X.label = FALSE)
+plotVar(splsda.liver, var.label = FALSE)
 }
 
 \keyword{multivariate}

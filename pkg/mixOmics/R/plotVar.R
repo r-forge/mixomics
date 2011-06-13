@@ -195,7 +195,7 @@ plotVar.plsda <-
 function(object, 
          comp = 1:2, 
          rad.in = 0.5, 
-         X.label = FALSE, 
+         var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -225,8 +225,8 @@ function(object,
 
     # le plot des variables #
     #-----------------------#
-    if (length(X.label) > 1 & length(X.label) != p)
-        stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
+    if (length(var.label) > 1 & length(var.label) != p)
+        stop("'var.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
     if (is.null(pch)) {
         pch = list(rep(16, p))
@@ -314,14 +314,14 @@ function(object,
         }
     }
 
-    if (isTRUE(X.label)) X.label = object$names$X
+    if (isTRUE(var.label)) var.label = object$names$X
 
     par(pty = "s")
     plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1), 
          xlab = paste("Comp ", comp1), ylab = paste("Comp ", comp2))
 
-    if (length(X.label) > 1) {
-        text(cord.X[, 1], cord.X[, 2], X.label, col = col[[1]], 
+    if (length(var.label) > 1) {
+        text(cord.X[, 1], cord.X[, 2], var.label, col = col[[1]], 
              font = font[[1]], cex = cex[[1]])
     }
     else {
@@ -527,7 +527,7 @@ plotVar.splsda <-
 function(object, 
          comp = 1:2, 
          rad.in = 0.5, 
-         X.label = FALSE, 
+         var.label = FALSE, 
          pch = NULL, 
          cex = NULL, 
          col = NULL, 
@@ -559,8 +559,8 @@ function(object,
 
     # le plot des variables #
     #-----------------------#
-    if (length(X.label) > 1 & length(X.label) != p)
-        stop("'X.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
+    if (length(var.label) > 1 & length(var.label) != p)
+        stop("'var.label' must be a vector of length 'ncol(X)' or a boolean atomic vector.")
 
     if (is.null(pch)) {
         pch = list(rep(16, p))
@@ -646,15 +646,15 @@ function(object,
         cex[[1]] = cex[[1]][keep.X]
         font[[1]] = font[[1]][keep.X]
 
-    if (isTRUE(X.label)) X.label = object$names$X
-    if (length(X.label) == p) X.label = X.label[keep.X]
+    if (isTRUE(var.label)) var.label = object$names$X
+    if (length(var.label) == p) var.label = var.label[keep.X]
 
     par(pty = "s")
     plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1), 
          xlab = paste("Comp ", comp1), ylab = paste("Comp ", comp2))
 
-    if (length(X.label) > 1) {
-        text(cord.X[, 1], cord.X[, 2], X.label, col = col[[1]], 
+    if (length(var.label) > 1) {
+        text(cord.X[, 1], cord.X[, 2], var.label, col = col[[1]], 
              font = font[[1]], cex = cex[[1]])
     }
     else {

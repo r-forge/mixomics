@@ -1,15 +1,12 @@
-Changes in 2.9-7
+Changes in 2.9-6
 ================
 
 New features:
 -------------
 - Modifying the valid function: the Q2 criterion has been implemented
 
-Changes in 2.9-6
-================
+- var.label argument is used in plotVar.plsda, plotVar.splsda, plot3dVar.plsda, plot3dVar.splsda instead of X.label
 
-New features:
--------------
 - New S3 method network for pls
 
 - New code for valid function to PLS-DA and sPLS-DA models validation
