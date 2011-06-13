@@ -236,6 +236,7 @@ function(object, newdata,
     }
 	
     #-- valeurs sortantes --#
+    if (any(method == "all")) method = "all"
     rownames(t.pred) = rownames(newdata)
     colnames(t.pred) = paste("dim", c(1:ncomp), sep = " ")
     rownames(Y.hat) = rownames(newdata)

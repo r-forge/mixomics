@@ -33,7 +33,7 @@ function(X,
          pred.method = c("all", "max.dist", "class.dist", "centroids.dist", "mahalanobis.dist"),
          criterion = c("all", "MSEP", "R2", "Q2"),
          keepX = NULL, keepY = NULL, 
-         validation = c("loo", "Mfold"),
+         validation = "Mfold",
          M = if(validation == "Mfold") 10 else nrow(X),
          max.iter = 500, 
          tol = 1e-06, ...)
@@ -162,7 +162,9 @@ function(X,
             }
         	 
             colnames(MSEP) = colnames(R2) = paste('ncomp', c(1:ncomp), sep = " ")
-            rownames(MSEP) = rownames(R2) = colnames(Y)        		
+            rownames(MSEP) = rownames(R2) = colnames(Y) 
+             
+            if (q == 1) rownames(MSEP) = rownames(R2) = ""        		
              
             #-- valeurs sortantes --#
             if (any(criterion %in% c("all", "MSEP"))) res$MSEP = MSEP
@@ -181,10 +183,19 @@ function(X,
             Y.names = dimnames(Y)[[2]]
             if (is.null(Y.names)) Y.names = paste("Y", 1:q, sep = "")
 			
-            if (q > 1) colnames(Q2) = c(Y.names, "Total")
-			else colnames(Q2) = "Q2"
-            rownames(Q2) = paste('comp', 1:ncomp, sep = " ")
-            res$Q2 = t(Q2)
+            if (q > 1) {
+
+                res$Q2$variables = t(Q2[, 1:q])
+                res$Q2$total = Q2[, q + 1]
+                rownames(res$Q2$variables) = Y.names
+                colnames(res$Q2$variables) = paste('comp', 1:ncomp, sep = " ")
+                names(res$Q2$total) = paste('comp', 1:ncomp, sep = " ")    
+            }
+			else {
+                colnames(Q2) = ""
+                rownames(Q2) = paste('comp', 1:ncomp, sep = " ")
+                res$Q2 = t(Q2)
+            }
         }		
     }
 

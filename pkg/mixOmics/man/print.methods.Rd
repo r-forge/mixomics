@@ -30,8 +30,8 @@ Produce \code{print} methods for class \code{"rcc"},
 }
 
 \arguments{
-  \item{x}{object of class inheriting from \code{"rcc"}, \code{"pls"}, \code{"plsda"}, 
-    \code{"spls"}, \code{"splsda"}, \code{"pca"}, \code{"spca"} or \code{"summary"}.}
+  \item{x}{object of class inheriting from \code{"rcc"}, \code{"pls"}, 
+    \code{"spls"}, \code{"pca"}, \code{"spca"} or \code{"summary"}.}
   \item{\ldots}{not used currently.}
 }
 

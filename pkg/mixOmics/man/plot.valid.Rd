@@ -5,7 +5,7 @@
 \title{Validation Plot}
 
 \description{
-Function to plot validation statistics, such as MSEP, RMSEP or \eqn{R^2}, as a
+Function to plot validation statistics, such as MSEP, RMSEP, \eqn{R^2} or \eqn{Q^2}, as a
 function of the number of components.
 }
 
@@ -13,6 +13,7 @@ function of the number of components.
 \method{plot}{valid}(x, criterion = c("MSEP", "RMSEP", "R2", "Q2"),
      pred.method = "all",
      xlab = "number of components", ylab = NULL,
+     LimQ2 = 0.0975, LimQ2.col = "darkgrey",
      cTicks = NULL, layout = NULL, \dots)
 }
 
@@ -24,7 +25,12 @@ function of the number of components.
   \item{pred.method}{prediction method applied in \code{valid} for \code{plsda} or \code{splsda}. 
 	See \code{\link{valid}}.}
   \item{xlab, ylab}{titles for \eqn{x} and \eqn{y} axes.  Typically character strings, 
-    but can be expressions (e.g., \code{expression(R^2)}).}  
+    but can be expressions (e.g., \code{expression(R^2)}).}
+  \item{LimQ2}{numeric value. Signification limit for the components in the model. 
+    Default is \code{LimQ2 = 0.0975}.}
+  \item{LimQ2.col}{character string specifying the color for the \code{LimQ2} line to be plotted.
+  If \code{"none"} the line will not be plotted.
+  }	
   \item{cTicks}{integer vector. Axis tickmark locations for the used number of components.
     Default is \code{1:ncomp} (see \code{\link{valid}}).}
   \item{layout}{numeric vector of length two giving the number of rows and columns in a 
@@ -40,7 +46,8 @@ performing the actual plotting.
 
 \author{Ignacio González.}
 
-\seealso{\code{\link{pls}}, \code{\link{spls}}, \code{\link{predict}}.}
+\seealso{\code{\link{pls}}, \code{\link{spls}}, \code{\link{plsda}}, \code{\link{splsda}}, 
+\code{\link{valid}}.}
 
 \examples{
 require(lattice)

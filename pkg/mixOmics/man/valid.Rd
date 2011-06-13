@@ -17,7 +17,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
                       "centroids.dist", "mahalanobis.dist"),
       criterion = c("all", "MSEP", "R2", "Q2"),
       keepX = NULL, keepY = NULL, 
-      validation = c("loo", "Mfold"),
+      validation = "Mfold",
       M = if(validation == "Mfold") 10 else nrow(X),
       max.iter = 500, 
       tol = 1e-06, ...)
@@ -39,7 +39,8 @@ valid(X, Y, ncomp = min(6, ncol(X)),
     weights to keep in \eqn{X}-loadings. By default all variables are kept in the model.}
   \item{keepY}{if \code{method="spls"} numeric vector of length \code{ncomp}, the number of variables
     weights to keep in \eqn{Y}-loadings. By default all variables are kept in the model.}
-  \item{validation}{character.  What kind of (internal) validation to use.  See below.}
+  \item{validation}{character.  What kind of (internal) validation to use, matching one of \code{"Mfold"} or 
+    \code{"loo"} (see below). Default is \code{"Mfold"}.}
   \item{M}{the number of folds in the Mfold cross-validation.}
   \item{max.iter}{integer, the maximum number of iterations.}
   \item{tol}{a not negative real, the tolerance used in the iterative algorithm.}
@@ -64,11 +65,12 @@ sample for each class in the test set.
 
 \value{
 For PLS and sPLS models, \code{valid} produces a list with the following components: 
-  \item{MSEP}{Mean Square Error Prediction for each Y variable.}
+  \item{MSEP}{Mean Square Error Prediction for each \eqn{Y} variable.}
   \item{R2}{a matrix of \eqn{R^2} values of the \eqn{Y}-variables for models 
-    with \eqn{1,...,}\code{ncomp} components.}
-  \item{Q2}{a matrix of \eqn{Q^2} values of the \eqn{Y}-variables for models 
-    with \eqn{1,...,}\code{ncomp} components.}
+    with \eqn{1, \ldots ,}\code{ncomp} components.}
+  \item{Q2}{if \eqn{Y} containts one variable, a vector of \eqn{Q^2} values else a list with 
+    a matrix of \eqn{Q^2} values for each \eqn{Y}-variable and a vector of \eqn{Q^2}-total values for models 
+    with \eqn{1, \ldots ,}\code{ncomp} components.}	
 	
 For PLS-DA and sPLS-DA models, \code{valid} produces a matrix of classification error rate estimation. 
 The dimensions correspond to the components in the model and to the prediction method used, respectively.
@@ -112,5 +114,6 @@ error <- valid(X, Y, ncomp = 10, method = "splsda", M = 3,
 
 plot(error, type = "l")
 }
+
 \keyword{regression}
 \keyword{multivariate}

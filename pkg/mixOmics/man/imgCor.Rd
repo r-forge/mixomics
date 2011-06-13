@@ -63,10 +63,10 @@ from upper-left corner to bottom-right one.
 Missing values are handled by casewise deletion in the \code{imgCor} function.
 
 If \code{X.names = FALSE}, the name of each X-variable is hidden. 
-Default value is TRUE.
+Default value is \code{TRUE}.
 
 If \code{Y.names = FALSE}, the name of each Y-variable is hidden. 
-Default value is TRUE.
+Default value is \code{TRUE}.
 }
 
 \author{Sébastien Déjean, Ignacio González and Pierre Monget.}

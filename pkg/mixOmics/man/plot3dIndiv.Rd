@@ -69,7 +69,7 @@ in three dimensions for (r)CCA, (s)PLS regression and PCA.
   \item{rep.space}{character string, (partially) matching one of \code{"X-variate"}, 
     \code{"Y-variate"} or \code{"XY-variate"}, determining the subspace to project the 
 	  individuals. Defaults to \code{"XY-variate"} and \code{"X-variate"} for (r)CCA and (s)PLS 
-      respectivvely.}
+      respectively.}
   \item{xlab, ylab, zlab}{\eqn{x}-, \eqn{y}- and \eqn{z}-axis titles.}
   \item{col}{character (or item) color to be used, possibly vector (see Details).}
   \item{cex}{numeric character (or item) expansion, possibly vector (see Details).}
@@ -92,7 +92,7 @@ length \code{n}. If atomic, this argument value determines the graphical attribu
 In the last case, multiple arguments values can be specified so that each item (individual)
 can be given its own graphic attributes. Default values exist for this arguments. 
 Supported types for \code{pch} are: \code{"s"} for spheres, \code{"t"} for tetrahedrons, \code{"c"} for cubes, 
-\code{"o"} for octahedrons, \code{"i"} for icosahedrons and \code{"d"} dodecahedrons. Partial matching is used.    
+\code{"o"} for octahedrons, \code{"i"} for icosahedrons and \code{"d"} dodecahedrons.    
 
 The pointing device of your graphics user-interface can also be used to set the viewpoint interactively. With the pointing device the buttons are by default set as follows:
 - left adjust viewpoint position

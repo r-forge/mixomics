@@ -26,6 +26,8 @@ function (x,
           pred.method = "all",
           xlab = "number of components", 
           ylab = NULL,
+          LimQ2 = 0.0975,
+          LimQ2.col = "darkgrey",
           cTicks = NULL,
           layout = NULL,		  
           ...)
@@ -34,9 +36,15 @@ function (x,
     #-- plot for pls and spls ----------------------------------------#
     if (any(class(x) == "pls.mthd") | any(class(x) == "spls.mthd")) {
          
-        if (!any(criterion %in% c("MSEP", "RMSEP", "R2", "Q2"))) 
+        if (!any(criterion %in% c("MSEP", "RMSEP", "R2", "Q2")) || missing(criterion)) 
             stop("Choose a validation criterion: MSEP, RMSEP, R2 or Q2.")
         y = switch(criterion, MSEP = x$MSEP, RMSEP = sqrt(x$MSEP), R2 = x$R2, Q2 = x$Q2)
+		 
+        Q2.total = NULL
+        if ((criterion == "Q2") & is.list(y)) {
+            Q2.total = y$total
+            y = y$variables
+        }
         	
         if (is.null(ylab))
             ylab = switch(criterion, MSEP = "MSEP", RMSEP = "RMSEP", 
@@ -125,10 +133,32 @@ function (x,
         df = data.frame(val = val, comps = comps, varName = varName)
         if (is.null(cTicks)) cTicks = 1:nComp
         yList = list()		 
-			
+         
+        criterion = ""		
     } # end plot for plsda and splsda	
 	
-    xyplot(val ~ comps | varName, data = df, xlab = xlab, ylab = ylab,	
-	    scales = list(y = yList, x = list(at = cTicks)), 
-        as.table = TRUE, layout = layout, ...)
+    if (criterion == "Q2") {
+        plt = xyplot(val ~ comps | varName, data = df, xlab = xlab, ylab = ylab,	
+            scales = list(y = yList, x = list(at = cTicks)), 
+            as.table = TRUE, layout = layout, 
+            panel = function(x, y) {
+                        if (LimQ2.col != "none") panel.abline(h = LimQ2, col = LimQ2.col)
+                        panel.xyplot(x, y, ...)})
+        plot(plt)
+		
+        if (!is.null(Q2.total)) {
+            devAskNewPage(TRUE)
+            Q2.df = data.frame(Q2 = Q2.total, comps = 1:nComp, varName = rep("Total", nComp))	
+            xyplot(Q2 ~ comps | varName, data = Q2.df, xlab = xlab, ylab = ylab, 
+            scales = list(y = yList, x = list(at = cTicks)), as.table = TRUE, 
+            panel = function(x, y) {
+                        if (LimQ2.col != "none") panel.abline(h = LimQ2, col = LimQ2.col)
+                        panel.xyplot(x, y, ...)})
+        }
+    }
+    else {
+        xyplot(val ~ comps | varName, data = df, xlab = xlab, ylab = ylab,	
+        scales = list(y = yList, x = list(at = cTicks)), 
+        as.table = TRUE, layout = layout, ...)	
+    }
 }

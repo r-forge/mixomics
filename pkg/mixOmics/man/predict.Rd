@@ -28,9 +28,9 @@ variates are predicted using a fitted model and a new matrix of observations.
   \item{object}{object of class inheriting from \code{"pls"}, \code{"spls"}, \code{"plsda"} or \code{"splsda"}.}
   \item{newdata}{data matrix in which to look for for explanatory variables to be used for prediction.}
   \item{method}{method to be applied for \code{plsda} or \code{splsda} to predict the class of new data, 
-    should be a subset of \code{"max.dist"}, \code{"centroids.dist"}, 
-	\code{"mahalanobis.dist"} or \code{"all"}. See Details.}
-  \item{...}{other arguments to be passed \code{predict.default}.}
+    should be a subset of \code{"centroids.dist"}, \code{"mahalanobis.dist"}, \code{"max.dist"} or \code{"all"}. 
+	See Details.}
+  \item{...}{not used currently.}
 }
 
 \details{
@@ -44,7 +44,7 @@ which can be seen as a probability matrix to assign each test data to a class. T
 class value is the predicted class. \code{"centroids.dist"} allocates the individual \eqn{x} to the class of 
 \eqn{Y} minimizing \eqn{dist(\code{x-variate}, G_l)}, where \eqn{G_l}, \eqn{l = 1,...,L} are the centroids of 
 the classes calculated on the \eqn{X}-variates of the model. \code{"mahalanobis.dist"} allocates the individual 
-\eqn{x} to the class of \eqn{Y} as in \code{"centroids.dist"} but by using the metric Mahalanobis 
+\eqn{x} to the class of \eqn{Y} as in \code{"centroids.dist"} but by using the Mahalanobis metric 
 in the calculation of the distance.
 }
 
@@ -97,14 +97,14 @@ test <- which(samp == 1)   # testing on the first fold
 train <- setdiff(1:nrow(X), test)
 
 plsda.train <- plsda(X[train, ], Y[train], ncomp = 2)
-test.predict <- predict(plsda.train, X[test, ], method = "class.dist")
-Prediction <- levels(Y)[test.predict$class$class.dist[, 2]]
+test.predict <- predict(plsda.train, X[test, ], method = "max.dist")
+Prediction <- levels(Y)[test.predict$class$max.dist[, 2]]
 cbind(Y = as.character(Y[test]), Prediction)
 
 ## Second example with splsda
 splsda.train <- splsda(X[train, ], Y[train], ncomp = 2, keepX = c(30, 30))
-test.predict <- predict(splsda.train, X[test, ], method = "class.dist")
-Prediction <- levels(Y)[test.predict$class$class.dist[, 2]]
+test.predict <- predict(splsda.train, X[test, ], method = "max.dist")
+Prediction <- levels(Y)[test.predict$class$max.dist[, 2]]
 cbind(Y = as.character(Y[test]), Prediction)
 }
 

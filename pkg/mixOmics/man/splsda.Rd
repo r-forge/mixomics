@@ -25,7 +25,7 @@ splsda(X, Y, ncomp = 2, keepX = rep(ncol(X), ncomp),
 }
 
 \details{
-\code{splsda} function fit sPLS models with \eqn{1,...,}\code{ncomp} components
+\code{splsda} function fit sPLS models with \eqn{1, \ldots ,}\code{ncomp} components
 to the factor or class vector \code{Y}. The appropriate indicator 
 matrix is created.
 }
@@ -38,7 +38,7 @@ that contains the following components:
   \item{Y}{the centered and standardized indicator response vector or matrix.}
   \item{ind.mat}{the indicator matrix.}
   \item{ncomp}{the number of components included in the model.}
-  \item{keepX}{number of X variables kept in the model on each component.}
+  \item{keepX}{number of \eqn{X} variables kept in the model on each component.}
   \item{mat.c}{matrix of coefficients to be used internally by \code{predict}.}
   \item{variates}{list containing the variates.}
   \item{loadings}{list containing the estimated loadings for the \code{X} and 
