@@ -13,7 +13,7 @@ PLS-DA and sparse PLS-DA models. M-fold and leave-one-out cross-validation are i
 valid(X, Y, ncomp = min(6, ncol(X)), 
       method = c("pls", "spls", "plsda", "splsda"),
       mode = c("regression", "invariant", "classic"),
-      pred.method = c("all", "max.dist", "class.dist", 
+      pred.method = c("all", "max.dist", 
                       "centroids.dist", "mahalanobis.dist"),
       criterion = c("all", "MSEP", "R2", "Q2"),
       keepX = NULL, keepY = NULL, 
@@ -31,7 +31,7 @@ valid(X, Y, ncomp = min(6, ncol(X)),
   \item{mode}{character string. What type of algorithm to use, matching one of \code{"classic"}, \code{"invariant"} 
     or \code{"regression"}.}
   \item{pred.method}{prediction method to be applied for \code{plsda} or \code{splsda}. Should be a subset 
-    of \code{"max.dist"}, \code{"class.dist"}, \code{"centroids.dist"}, \code{"mahalanobis.dist"}. 
+    of \code{"max.dist"}, \code{"centroids.dist"}, \code{"mahalanobis.dist"}. 
 	Default is \code{"all"}. See \code{\link{predict}}.}
   \item{criterion}{what type of validation criterion to be used for \code{pls} or \code{spls}. Should be a subset 
     of \code{"MSEP"}, \code{"R2"} or \code{"Q2"}. Default is \code{"all"}.}
