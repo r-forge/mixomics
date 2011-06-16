@@ -28,8 +28,8 @@ variates are predicted using a fitted model and a new matrix of observations.
   \item{object}{object of class inheriting from \code{"pls"}, \code{"spls"}, \code{"plsda"} or \code{"splsda"}.}
   \item{newdata}{data matrix in which to look for for explanatory variables to be used for prediction.}
   \item{method}{method to be applied for \code{plsda} or \code{splsda} to predict the class of new data, 
-    should be a subset of \code{"centroids.dist"}, \code{"mahalanobis.dist"}, \code{"max.dist"} or \code{"all"}. 
-	See Details.}
+    should be a subset of \code{"centroids.dist"}, \code{"mahalanobis.dist"} or \code{"max.dist"} (see Details). 
+	Defaults to \code{"all"}.}
   \item{...}{not used currently.}
 }
 

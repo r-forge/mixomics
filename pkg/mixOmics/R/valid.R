@@ -33,8 +33,8 @@ function(X,
          pred.method = c("all", "max.dist", "centroids.dist", "mahalanobis.dist"),
          criterion = c("all", "MSEP", "R2", "Q2"),
          keepX = NULL, keepY = NULL, 
-         validation = "Mfold",
-         M = if(validation == "Mfold") 10 else nrow(X),
+         validation = c("Mfold", "loo"),
+         M = 10,
          max.iter = 500, 
          tol = 1e-06, ...)
 {
@@ -108,6 +108,9 @@ function(X,
         #-- M fold or loo cross validation --#
         ##- define the folds
         if (validation == "Mfold") { 
+            if (is.null(M) || !is.numeric(M) || M < 2 || M > n)
+                stop("Invalid number of folds, 'M'.")
+            M = round(M)
             fold = split(sample(1:n), rep(1:M, length = n)) 
         } 
         else { 

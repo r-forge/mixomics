@@ -17,10 +17,8 @@ valid(X, Y, ncomp = min(6, ncol(X)),
                       "centroids.dist", "mahalanobis.dist"),
       criterion = c("all", "MSEP", "R2", "Q2"),
       keepX = NULL, keepY = NULL, 
-      validation = "Mfold",
-      M = if(validation == "Mfold") 10 else nrow(X),
-      max.iter = 500, 
-      tol = 1e-06, ...)
+      validation = c("Mfold", "loo"), M = 10,
+      max.iter = 500, tol = 1e-06, ...)
 }
 
 \arguments{
