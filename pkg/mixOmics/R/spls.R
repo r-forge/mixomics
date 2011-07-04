@@ -189,7 +189,6 @@ function(X,
                     (abs(b) - abs(b[order(abs(b))][ny])) * sign(b), 0)
             }
             b = b / drop(crossprod(t))
-            b = b / drop(sqrt(crossprod(b)))
 			 
             if (na.X) {
                 t = X.aux %*% a
