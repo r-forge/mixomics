@@ -24,7 +24,7 @@
 
 
 ipca <-
-function (X, ncomp, mode = c("deflation","parallel"),
+function (X, ncomp = 3, mode = c("deflation","parallel"),
           fun = c("logcosh", "exp"),
           scale = FALSE, max.iter = 200,
           tol = 1e-04, w.init= NULL)
@@ -113,7 +113,7 @@ function (X, ncomp, mode = c("deflation","parallel"),
 		names = list(X = X.names, indiv = ind.names))
 		
 		result$x = ipc_mat
-        dimnames(result$x) = list(ind.names, paste("X", 1:ncol(result$loadings), sep = ""))
+        dimnames(result$x) = list(ind.names, paste("IPC", 1:ncol(result$loadings), sep = " "))
 			
 		class(result) = c("ipca")
 		return(invisible(result))

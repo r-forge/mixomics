@@ -1,9 +1,9 @@
 Package: mixOmics
 Type: Package
 Title: Omics Data Integration Project
-Version: 3.0
+Version: 3.0-1
 Date: 2011-04-28
-Depends: igraph, rgl, lattice
+Depends: R (>= 2.10), igraph, rgl, lattice
 Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao, Pierre
         Monget and Jeff Coquery
 Maintainer: Kim-Anh Le Cao <k.lecao@uq.edu.au>
@@ -23,4 +23,4 @@ Description: The package supplies two efficients methodologies:
 License: GPL (>= 2)
 Repository: CRAN
 Date/Publication: 2011-03-18 07:32:20
-Packaged: 2011-07-08 03:00:45 UTC; j.coquery
+Packaged: 2011-08-04 23:10:07 UTC; j.coquery

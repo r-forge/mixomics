@@ -19,7 +19,7 @@ sipca(X, ncomp, mode = c("deflation","parallel"),
 \arguments{
   \item{X}{a numeric matrix (or data frame) which provides the 
     data for the principal component analysis.}
-  \item{ncomp}{integer, number of independent component to choose. If \code{NULL}, function sets \code{ncomp = min(nrow(X), ncol(X))}}	
+  \item{ncomp}{integer, number of independent component to choose. Set by default to 3.}	
   \item{mode}{character string. What type of algorithm to use when estimating the unmixing matrix, (partially) matching 
     one of \code{"deflation"}, \code{"parallel"}. Default set to \code{deflation}.}
   \item{fun}{the function used in approximation to neg-entropy in the FastICA algorithm. Default set to \code{logcosh}, see details of FastICA.}

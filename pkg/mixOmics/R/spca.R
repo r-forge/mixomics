@@ -52,7 +52,7 @@ function(X,
     if (is.null(X.names)) X.names = paste("X", 1:p, sep = "")
 
     ind.names = dimnames(X)[[1]]
-    if (is.null(ind.names)) X.names = paste("n", 1:n, sep = "")
+    if (is.null(ind.names)) X.names = 1:nrow(X)
 
     if (length(keepX) != ncomp) 
             stop("length of 'keepX' must be equal to ", ncomp, ".")
@@ -146,6 +146,8 @@ function(X,
         
     }#fin h
     
+    rownames(mat.u) = ind.names
+
     result = (list(X = X,
 		   ncomp = ncomp,	
                    #sdev = sdev,  # KA: to add if biplot function (but to be fixed!)
