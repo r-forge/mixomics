@@ -1,9 +1,9 @@
 Package: mixOmics
 Type: Package
 Title: Omics Data Integration Project
-Version: 4.0-1
+Version: 4.0-2
 Date: 2011-04-28
-Depends: R (>= 2.10), igraph, rgl, lattice, pheatmap
+Depends: R (>= 2.10), igraph0, rgl, lattice, pheatmap
 Author: Sebastien Dejean, Ignacio Gonzalez, Kim-Anh Le Cao with contributions from Pierre
         Monget, Jeff Coquery, FangZou Yao, Benoit Liquet
 Maintainer: Kim-Anh Le Cao <k.lecao@uq.edu.au>
