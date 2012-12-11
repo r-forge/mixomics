@@ -41,6 +41,8 @@ Split.variation.one.level,
 Split.variation.two.level,
 spls,
 splsda,
+spls.model,
+splsda.model,
 tune.multilevel,
 tune.splsdalevel1,
 tune.splsdalevel2,
@@ -126,3 +128,8 @@ S3method(network, spls)
 
 S3method(pheatmap.multilevel, splsda1fact)
 S3method(pheatmap.multilevel, splsda2fact)
+
+S3method(valid, pls)
+S3method(valid, spls)
+S3method(valid, plsda)
+S3method(valid, splsda)
