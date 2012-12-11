@@ -58,8 +58,8 @@ data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
 
-liver.val <- valid(X, Y, ncomp = 5, mode = "regression", 
-                   method = "pls", validation = "Mfold")
+liver.pls <- pls(X, Y, ncomp = 3)
+liver.val <- valid(liver.pls, validation = "Mfold")
 				   
 plot(liver.val, criterion = "R2", type = "l", layout = c(2, 2))
 }
@@ -68,9 +68,9 @@ plot(liver.val, criterion = "R2", type = "l", layout = c(2, 2))
 data(srbct)
 X <- srbct$gene
 Y <- srbct$class  
-  
-error <- valid(X, Y, ncomp = 10, method = "splsda", M = 3, 
-               keepX = rep(10, 10), pred.method = "all")
+
+srbct.splsda <- splsda(X, Y, ncomp = 10, keepX = rep(10, 10))  
+error <- valid(srbct.splsda, validation = "Mfold", folds = 10, method = "all")
 
 plot(error, type = "l")
 }
