@@ -1,9 +1,8 @@
 # Copyright (C) 2009 
-# Sébastien Déjean, Institut de Mathematiques, Universite de Toulouse et CNRS (UMR 5219), France
-# Ignacio González, Genopole Toulouse Midi-Pyrenees, France
-# Kim-Anh Lê Cao, French National Institute for Agricultural Research and 
-# Queensland Facility for Advanced Bioinformatics, University of Queensland, Australia
-# Pierre Monget, Ecole d'Ingenieur du CESI, Angouleme, France
+# SÃ©bastien DÃ©jean, Institut de Mathematiques, Universite de Toulouse et CNRS (UMR 5219), France
+# Ignacio GonzÃ¡lez, Genopole Toulouse Midi-Pyrenees, France
+# Kim-Anh LÃª Cao, French National Institute for Agricultural Research and 
+# ARC Centre of Excellence ins Bioinformatics, Institute for Molecular Bioscience, University of Queensland, Australia
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -65,6 +64,9 @@ function(object,
     p = ncol(X)
     q = ncol(Y)
     res = list()
+    
+    if (any(criterion == "Q2") & ncomp == 1)
+      stop("'ncomp' must be > 1 for Q2 criterion.")
 	
     if (any(is.na(X)) || any(is.na(Y))) 
         stop("Missing data in 'X' and/or 'Y'. Use 'nipals' for dealing with NAs.")
@@ -210,6 +212,9 @@ function(object,
     p = ncol(X)
     q = ncol(Y)
     res = list()
+    
+    if (any(criterion == "Q2") & ncomp == 1)
+      stop("'ncomp' must be > 1 for Q2 criterion.")
 	
     if (any(is.na(X)) || any(is.na(Y))) 
         stop("Missing data in 'X' and/or 'Y'. Use 'nipals' for dealing with NAs.")
