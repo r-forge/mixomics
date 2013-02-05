@@ -34,6 +34,7 @@ rcc,
 scatterutil.base, 
 scatterutil.eti, 
 scatterutil.grid, 
+select.var,
 sipca,
 s.match,
 spca,
@@ -120,6 +121,11 @@ S3method(plot3dVar, splsda)
 S3method(plot3dVar, spca)
 S3method(plot3dVar, ipca)
 S3method(plot3dVar, sipca)
+
+S3method(select.var, spls)
+S3method(select.var, splsda)
+S3method(select.var, spca)
+S3method(select.var, sipca)
 
 S3method(network, default)
 S3method(network, rcc)
