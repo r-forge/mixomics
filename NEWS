@@ -4,6 +4,8 @@ Changes in 4.1
 New features:
 -------------
 - New S3 method valid for objects of class psl, spls, plsda and splsda
+- New select.var function to directly extract the selected variables from spls, spca, sipca
+- New data set vac18 for multilevel data
 
 
 Changes in 4.0

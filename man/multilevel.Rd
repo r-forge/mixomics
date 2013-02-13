@@ -86,8 +86,8 @@ For sPLS-DA analysis, \code{multilevel} returns either an object of class \code{
 
 \references{
 On multilevel analysis:
-Liquet, B., Lê Cao, K.-A., Hocini, H. and Thiebaut, R. A novel approach for biomarker selection and the
-integration of repeated measures experiments from two platforms. \emph{Submitted}.
+Liquet, B., Lê Cao, K.-A., Hocini, H. and Thiebaut, R. (2012) A novel approach for biomarker selection and the
+integration of repeated measures experiments from two platforms. \emph{BMC Bioinformatics} \bold{13}:325.
 
 Westerhuis, J. A., van Velzen, E. J., Hoefsloot, H. C., and Smilde, A. K. (2010). Multivariate paired data analysis: multilevel PLSDA versus OPLSDA. \emph{Metabolomics}, \bold{6}(1), 119-128.
 
@@ -114,13 +114,23 @@ Biology} \bold{7}, article 35.
 
 \examples{
 ## First example: one-factor analysis with sPLS-DA
-data(data.simu) # simulated data
-res.1level <- multilevel(data.simu$X, cond = data.simu$stimu, 
-                         sample = data.simu$sample, ncomp = 3,
-                         keepX = c(200, 200, 200), tab.prob.gene = NULL, 
-                         method = 'splsda')
+data(vac18) # vac18 study
+X <- vac18$genes
+Y <- vac18$stimulation
 
-plot3dIndiv(res.1level, col = as.numeric(data.simu$stimu), cex = 0.6)
+res <- multilevel(X, cond = Y, ncomp = 3,
+tab.prob.gene = vac18$tab.prob.gene,
+sample = vac18$sample, method = "splsda",
+keepX = c(30, 137, 123))
+
+# color for plot3dIndiv
+col_stim <- c("darkblue", "purple", "green4","red3")
+cols <- Y
+levels(cols) <- col_stim
+cols <- as.character(cols)
+
+plot3dIndiv(res, ind.names = Y, col = cols,
+cex = 0.3, axes.box = "both")
 
 
 ## Second example: two-factor analysis with sPLS-DA
