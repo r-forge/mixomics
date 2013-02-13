@@ -96,8 +96,8 @@ In the \code{multilevel} function, the factors indicated in the vector or the da
 
 \references{
 On multilevel analysis:
-Liquet, B., Lê Cao, K.-A., Hocini, H. and Thiebaut, R. A novel approach for biomarker selection and the
-integration of repeated measures experiments from two platforms. \emph{Submitted}.
+Liquet, B., Lê Cao, K.-A., Hocini, H. and Thiebaut, R. (2012) A novel approach for biomarker selection and the
+integration of repeated measures experiments from two platforms. \emph{BMC Bioinformatics} \bold{13}:325.
 
 Westerhuis, J. A., van Velzen, E. J., Hoefsloot, H. C., and Smilde, A. K. (2010). Multivariate paired data analysis: multilevel PLSDA versus OPLSDA. \emph{Metabolomics}, \bold{6}(1), 119-128.
 }
