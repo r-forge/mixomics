@@ -89,6 +89,7 @@ result.ex1
 
 
 ## Second example: two-factor analysis with sPLS-DA
+\dontrun{
 data(liver.toxicity)
 dose = liver.toxicity$treatment$Dose.Group
 time = liver.toxicity$treatment$Time.Group
@@ -105,9 +106,10 @@ result.ex2 = tune.multilevel (liver.toxicity$gene,
                                method = 'splsda',
 			       dist = 'mahalanobis.dist') 
 result.ex2
-
+}
 
 ## Third example: one-factor integrative analysis with sPLS
+\dontrun{
 result.ex3 = tune.multilevel (liver.toxicity$gene, liver.toxicity$clinic, 
                                cond = dose,
                                sample = repeat.indiv, 
@@ -118,6 +120,7 @@ result.ex3 = tune.multilevel (liver.toxicity$gene, liver.toxicity$clinic,
                                method = 'spls') 
 
 result.ex3
+}
 }
 
 \keyword{regression}

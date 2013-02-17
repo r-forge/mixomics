@@ -160,6 +160,7 @@ legend('topright', col = 'black', legend = levels(time),
 
 
 ## Third example: one-factor integrative analysis with sPLS
+\dontrun{
 data(liver.toxicity)
 repeat.indiv = c(1, 2, 1, 2, 1, 2, 1, 2, 3, 3, 4, 3, 4, 3, 4, 4, 5, 6, 5, 5,
                  6, 5, 6, 7, 7, 8, 6, 7, 8, 7, 8, 8, 9, 10, 9, 10, 11, 9, 9, 
@@ -178,7 +179,7 @@ plotVar(result.rat, comp = 1:2, X.label = TRUE, Y.label = TRUE,
 CIM <- cim(result.rat, comp = 1:2, xlab = "genes", ylab = "clinic var", 
            margins = c(5, 6), zoom = FALSE)
 
-\dontrun{
+
 network(result.rat, comp = 1:2, threshold = 0.8, 
         Y.names = NULL, keep.var = TRUE,
         color.node = c( "lightcyan","mistyrose"),

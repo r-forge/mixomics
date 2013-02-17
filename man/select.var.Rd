@@ -58,18 +58,19 @@ select.var(liver.sipca, comp = 1)
 
 
 # example with sPLS
-liver.spls = spls(X, Y, ncomp = 3, keepX = c(20, 40, 10),keepY = c(5, 5, 5))
-select.var(liver.spls, comp = 3)
+\dontrun{
+liver.spls = spls(X, Y, ncomp = 2, keepX = c(20, 40),keepY = c(5, 5))
+select.var(liver.spls, comp = 2)
 
 # example with sPLS-DA
 data(srbct)   # an example with no gene name in the data
 X = srbct$gene
 Y = srbct$class
 
-srbct.splsda = splsda(X, Y, ncomp = 3, keepX = c(5, 10, 10))
-select = select.var(srbct.splsda, comp = 3)
+srbct.splsda = splsda(X, Y, ncomp = 2, keepX = c(5, 10))
+select = select.var(srbct.splsda, comp = 2)
 select
 srbct$gene.name[substr(select$select, 2,5),]  # this is a very specific case where a data set has no rownames. 
-
+}
 }
 
