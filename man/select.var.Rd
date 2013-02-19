@@ -53,9 +53,10 @@ select.var(liver.spca, comp = 1)$name
 select.var(liver.spca, comp = 1)$value
 
 #example with sIPCA
+\dontrun{
 liver.sipca <- sipca(X, ncomp = 3, keepX = rep(10, 3))
 select.var(liver.sipca, comp = 1)
-
+}
 
 # example with sPLS
 \dontrun{

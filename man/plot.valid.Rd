@@ -69,8 +69,9 @@ data(srbct)
 X <- srbct$gene
 Y <- srbct$class  
 
-srbct.splsda <- splsda(X, Y, ncomp = 10, keepX = rep(10, 10))  
-error <- valid(srbct.splsda, validation = "Mfold", folds = 10, method = "all")
+ncomp = 5
+srbct.splsda <- splsda(X, Y, ncomp = ncomp, keepX = rep(10, ncomp))  
+error <- valid(srbct.splsda, validation = "Mfold", folds = 5, method = "all")
 
 plot(error, type = "l")
 }

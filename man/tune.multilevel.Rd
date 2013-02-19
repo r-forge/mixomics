@@ -75,6 +75,7 @@ Westerhuis, J. A., van Velzen, E. J., Hoefsloot, H. C., and Smilde, A. K. (2010)
 
 \examples{
 ## First example: one-factor analysis with sPLS-DA
+\dontrun{
 data(data.simu) # simulated data
 result.ex1 = tune.multilevel(data.simu$X,
                                cond = data.simu$stimu,
@@ -86,7 +87,7 @@ result.ex1 = tune.multilevel(data.simu$X,
                                dist = 'mahalanobis.dist') 
 
 result.ex1
-
+}
 
 ## Second example: two-factor analysis with sPLS-DA
 \dontrun{
